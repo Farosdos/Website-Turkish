@@ -1,31 +1,15 @@
 <?php
-$requestPath = trim($_SERVER['REQUEST_URI'], '/');
-$basePath = 'api/specific';
-
-if (!str_starts_with($requestPath, $basePath)) {
-    http_response_code(404);
-    header("Content-Type: application/json");
-    echo json_encode(["error" => "Invalid endpoint. Use /api/specific/..."]);
-    exit();
-}
-
-$argsPath = substr($requestPath, strlen($basePath));
-$args = explode(',', trim($argsPath, '/'));
-
 $filters = [];
-foreach ($args as $arg) {
-    if (strpos($arg, '=') !== false) {
-        list($key, $value) = explode('=', $arg, 2);
-        if ($key === 'ver') {
-            $filters['mc_version'] = $value;
-        } elseif ($key === 'experimental') {
-            $filters['experimental'] = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-        }
-    }
+$mcVersion = null;
+$isExperimental = null;
+
+if (isset($_GET['ver'])) {
+    $mcVersion = $_GET['ver'];
 }
 
-$mcVersion = $filters['mc_version'] ?? null;
-$isExperimental = $filters['experimental'] ?? null;
+if (isset($_GET['experimental'])) {
+    $isExperimental = filter_var($_GET['experimental'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+}
 
 if ($mcVersion === null && $isExperimental === null) {
     http_response_code(400);
