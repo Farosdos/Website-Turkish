@@ -2653,7 +2653,15 @@ a {
 }
 
 .image-2 {
-  flex: none;
+  aspect-ratio: auto;
+  background-color: #fff0;
+  border: 4px solid #cdcdcd;
+  border-radius: 20px;
+  flex: 1;
+  order: -1;
+  align-self: auto;
+  max-width: 80%;
+  max-height: none;
 }
 
 .div-block-6 {
@@ -2890,6 +2898,7 @@ a {
 
 .black {
   color: #000;
+  max-width: 100%;
 }
 
 .hero-subhead {
@@ -3187,6 +3196,16 @@ a {
   inset: 0% 0% 0% auto;
 }
 
+.image-9 {
+  z-index: -5;
+  position: absolute;
+}
+
+.code {
+  font-family: Ubuntu, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
 @media screen and (max-width: 991px) {
   h2 {
     font-size: 34px;
@@ -3453,7 +3472,7 @@ a {
   }
 
   .wrap {
-    margin-bottom: -12px;
+    margin-bottom: 0;
     padding-left: 5vw;
     padding-right: 5vw;
   }
