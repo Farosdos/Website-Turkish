@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetching...</title>
+    <script>
+        async function redirectToArtifact() {
+            const apiUrl = "https://jenkins.mitask.ru.eu.org/job/Canvas/lastBuild/api/json";
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch build info");
+                }
+                const data = await response.json();
+                const artifactPath = data.artifacts[0]?.relativePath;
+                if (artifactPath) {
+                    const artifactUrl = `${data.url}artifact/${artifactPath}`;
+                    window.location.href = artifactUrl;
+                } else {
+                    document.body.innerHTML = "No artifact found.";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                document.body.innerHTML = "Failed to fetch artifact.";
+            }
+        }
+
+        window.onload = redirectToArtifact;
+    </script>
+</head>
+<body>
+    <p>Fetching artifact...</p>
+</body>
+</html>
