@@ -14,10 +14,13 @@ $args = explode('/', trim($argsPath, '/'));
 
 $filters = [];
 foreach ($args as $arg) {
-    if (str_starts_with($arg, 'ver=')) {
-        $filters['mc_version'] = substr($arg, 4);
-    } elseif (str_starts_with($arg, 'experimental=')) {
-        $filters['experimental'] = filter_var(substr($arg, 13), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+    if (strpos($arg, '=') !== false) {
+        list($key, $value) = explode('=', $arg, 2);
+        if ($key === 'ver') {
+            $filters['mc_version'] = $value;
+        } elseif ($key === 'experimental') {
+            $filters['experimental'] = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        }
     }
 }
 
