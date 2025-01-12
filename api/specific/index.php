@@ -12,16 +12,17 @@ if (!str_starts_with($requestPath, $basePath)) {
 $argsPath = substr($requestPath, strlen($basePath));
 $args = explode('/', trim($argsPath, '/'));
 
-$mcVersion = null;
-$isExperimental = null;
-
+$filters = [];
 foreach ($args as $arg) {
     if (str_starts_with($arg, 'ver=')) {
-        $mcVersion = substr($arg, 4);
+        $filters['mc_version'] = substr($arg, 4);
     } elseif (str_starts_with($arg, 'experimental=')) {
-        $isExperimental = filter_var(substr($arg, 13), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $filters['experimental'] = filter_var(substr($arg, 13), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }
 }
+
+$mcVersion = $filters['mc_version'] ?? null;
+$isExperimental = $filters['experimental'] ?? null;
 
 if ($mcVersion === null && $isExperimental === null) {
     http_response_code(400);
