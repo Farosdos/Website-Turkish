@@ -1,5 +1,8 @@
 <?php
-$requestedVersion = basename($_SERVER['REQUEST_URI']);
+$jenkinsBaseUrl = "https://jenkins.mitask.ru.eu.org";
+$jobApiUrl = "$jenkinsBaseUrl/job/Canvas/api/json";
+
+$requestedVersion = isset($_GET['version']) ? $_GET['version'] : null;
 
 if (!$requestedVersion) {
     http_response_code(400);
@@ -7,9 +10,6 @@ if (!$requestedVersion) {
     echo json_encode(["error" => "Minecraft version not specified. Use the format /api/specific/<minecraft_version>."]);
     exit();
 }
-
-$jenkinsBaseUrl = "https://jenkins.mitask.ru.eu.org";
-$jobApiUrl = "$jenkinsBaseUrl/job/Canvas/api/json";
 
 try {
     $curl = curl_init();
