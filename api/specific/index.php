@@ -16,7 +16,7 @@ $mcVersion = null;
 $isExperimental = null;
 
 foreach ($args as $arg) {
-    if (str_starts_with($arg, 'ver/')) {
+    if (str_starts_with($arg, 'ver=')) {
         $mcVersion = substr($arg, 4);
     } elseif (str_starts_with($arg, 'experimental=')) {
         $isExperimental = filter_var(substr($arg, 13), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
@@ -26,7 +26,7 @@ foreach ($args as $arg) {
 if ($mcVersion === null && $isExperimental === null) {
     http_response_code(400);
     header("Content-Type: application/json");
-    echo json_encode(["error" => "No filters specified. Use ver/<mc_version> or experimental=<true/false>."]);
+    echo json_encode(["error" => "No valid filters provided. Use ver=<mc_version> or experimental=<true/false>."]);
     exit();
 }
 
