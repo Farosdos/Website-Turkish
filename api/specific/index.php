@@ -10,7 +10,7 @@ if (!str_starts_with($requestPath, $basePath)) {
 }
 
 $argsPath = substr($requestPath, strlen($basePath));
-$args = explode('/', trim($argsPath, '/'));
+$args = explode(',', trim($argsPath, '/'));
 
 $filters = [];
 foreach ($args as $arg) {
