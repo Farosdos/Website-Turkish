@@ -1,15 +1,37 @@
 <?php
-$jenkinsBaseUrl = "https://jenkins.mitask.ru.eu.org";
-$jobApiUrl = "$jenkinsBaseUrl/job/Canvas/api/json";
+$requestPath = trim($_SERVER['REQUEST_URI'], '/');
+$basePath = 'api/specific';
 
-$requestedVersion = isset($_GET['version']) ? $_GET['version'] : null;
-
-if (!$requestedVersion) {
-    http_response_code(400);
+if (!str_starts_with($requestPath, $basePath)) {
+    http_response_code(404);
     header("Content-Type: application/json");
-    echo json_encode(["error" => "Minecraft version not specified. Use the format /api/specific/<minecraft_version>."]);
+    echo json_encode(["error" => "Invalid endpoint. Use /api/specific/..."]);
     exit();
 }
+
+$argsPath = substr($requestPath, strlen($basePath));
+$args = explode('/', trim($argsPath, '/'));
+
+$mcVersion = null;
+$isExperimental = null;
+
+foreach ($args as $arg) {
+    if (str_starts_with($arg, 'ver/')) {
+        $mcVersion = substr($arg, 4);
+    } elseif (str_starts_with($arg, 'experimental=')) {
+        $isExperimental = filter_var(substr($arg, 13), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+    }
+}
+
+if ($mcVersion === null && $isExperimental === null) {
+    http_response_code(400);
+    header("Content-Type: application/json");
+    echo json_encode(["error" => "No filters specified. Use ver/<mc_version> or experimental=<true/false>."]);
+    exit();
+}
+
+$jenkinsBaseUrl = "https://jenkins.mitask.ru.eu.org";
+$jobApiUrl = "$jenkinsBaseUrl/job/Canvas/api/json";
 
 try {
     $curl = curl_init();
@@ -65,14 +87,17 @@ try {
         $buildData = json_decode($buildResponse, true);
 
         $displayName = $buildData['displayName'] ?? "Unknown";
-        $isExperimental = str_ends_with($displayName, "(Experimental)");
-        $mcVersion = "Unknown";
+        $isBuildExperimental = str_ends_with($displayName, "(Experimental)");
+        $buildMcVersion = "Unknown";
 
         if (preg_match('/-([\d\.]+)( \(Experimental\))?$/', $displayName, $matches)) {
-            $mcVersion = $matches[1];
+            $buildMcVersion = $matches[1];
         }
 
-        if ($mcVersion === $requestedVersion) {
+        $matchVersion = ($mcVersion === null || $buildMcVersion === $mcVersion);
+        $matchExperimental = ($isExperimental === null || $isExperimental === $isBuildExperimental);
+
+        if ($matchVersion && $matchExperimental) {
             $artifactUrl = null;
             if (isset($buildData['artifacts'][0])) {
                 $artifact = $buildData['artifacts'][0];
@@ -83,19 +108,14 @@ try {
                 "number" => $buildNumber,
                 "url" => $buildUrl,
                 "download" => $artifactUrl,
-                "mc_version" => $mcVersion,
-                "experimental" => $isExperimental
+                "mc_version" => $buildMcVersion,
+                "experimental" => $isBuildExperimental
             ];
         }
     }
 
-    if (count($filteredBuilds) > 0) {
-        header("Content-Type: application/json");
-        echo json_encode(["builds" => $filteredBuilds]);
-    } else {
-        http_response_code(404);
-        echo json_encode(["error" => "No builds found for Minecraft version $requestedVersion."]);
-    }
+    header("Content-Type: application/json");
+    echo json_encode(["builds" => $filteredBuilds]);
 } catch (Exception $e) {
     http_response_code(500);
     header("Content-Type: application/json");
