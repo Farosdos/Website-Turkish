@@ -1,5 +1,5 @@
 <?php
-$jenkinsApiUrl = "https://jenkins.mitask.ru.eu.org/job/Canvas/lastBuild/api/json";
+$jenkinsApiUrl = "https://jenkins.canvasmc.io/job/Canvas/lastBuild/api/json";
 
 try {
     $curl = curl_init();

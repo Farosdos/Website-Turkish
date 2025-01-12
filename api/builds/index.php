@@ -1,6 +1,6 @@
 <?php
 // Jenkins API base URLs
-$jenkinsBaseUrl = "https://jenkins.mitask.ru.eu.org";
+$jenkinsBaseUrl = "https://jenkins.canvasmc.io";
 $jobApiUrl = "$jenkinsBaseUrl/job/Canvas/api/json";
 
 try {
