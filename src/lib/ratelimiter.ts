@@ -16,7 +16,11 @@ export class RateLimiter {
     }
   }
 
-  check(key: string, limit: number, windowMs: number): {
+  check(
+    key: string,
+    limit: number,
+    windowMs: number,
+  ): {
     isAllowed: boolean;
     headers: Record<string, string>;
   } {
@@ -44,7 +48,7 @@ export class RateLimiter {
         'X-RateLimit-Limit': limit.toString(),
         'X-RateLimit-Remaining': remaining.toString(),
         'X-RateLimit-Reset': resetTime.toString(),
-      }
+      },
     };
   }
 }

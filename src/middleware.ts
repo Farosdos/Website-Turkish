@@ -1,11 +1,12 @@
-import { NextResponse, NextRequest } from "next/server";
-import { RateLimiter } from "~/lib/ratelimiter";
+import { RateLimiter } from '~/lib/ratelimiter';
+
+import { NextRequest, NextResponse } from 'next/server';
 
 const rateLimiter = new RateLimiter();
 
 const pathConfigs = new Map([
   ['/api/builds', { limit: 20, windowMs: 60_000 }],
-  ['/api/builds/latest', { limit: 10, windowMs: 60_000 }]
+  ['/api/builds/latest', { limit: 10, windowMs: 60_000 }],
 ]);
 
 export const config = {
@@ -18,7 +19,7 @@ function getClientIP(request: NextRequest): string {
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  
+
   let pathConfig: { limit: number; windowMs: number } | undefined;
   for (const [pattern, config] of pathConfigs) {
     if (path.startsWith(pattern)) {
@@ -41,7 +42,7 @@ export function middleware(request: NextRequest) {
           ...headers,
           'Content-Type': 'application/json',
         },
-      }
+      },
     );
   }
 
