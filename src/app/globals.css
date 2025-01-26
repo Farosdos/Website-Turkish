@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+:root {
+  --background: #0f0f0f;
+  --foreground: #ededed;
+}
+
+body {
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  background: var(--background);
+}
