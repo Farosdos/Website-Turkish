@@ -3,6 +3,7 @@ import Navbar from '~/components/navbar';
 import { Geist } from 'next/font/google';
 
 import './globals.css';
+import Footer from '~/components/footer';
 
 const geist = Geist({
   variable: '--font-sans',
@@ -20,6 +21,7 @@ export default function RootLayout({
         <Navbar />
         <div className="h-[4.5rem]" aria-hidden="true" />
         {children}
+        <Footer />
       </body>
     </html>
   );
