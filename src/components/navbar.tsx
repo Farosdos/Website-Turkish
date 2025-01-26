@@ -92,7 +92,7 @@ export default function Navbar() {
     >
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='flex h-15 items-center justify-between'>
-          <div className='flex items-center space-x-8'>
+          <div className='flex items-center space-x-6'>
             <Link href='/' className='flex items-center space-x-3 hover:opacity-90' aria-label='CanvasMC Home'>
               <Image src='/icon.png' alt='' width={32} height={32} className='rounded-md' priority />
               <span className='text-sm font-semibold'>CanvasMC</span>

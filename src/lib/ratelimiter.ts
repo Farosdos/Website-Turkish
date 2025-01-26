@@ -1,50 +1,66 @@
-export class RateLimiter {
-  private cache: Map<string, { count: number; lastReset: number }>;
-  private cleanupInterval: ReturnType<typeof setInterval>;
+import { LRUCache } from 'lru-cache';
 
-  constructor() {
-    this.cache = new Map();
-    this.cleanupInterval = setInterval(() => this.cleanup(), 60_000);
+import { NextRequest } from 'next/server';
+
+type RatelimitConfig = {
+  limit: number;
+  windowMs: number;
+};
+
+type RatelimiterOptions = {
+  paths: Record<string, RatelimitConfig>;
+  max?: number;
+  ttl?: number;
+};
+
+export class Ratelimiter {
+  private cache: LRUCache<string, number>;
+  private paths: Record<string, RatelimitConfig>;
+
+  constructor(options: RatelimiterOptions) {
+    this.cache = new LRUCache<string, number>({
+      max: options.max ?? 10_000,
+      ttl: options.ttl ?? 1000 * 60 * 2, // default: 2 minutes
+      updateAgeOnGet: false,
+    });
+
+    this.paths = options.paths;
   }
 
-  private cleanup() {
-    const now = Date.now();
-    for (const [key, data] of this.cache.entries()) {
-      if (now - data.lastReset > 120_000) {
-        this.cache.delete(key);
-      }
-    }
+  private getClientIP(request: NextRequest): string {
+    return request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
   }
 
-  check(key: string, limit: number, windowMs: number): {
+  private getPathConfig(path: string): RatelimitConfig | undefined {
+    return Object.entries(this.paths).find(([pattern]) => path.startsWith(pattern))?.[1];
+  }
+
+  evaluate(request: NextRequest): {
     isAllowed: boolean;
     headers: Record<string, string>;
-  } {
+  } | null {
+    const path = request.nextUrl.pathname;
+    const config = this.getPathConfig(path);
+
+    if (!config) return null;
+
+    const ip = this.getClientIP(request);
+    const key = `${ip}:${path}`;
     const now = Date.now();
-    let data = this.cache.get(key);
+    const count = (this.cache.get(key) || 0) + 1;
 
-    if (!data) {
-      data = { count: 0, lastReset: now };
-      this.cache.set(key, data);
-    }
+    this.cache.set(key, count);
 
-    if (now - data.lastReset > windowMs) {
-      data.count = 0;
-      data.lastReset = now;
-    }
-
-    data.count++;
-
-    const resetTime = Math.floor((data.lastReset + windowMs) / 1000);
-    const remaining = Math.max(0, limit - data.count);
+    const resetTime = Math.floor((now + config.windowMs) / 1000);
+    const remaining = Math.max(0, config.limit - count);
 
     return {
-      isAllowed: data.count <= limit,
+      isAllowed: count <= config.limit,
       headers: {
-        'X-RateLimit-Limit': limit.toString(),
+        'X-RateLimit-Limit': config.limit.toString(),
         'X-RateLimit-Remaining': remaining.toString(),
         'X-RateLimit-Reset': resetTime.toString(),
-      }
+      },
     };
   }
 }
