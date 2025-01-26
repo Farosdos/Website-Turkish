@@ -58,7 +58,7 @@ function NavbarLink({ href, label, external, icon: Icon, className }: NavLink & 
     <Comp
       href={href}
       className={cn(
-        'flex items-center gap-1.5 transition-colors duration-200',
+        'flex items-center gap-1.5 text-sm transition-colors duration-200',
         isActive ? 'text-white' : 'text-neutral-300 hover:text-neutral-100',
         className,
       )}
@@ -91,13 +91,13 @@ export default function Navbar() {
       role="navigation"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-[4.5rem] items-center justify-between">
+        <div className="flex h-15 items-center justify-between">
           <div className="flex items-center space-x-8">
             <Link href="/" className="flex items-center space-x-3 hover:opacity-90" aria-label="CanvasMC Home">
-              <Image src="/icon.png" alt="" width={36} height={36} className="rounded-md" priority />
-              <span className="text-[1.05rem] font-semibold">CanvasMC</span>
+              <Image src="/icon.png" alt="" width={32} height={32} className="rounded-md" priority />
+              <span className="text-sm font-semibold">CanvasMC</span>
             </Link>
-            <div className="hidden md:flex md:space-x-6" role="menubar">
+            <div className="hidden md:flex md:space-x-4" role="menubar">
               {LINKS.nav.map((link) => (
                 <NavbarLink key={link.href} {...link} />
               ))}
@@ -125,7 +125,7 @@ export default function Navbar() {
       {isOpen && (
         <div
           id="mobile-menu"
-          className="bg-background absolute top-[4.5rem] right-0 left-0 border-b border-neutral-800 pt-5 md:hidden"
+          className="bg-background absolute top-16 right-0 left-0 border-b border-neutral-800 pt-5 md:hidden"
           role="menu"
           aria-label="Mobile navigation"
         >
@@ -137,7 +137,7 @@ export default function Navbar() {
                 className="flex items-center rounded-md px-3 py-2 transition-colors hover:bg-neutral-800"
               />
             ))}
-            <div className="-mx-4 pt-4 sm:-mx-6 lg:-mx-8">
+            <div className="-mx-4 pt-3 sm:-mx-6 lg:-mx-8">
               <div className="border-t border-neutral-800">
                 <div className="flex gap-2 px-6 pt-3" role="menu" aria-label="Mobile social links">
                   {LINKS.social.map((link) => (
