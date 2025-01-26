@@ -11,52 +11,69 @@ export const dynamic = 'force-dynamic';
 export default async function DownloadsPage() {
   const builds = await getBuilds();
 
-  // group builds by version using direct object mutation
-  const buildsByVersion: Record<string, z.infer<typeof BuildSchema>[]> = {};
-  for (const build of builds) {
-    const version = build.minecraftVersion;
-    buildsByVersion[version] = buildsByVersion[version] || [];
-    buildsByVersion[version].push(build);
-  }
+  // Group builds by Minecraft version and sort them
+  const buildsByVersion = builds.reduce<Record<string, z.infer<typeof BuildSchema>[]>>((grouped, build) => {
+    const versionBuilds = grouped[build.minecraftVersion] || [];
+    grouped[build.minecraftVersion] = [...versionBuilds, build];
+    return grouped;
+  }, {});
 
-  // sort versions descending and prepare build lists
   const sortedVersions = Object.keys(buildsByVersion).sort().reverse();
-  const sortedBuilds = Object.fromEntries(
-    sortedVersions.map((version) => [
-      version,
-      [...buildsByVersion[version]].sort((a, b) => b.buildNumber - a.buildNumber),
-    ]),
+  const sortedBuildsByVersion = Object.fromEntries(
+    sortedVersions.map((version) => [version, buildsByVersion[version].sort((a, b) => b.buildNumber - a.buildNumber)]),
   );
 
-  const latestBuild = sortedBuilds[sortedVersions[0]]?.[0];
+  const latestBuild = sortedBuildsByVersion[sortedVersions[0]]?.[0];
 
   return (
+<<<<<<< Updated upstream
     <div className='relative isolate'>
       <GradientBackground />
+=======
+    <main className='relative isolate min-h-screen' role='main' aria-label='Downloads page'>
+      <div
+        role='presentation'
+        className='absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80'
+        aria-hidden='true'
+      >
+        <div
+          className='relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-fuchsia-500 to-sky-600 opacity-13 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]'
+          style={{
+            clipPath:
+              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+        />
+      </div>
+>>>>>>> Stashed changes
 
-      <div className='mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8'>
-        <div className='mx-auto max-w-3xl text-center'>
-          <h1 className='text-3xl font-bold tracking-tight text-white sm:text-5xl'>Downloads</h1>
-          <p className='mt-4 text-base text-neutral-300 sm:text-lg'>
+      <article className='mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
+        <header className='mx-auto max-w-3xl text-center'>
+          <h1 className='text-3xl font-bold sm:text-5xl lg:text-6xl'>Downloads</h1>
+          <p className='mt-6 text-neutral-300 sm:text-lg'>
             Get the latest builds of CanvasMC for your Minecraft server.
           </p>
 
           {latestBuild?.downloadUrl && (
-            <Button size='lg' className='mt-8 h-12 px-6 text-[0.95rem] font-medium' asChild>
-              <a href={latestBuild.downloadUrl} download className='flex items-center'>
-                <Download className='mr-2 h-4.5 w-4.5' />
-                Download Latest Build
+            <Button size='lg' asChild className='mt-6 w-full sm:mt-8 sm:w-auto'>
+              <a
+                href={latestBuild.downloadUrl}
+                download
+                className='inline-flex items-center gap-2'
+                aria-label={`Download latest Canvas build for Minecraft ${sortedVersions[0]}`}
+              >
+                <Download className='h-4 w-4' aria-hidden='true' />
+                <span className='text-sm sm:text-base'>Download Latest Build</span>
               </a>
             </Button>
           )}
-        </div>
+        </header>
 
-        <div className='mt-16 space-y-8'>
+        <div className='mt-8 space-y-6 sm:mt-12 sm:space-y-8' role='region' aria-label='Available builds by version'>
           {sortedVersions.map((version) => (
-            <VersionBuildsTable key={version} version={version} builds={sortedBuilds[version]} />
+            <VersionBuildsTable key={version} version={version} builds={sortedBuildsByVersion[version]} />
           ))}
         </div>
-      </div>
-    </div>
+      </article>
+    </main>
   );
 }
