@@ -42,3 +42,8 @@ next-env.d.ts
 
 # cursor
 .cursorrules
+
+# ignore tailwind config
+# in v4 of tailwind, the config file is no longer needed
+# but vscode extension "Tailwind CSS IntelliSense" requires it
+tailwind.config.js
