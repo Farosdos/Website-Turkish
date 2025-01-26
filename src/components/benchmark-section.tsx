@@ -7,32 +7,28 @@ const BENCHMARK_DATA = [
   {
     name: 'Startup Time',
     unit: 'seconds',
-    description:
-      'Time taken for the server to fully start and be ready to accept connections. Lower startup time means faster server deployment and restarts.',
+    description: 'Time taken for the server to fully start and be ready to accept connections.',
     Purpur: 17.5,
     Canvas: 15.8,
   },
   {
     name: 'Hopper Tick',
     unit: 'milliseconds',
-    description:
-      'Time to process 161,000 hoppers in a single tick. Demonstrates item handling and transfer efficiency, crucial for automated farms and storage systems.',
+    description: 'Time to process 161,000 hoppers in a single tick.',
     Purpur: 60,
     Canvas: 32,
   },
   {
     name: 'Villager Tick',
     unit: 'seconds',
-    description:
-      'Processing time for 300 villagers over 20 minutes. Shows entity AI and pathfinding optimization, essential for trading halls and village-based mechanics.',
+    description: 'Processing time for 300 villagers over 20 minutes.',
     Purpur: 310,
     Canvas: 165,
   },
   {
     name: 'Chunk Generation',
     unit: 'CPS',
-    description:
-      'Number of new chunks that can be generated per second. Higher values mean faster world exploration and less lag when discovering new areas.',
+    description: 'Number of new chunks that can be generated per second.',
     Purpur: 130,
     Canvas: 140,
     'Canvas (Alt)': 220,
