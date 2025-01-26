@@ -16,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={`${geist.variable} antialiased`}>
         <Navbar />
-        <div className="h-[4.5rem]" aria-hidden="true" />
+        <div className='h-[4.5rem]' aria-hidden='true' />
         {children}
         <Footer />
       </body>

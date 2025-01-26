@@ -19,39 +19,39 @@ type TableRowProps = {
 function TableRow({ build, isLatest }: TableRowProps) {
   return (
     <tr className={cn('border-t border-neutral-700/50', isLatest && 'bg-neutral-800/50')}>
-      <td className="px-4 py-3.5 text-[0.95rem] whitespace-nowrap">#{build.buildNumber}</td>
-      <td className="px-4 py-3.5 whitespace-nowrap">
+      <td className='px-4 py-3.5 text-[0.95rem] whitespace-nowrap'>#{build.buildNumber}</td>
+      <td className='px-4 py-3.5 whitespace-nowrap'>
         {build.commit.hash && (
           <a
             href={`https://github.com/CraftCanvasMC/Canvas/commit/${build.commit.hash}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-neutral-400 hover:text-neutral-300"
+            target='_blank'
+            rel='noopener noreferrer'
+            className='inline-flex items-center gap-1.5 text-neutral-400 hover:text-neutral-300'
           >
-            <GitCommit className="h-4 w-4" />
+            <GitCommit className='h-4 w-4' />
             {build.commit.hash?.slice(0, 7)}
           </a>
         )}
       </td>
-      <td className="hidden px-4 py-3.5 sm:table-cell">
-        <span className="line-clamp-1 text-[0.95rem]">{build.commit.message || 'No message'}</span>
+      <td className='hidden px-4 py-3.5 sm:table-cell'>
+        <span className='line-clamp-1 text-[0.95rem]'>{build.commit.message || 'No message'}</span>
       </td>
-      <td className="px-4 py-3.5 text-right sm:text-left">
+      <td className='px-4 py-3.5 text-right sm:text-left'>
         <Button
-          size="sm"
+          size='sm'
           variant={isLatest ? 'default' : 'secondary'}
           asChild={!!build.downloadUrl}
           disabled={!build.downloadUrl}
-          className="h-9 px-5 text-[0.95rem] font-medium"
+          className='h-9 px-5 text-[0.95rem] font-medium'
         >
           {build.downloadUrl ? (
-            <a href={build.downloadUrl} download className="flex items-center">
-              <Download className="mr-1.5 h-4 w-4" />
+            <a href={build.downloadUrl} download className='flex items-center'>
+              <Download className='mr-1.5 h-4 w-4' />
               Download
             </a>
           ) : (
             <>
-              <Download className="mr-1.5 h-4 w-4" />
+              <Download className='mr-1.5 h-4 w-4' />
               Unavailable
             </>
           )}
@@ -73,47 +73,47 @@ export function VersionBuildsTable({ version, builds }: { version: string; build
       <CardHeader>
         <CardTitle>Minecraft {version}</CardTitle>
         {totalPages > 1 && (
-          <div className="flex items-center gap-3 text-[0.95rem] text-neutral-400">
+          <div className='flex items-center gap-3 text-[0.95rem] text-neutral-400'>
             <Button
-              variant="ghost"
-              size="sm"
+              variant='ghost'
+              size='sm'
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="h-9 w-9 p-0"
+              className='h-9 w-9 p-0'
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className='h-5 w-5' />
             </Button>
             <span>
               Page {page} of {totalPages}
             </span>
             <Button
-              variant="ghost"
-              size="sm"
+              variant='ghost'
+              size='sm'
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className="h-9 w-9 p-0"
+              className='h-9 w-9 p-0'
             >
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className='h-5 w-5' />
             </Button>
           </div>
         )}
       </CardHeader>
 
       <CardContent>
-        <div className="relative overflow-x-auto">
-          <table className="w-full text-left text-[0.95rem] text-neutral-300">
-            <thead className="text-sm tracking-wider text-neutral-400 uppercase">
+        <div className='relative overflow-x-auto'>
+          <table className='w-full text-left text-[0.95rem] text-neutral-300'>
+            <thead className='text-sm tracking-wider text-neutral-400 uppercase'>
               <tr>
-                <th scope="col" className="px-4 py-3.5">
+                <th scope='col' className='px-4 py-3.5'>
                   Build
                 </th>
-                <th scope="col" className="px-4 py-3.5">
+                <th scope='col' className='px-4 py-3.5'>
                   Commit
                 </th>
-                <th scope="col" className="hidden px-4 py-3.5 sm:table-cell">
+                <th scope='col' className='hidden px-4 py-3.5 sm:table-cell'>
                   Changes
                 </th>
-                <th scope="col" className="px-4 py-3.5 text-right sm:text-left">
+                <th scope='col' className='px-4 py-3.5 text-right sm:text-left'>
                   Download
                 </th>
               </tr>
