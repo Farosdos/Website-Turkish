@@ -1,41 +1,74 @@
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
-import GradientBackground from '~/components/ui/gradient-background';
+import { GradientBackground } from '~/components/ui/gradient-background';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
-function TeamMember({ name, role, imageSrc }: { name: string; role: string; imageSrc: string }) {
+type TeamMember = {
+  name: string;
+  role: string;
+};
+
+type TeamSection = {
+  description: string;
+  members: TeamMember[];
+};
+
+const TEAM_MEMBERS: Record<string, TeamSection> = {
+  'Leadership Team': {
+    description: 'The core team driving Canvas forward.',
+    members: [
+      {
+        name: 'Dueris',
+        role: 'Founder',
+      },
+    ],
+  },
+  'Development Team': {
+    description: 'Key contributors actively developing and maintaining the project.',
+    members: [
+      {
+        name: 'feenko',
+        role: 'Web Developer',
+      },
+      {
+        name: 'Ventitoja',
+        role: 'Web Developer',
+      },
+    ],
+  },
+};
+
+function TeamMember({ name, role }: TeamMember) {
+  const imageSrc = `https://github.com/${name}.png`;
+  const githubUrl = `https://github.com/${name}`;
+
   return (
-    <Card className='p-5'>
-      <div className='flex items-center gap-4'>
-        <Image
-          src={imageSrc}
-          alt={`${name}'s avatar`}
-          width={48}
-          height={48}
-          className='rounded-full'
-          priority={true}
-        />
-        <div>
-          <h3 className='font-semibold text-white'>{name}</h3>
-          <p className='text-sm text-neutral-400'>{role}</p>
+    <Link href={githubUrl} target='_blank' rel='noopener noreferrer'>
+      <Card className='p-5 transition-all hover:bg-neutral-800/50 hover:ring-1 hover:ring-neutral-700'>
+        <div className='flex items-center gap-4'>
+          <Avatar className='h-12 w-12'>
+            <AvatarImage src={imageSrc} alt={`${name}'s avatar`} />
+            <AvatarFallback>{name[0]}</AvatarFallback>
+          </Avatar>
+          <div>
+            <h3 className='font-semibold text-white'>{name}</h3>
+            <p className='text-sm text-neutral-400'>{role}</p>
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </Link>
   );
 }
 
 function Contributor({ url, avatar, username }: { url: string; avatar: string; username: string }) {
   return (
     <Link href={url} target='_blank' rel='noopener noreferrer' className='group'>
-      <Image
-        src={avatar}
-        alt={`${username}'s GitHub profile`}
-        width={64}
-        height={64}
-        className='rounded-full transition group-hover:scale-105'
-      />
+      <Avatar className='h-16 w-16 transition group-hover:scale-105'>
+        <AvatarImage src={avatar} alt={`${username}'s GitHub profile`} />
+        <AvatarFallback>{username[0]}</AvatarFallback>
+      </Avatar>
     </Link>
   );
 }
@@ -78,15 +111,22 @@ export default async function TeamPage() {
           </div>
         </header>
 
-        <section className='mt-12 sm:mt-16' aria-labelledby='leadership-heading'>
-          <h2 id='leadership-heading' className='text-2xl font-semibold text-white'>
-            Leadership Team
-          </h2>
-          <p className='mt-2 mb-6 text-neutral-300'>The core team driving Canvas forward.</p>
-          <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-            <TeamMember name='Dueris' role='Founder' imageSrc='https://avatars.githubusercontent.com/u/122416109?v=4' />
-          </div>
-        </section>
+        {Object.entries(TEAM_MEMBERS).map(
+          ([teamName, { description, members }]) =>
+            members.length > 0 && (
+              <section key={teamName} className='mt-12 sm:mt-16' aria-labelledby={`${teamName.toLowerCase()}-heading`}>
+                <h2 id={`${teamName.toLowerCase()}-heading`} className='text-2xl font-semibold text-white'>
+                  {teamName}
+                </h2>
+                <p className='mt-2 mb-6 text-neutral-300'>{description}</p>
+                <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+                  {members.map((member) => (
+                    <TeamMember key={member.name} {...member} />
+                  ))}
+                </div>
+              </section>
+            ),
+        )}
 
         <section className='mt-12 sm:mt-16' aria-labelledby='contributors-heading'>
           <h2 id='contributors-heading' className='text-2xl font-semibold text-white'>

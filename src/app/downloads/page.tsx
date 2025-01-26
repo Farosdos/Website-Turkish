@@ -1,7 +1,7 @@
 import { Download } from 'lucide-react';
 import { z } from 'zod';
 import { Button } from '~/components/ui/button';
-import GradientBackground from '~/components/ui/gradient-background';
+import { GradientBackground } from '~/components/ui/gradient-background';
 import { BuildSchema, getBuilds } from '~/lib/jenkins';
 
 import { VersionBuildsTable } from './version-builds-table';
@@ -36,7 +36,7 @@ export default async function DownloadsPage() {
           </p>
 
           {latestBuild?.downloadUrl && (
-            <Button size='lg' asChild className='mt-6 sm:mt-8 w-full sm:w-auto'>
+            <Button size='lg' asChild className='mt-6 w-full sm:mt-8 sm:w-auto'>
               <a
                 href={latestBuild.downloadUrl}
                 download

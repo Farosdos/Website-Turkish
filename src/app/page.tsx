@@ -1,6 +1,7 @@
-import BenchmarkSection from '~/components/benchmark-section';
-import FeaturesSection from '~/components/features-section';
-import Hero from '~/components/hero';
+import { BenchmarkSection } from '~/components/benchmark-section';
+import { CTASection } from '~/components/cta-section';
+import { FeaturesSection } from '~/components/features-section';
+import { Hero } from '~/components/hero';
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <FeaturesSection />
       <BenchmarkSection />
+      <CTASection />
     </main>
   );
 }

@@ -82,7 +82,7 @@ function NavbarLink({ href, label, external, icon: Icon, className }: NavLink & 
   );
 }
 
-export default function Navbar() {
+export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

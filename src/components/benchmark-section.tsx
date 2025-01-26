@@ -2,8 +2,43 @@
 
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Card } from '~/components/ui/card';
+import { cn } from '~/lib/utils';
 
-const BENCHMARK_DATA = [
+import { type ComponentProps } from 'react';
+
+type BenchmarkData = {
+  name: string;
+  unit: string;
+  description: string;
+  Purpur: number;
+  Canvas: number;
+  'Canvas (Alt)'?: number;
+};
+
+type BenchmarkCardProps = ComponentProps<'div'> & {
+  data: BenchmarkData;
+  colors: Record<string, string>;
+};
+
+type BenchmarkTooltipProps = {
+  active?: boolean;
+  payload?: {
+    name: string;
+    value: number;
+    fill: string;
+    payload: {
+      unit: string;
+    };
+  }[];
+};
+
+const COLORS = {
+  Purpur: '#A855F7',
+  Canvas: '#3B82F6',
+  'Canvas (Alt)': '#FBBF24',
+} as const;
+
+const BENCHMARK_DATA: BenchmarkData[] = [
   {
     name: 'Startup Time',
     unit: 'seconds',
@@ -35,25 +70,7 @@ const BENCHMARK_DATA = [
   },
 ];
 
-const COLORS = {
-  Purpur: '#A855F7',
-  Canvas: '#3B82F6',
-  'Canvas (Alt)': '#FBBF24',
-};
-
-interface TooltipProps {
-  active?: boolean;
-  payload?: {
-    name: string;
-    value: number;
-    fill: string;
-    payload: {
-      unit: string;
-    };
-  }[];
-}
-
-const CustomTooltip = ({ active, payload }: TooltipProps) => {
+function BenchmarkTooltip({ active, payload }: BenchmarkTooltipProps) {
   if (!active || !payload?.length) return null;
 
   return (
@@ -69,9 +86,48 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
       ))}
     </div>
   );
-};
+}
 
-export default function BenchmarkSection() {
+function BenchmarkCard({ data, colors, className, ...props }: BenchmarkCardProps) {
+  return (
+    <Card className={cn('p-6', className)} {...props}>
+      <h3 className='text-lg font-semibold text-white'>{data.name}</h3>
+      <p className='mt-1.5 text-sm leading-relaxed text-neutral-400'>{data.description}</p>
+      <div className='mt-6 h-[300px]'>
+        <ResponsiveContainer width='100%' height='100%'>
+          <BarChart data={[data]} margin={{ top: 10, right: 30, left: 0, bottom: 0 }} barGap={32}>
+            <CartesianGrid strokeDasharray='3 3' stroke='#262626' />
+            <XAxis dataKey='name' stroke='#737373' hide />
+            <YAxis
+              stroke='#737373'
+              label={{
+                value: data.unit,
+                angle: -90,
+                position: 'insideLeft',
+                style: { fill: '#737373' },
+              }}
+              tickMargin={8}
+            />
+            <Tooltip content={<BenchmarkTooltip />} cursor={{ fill: 'transparent' }} />
+            <Legend wrapperStyle={{ paddingTop: '1.5rem' }} />
+            <Bar dataKey='Purpur' fill={colors.Purpur} radius={[4, 4, 0, 0]} />
+            <Bar dataKey='Canvas' fill={colors.Canvas} radius={[4, 4, 0, 0]} />
+            {data['Canvas (Alt)'] && (
+              <Bar
+                dataKey='Canvas (Alt)'
+                fill={colors['Canvas (Alt)']}
+                name='Canvas (Alt Algorithm)'
+                radius={[4, 4, 0, 0]}
+              />
+            )}
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </Card>
+  );
+}
+
+export function BenchmarkSection() {
   return (
     <section className='mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
       <div className='mx-auto text-center'>
@@ -84,44 +140,7 @@ export default function BenchmarkSection() {
 
       <div className='mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2'>
         {BENCHMARK_DATA.map((data) => (
-          <Card key={data.name} className='p-6'>
-            <h3 className='text-lg font-semibold text-white'>{data.name}</h3>
-            <p className='mt-1.5 text-sm leading-relaxed text-neutral-400'>{data.description}</p>
-            <div className='mt-6 h-[300px]'>
-              <ResponsiveContainer width='100%' height='100%'>
-                <BarChart data={[data]} margin={{ top: 10, right: 30, left: 0, bottom: 0 }} barGap={32}>
-                  <CartesianGrid strokeDasharray='3 3' stroke='#262626' />
-                  <XAxis dataKey='name' stroke='#737373' hide />
-                  <YAxis
-                    stroke='#737373'
-                    label={{
-                      value: data.unit,
-                      angle: -90,
-                      position: 'insideLeft',
-                      style: { fill: '#737373' },
-                    }}
-                    tickMargin={8}
-                  />
-                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
-                  <Legend
-                    wrapperStyle={{
-                      paddingTop: '1.5rem',
-                    }}
-                  />
-                  <Bar dataKey='Purpur' fill={COLORS.Purpur} radius={[4, 4, 0, 0]} />
-                  <Bar dataKey='Canvas' fill={COLORS.Canvas} radius={[4, 4, 0, 0]} />
-                  {data['Canvas (Alt)'] && (
-                    <Bar
-                      dataKey='Canvas (Alt)'
-                      fill={COLORS['Canvas (Alt)']}
-                      name='Canvas (Alt Algorithm)'
-                      radius={[4, 4, 0, 0]}
-                    />
-                  )}
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </Card>
+          <BenchmarkCard key={data.name} data={data} colors={COLORS} />
         ))}
       </div>
 

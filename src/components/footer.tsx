@@ -32,13 +32,17 @@ const LINK_SECTIONS: { title: string; links: LinkItem[] }[] = [
   {
     title: 'Community',
     links: [
+      { href: 'https://discord.gg/ySfW4QZsRV', label: 'Discord' },
       { href: 'https://github.com/CraftCanvasMC', label: 'GitHub' },
-      { href: 'https://discord.gg/canvasmc', label: 'Discord' },
+      { href: 'https://github.com/CraftCanvasMC/Canvas/issues', label: 'Issues' },
     ],
   },
   {
     title: 'CanvasMC',
-    links: [{ href: '/team', label: 'Team' }],
+    links: [
+      { href: '/team', label: 'Team' },
+      { href: 'https://github.com/CraftCanvasMC/Canvas/blob/master/LICENSE', label: 'License' },
+    ],
   },
 ];
 
@@ -96,7 +100,7 @@ function LinkColumn({ title, links }: LinkColumnProps) {
   );
 }
 
-export default function Footer() {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (

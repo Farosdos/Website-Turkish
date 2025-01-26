@@ -1,5 +1,5 @@
-import Footer from '~/components/footer';
-import Navbar from '~/components/navbar';
+import { Footer } from '~/components/footer';
+import { Navbar } from '~/components/navbar';
 import { cn } from '~/lib/utils';
 
 import { Geist } from 'next/font/google';

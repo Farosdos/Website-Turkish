@@ -2,12 +2,12 @@
 
 import { ArrowRight } from 'lucide-react';
 import { Button } from '~/components/ui/button';
-import GradientBackground from '~/components/ui/gradient-background';
+import { GradientBackground } from '~/components/ui/gradient-background';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Hero() {
+export function Hero() {
   return (
     <div className='relative isolate'>
       <GradientBackground />
