@@ -82,7 +82,7 @@ export default async function TeamPage() {
           </h2>
           <p className='mb-8 text-neutral-300'>The core team driving Canvas forward with vision and dedication.</p>
           <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-            <TeamMember name='Deuris' role='Founder' imageSrc='/icon.png' />
+            <TeamMember name='Dueris' role='Founder' imageSrc='https://avatars.githubusercontent.com/u/122416109?v=4' />
           </div>
         </div>
 
