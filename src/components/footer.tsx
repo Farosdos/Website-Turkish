@@ -1,6 +1,7 @@
 'use client';
 
 import { Github, Globe, Mail, Twitter } from 'lucide-react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -62,12 +63,12 @@ const LinkColumn: React.FC<{ title: string; links: LinkItem[] }> = ({ title, lin
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-400 hover:text-white transition-colors duration-200"
+                className="text-neutral-400 transition-colors duration-200 hover:text-white"
               >
                 {label}
               </a>
             ) : (
-              <Link href={href} className="text-neutral-400 hover:text-white transition-colors duration-200">
+              <Link href={href} className="text-neutral-400 transition-colors duration-200 hover:text-white">
                 {label}
               </Link>
             )}
@@ -79,22 +80,16 @@ const LinkColumn: React.FC<{ title: string; links: LinkItem[] }> = ({ title, lin
 );
 
 const Footer: React.FC = () => (
-  <footer className="border-t border-neutral-800/80 bg-background/50 backdrop-blur-xl">
+  <footer className="bg-background/50 border-t border-neutral-800/80 backdrop-blur-xl">
     <div className="container mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-      <div className="grid gap-8 sm:gap-12 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-8 sm:grid-cols-2 sm:gap-12 lg:grid-cols-5">
         {/* Branding Section */}
-        <section className="lg:col-span-2 text-center sm:text-left">
-          <Link 
-            href="/" 
-            className="inline-flex items-center gap-3 hover:opacity-90 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 rounded-xl"
+        <section className="text-center sm:text-left lg:col-span-2">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-3 rounded-xl transition-opacity duration-200 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:outline-none"
           >
-            <Image
-              src="/icon.png"
-              alt=""
-              width={40}
-              height={40}
-              className="rounded-xl"
-            />
+            <Image src="/icon.png" alt="" width={40} height={40} className="rounded-xl" />
             <div>
               <h2 className="text-lg font-semibold">CanvasMC</h2>
               <p className="text-sm text-neutral-400">High-performance Minecraft server</p>
@@ -106,7 +101,7 @@ const Footer: React.FC = () => (
             multithreaded dimension ticking and improved chunk generation.
           </p>
 
-          <div className="mt-8 flex justify-center sm:justify-start gap-4">
+          <div className="mt-8 flex justify-center gap-4 sm:justify-start">
             {SOCIALS.map(({ href, Icon, label }) => (
               <a
                 key={href}
@@ -114,7 +109,7 @@ const Footer: React.FC = () => (
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="p-2 text-neutral-400 hover:text-white hover:bg-neutral-800/80 rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
+                className="rounded-lg p-2 text-neutral-400 transition-colors duration-200 hover:bg-neutral-800/80 hover:text-white focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:outline-none"
               >
                 <Icon className="h-6 w-6" aria-hidden="true" />
               </a>
@@ -123,7 +118,7 @@ const Footer: React.FC = () => (
         </section>
 
         {/* Links Sections */}
-        <div className="lg:col-span-3 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3">
           {LINK_SECTIONS.map((section) => (
             <LinkColumn key={section.title} {...section} />
           ))}
@@ -131,13 +126,17 @@ const Footer: React.FC = () => (
       </div>
 
       {/* Copyright Section */}
-      <div className="mt-8 pt-8 border-t border-neutral-800/80 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-neutral-800/80 pt-8 sm:flex-row">
         <p className="text-neutral-400">&copy; {new Date().getFullYear()} CanvasMC</p>
         <div className="flex items-center gap-2">
-          Made with <span role="img" aria-label="love">❤️</span> by the{' '}
-          <Link 
-            href="/contributors" 
-            className="text-white underline underline-offset-2 hover:text-neutral-200 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 rounded"
+          Made with{' '}
+          <span role="img" aria-label="love">
+            ❤️
+          </span>{' '}
+          by the{' '}
+          <Link
+            href="/contributors"
+            className="rounded text-white underline underline-offset-2 transition-colors duration-200 hover:text-neutral-200 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:outline-none"
           >
             CanvasMC Team
           </Link>
