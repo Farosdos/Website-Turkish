@@ -12,5 +12,6 @@
   ],
   "importOrder": ["^react$", "^next/(.*)$", "^@/(.*)$", "^[./]"],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "importOrderSortSpecifiers": true,
+  "tailwindFunctions": ["cn", "clsx", "cva"]
 }
