@@ -1,66 +1,38 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse, NextRequest } from "next/server";
+import { RateLimiter } from "~/lib/ratelimiter";
 
-interface RateLimitData {
-  count: number;
-  lastReset: number;
-}
+const rateLimiter = new RateLimiter();
 
-interface PathConfig {
-  limit: number;
-  windowMs: number;
-}
+const pathConfigs = new Map([
+  ['/api/builds', { limit: 20, windowMs: 60_000 }],
+  ['/api/builds/latest', { limit: 10, windowMs: 60_000 }]
+]);
 
-const rateLimitMap = new Map<string, RateLimitData>();
-
-const pathConfigs: Record<string, PathConfig> = {
-  '/api/builds': { limit: 20, windowMs: 60_000 },
-  '/api/builds/latest': { limit: 10, windowMs: 60_000 },
+export const config = {
+  matcher: ['/api/builds/:path*'],
 };
 
 function getClientIP(request: NextRequest): string {
-  const xff = request.headers.get('x-forwarded-for');
-  return xff ? xff.split(',')[0].trim() : '127.0.0.1';
-}
-
-function getRateLimitHeaders(data: RateLimitData, config: PathConfig) {
-  const resetTime = Math.floor((data.lastReset + config.windowMs) / 1000);
-  const remaining = Math.max(0, config.limit - data.count);
-
-  return {
-    'X-RateLimit-Limit': config.limit.toString(),
-    'X-RateLimit-Remaining': remaining.toString(),
-    'X-RateLimit-Reset': resetTime.toString(),
-  };
+  return request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
 }
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const pathConfig = Object.entries(pathConfigs).find(([p]) => path.startsWith(p))?.[1];
+  
+  let pathConfig: { limit: number; windowMs: number } | undefined;
+  for (const [pattern, config] of pathConfigs) {
+    if (path.startsWith(pattern)) {
+      pathConfig = config;
+      break;
+    }
+  }
 
   if (!pathConfig) return NextResponse.next();
 
   const key = `${getClientIP(request)}:${path}`;
-  const now = Date.now();
+  const { isAllowed, headers } = rateLimiter.check(key, pathConfig.limit, pathConfig.windowMs);
 
-  if (!rateLimitMap.has(key)) {
-    rateLimitMap.set(key, { count: 0, lastReset: now });
-  }
-
-  const data = rateLimitMap.get(key)!;
-
-  if (now - data.lastReset > pathConfig.windowMs) {
-    data.count = 0;
-    data.lastReset = now;
-  }
-
-  data.count++;
-
-  const headers = getRateLimitHeaders(data, pathConfig);
-  const response = NextResponse.next();
-  Object.entries(headers).forEach(([key, value]) => response.headers.set(key, value));
-
-  if (data.count > pathConfig.limit) {
+  if (!isAllowed) {
     return NextResponse.json(
       { error: 'Too many requests' },
       {
@@ -69,13 +41,12 @@ export function middleware(request: NextRequest) {
           ...headers,
           'Content-Type': 'application/json',
         },
-      },
+      }
     );
   }
 
+  const response = NextResponse.next();
+
+  Object.entries(headers).forEach(([key, value]) => response.headers.set(key, value));
   return response;
 }
-
-export const config = {
-  matcher: ['/api/builds/:path*'],
-};
