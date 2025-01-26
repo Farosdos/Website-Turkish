@@ -14,8 +14,8 @@ interface PathConfig {
 const rateLimitMap = new Map<string, RateLimitData>();
 
 const pathConfigs: Record<string, PathConfig> = {
-  '/api/builds': { limit: 30, windowMs: 60_000 },
-  '/api/builds/latest': { limit: 60, windowMs: 60_000 },
+  '/api/builds': { limit: 20, windowMs: 60_000 },
+  '/api/builds/latest': { limit: 10, windowMs: 60_000 },
 };
 
 function getClientIP(request: NextRequest): string {
