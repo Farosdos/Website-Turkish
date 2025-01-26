@@ -36,7 +36,7 @@ export default async function DownloadsPage() {
           </p>
 
           {latestBuild?.downloadUrl && (
-            <Button size='lg' asChild className='mt-6 w-full sm:w-auto'>
+            <Button size='lg' asChild className='mt-6 sm:mt-8 w-full sm:w-auto'>
               <a
                 href={latestBuild.downloadUrl}
                 download
