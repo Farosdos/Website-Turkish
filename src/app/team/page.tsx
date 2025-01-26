@@ -8,6 +8,7 @@ import Link from 'next/link';
 type TeamMember = {
   name: string;
   role: string;
+  github?: string;
 };
 
 type TeamSection = {
@@ -21,6 +22,7 @@ const TEAM_MEMBERS: Record<string, TeamSection> = {
     members: [
       {
         name: 'Dueris',
+        github: 'Dueris',
         role: 'Founder',
       },
     ],
@@ -30,33 +32,62 @@ const TEAM_MEMBERS: Record<string, TeamSection> = {
     members: [
       {
         name: 'feenko',
+        github: 'feenko',
         role: 'Web Developer',
       },
       {
         name: 'Ventitoja',
+        github: 'Ventitoja',
         role: 'Web Developer',
+      },
+    ],
+  },
+  'Infrastructure Team': {
+    description: 'The team responsible for maintaining our hosting infrastructure and build systems.',
+    members: [
+      {
+        name: 'MrMasrozYTLIVE',
+        github: 'MrMasrozYTLIVE',
+        role: 'Jenkins Host',
+      },
+      {
+        name: 'Nukkay',
+        role: 'Website Host',
       },
     ],
   },
 };
 
-function TeamMember({ name, role }: TeamMember) {
-  const imageSrc = `https://github.com/${name}.png`;
-  const githubUrl = `https://github.com/${name}`;
+function TeamMember({ name, role, github }: TeamMember) {
+  const CardContent = () => (
+    <div className='flex items-center gap-4'>
+      <Avatar className='h-12 w-12'>
+        {github ? (
+          <AvatarImage src={`https://github.com/${github}.png`} alt={`${name}'s avatar`} />
+        ) : (
+          <AvatarImage src='/default-avatar.png' alt={`${name}'s avatar`} />
+        )}
+        <AvatarFallback>{name[0]}</AvatarFallback>
+      </Avatar>
+      <div>
+        <h3 className='font-semibold text-white'>{name}</h3>
+        <p className='text-sm text-neutral-400'>{role}</p>
+      </div>
+    </div>
+  );
+
+  if (!github) {
+    return (
+      <Card className='p-5'>
+        <CardContent />
+      </Card>
+    );
+  }
 
   return (
-    <Link href={githubUrl} target='_blank' rel='noopener noreferrer'>
+    <Link href={`https://github.com/${github}`} target='_blank' rel='noopener noreferrer'>
       <Card className='p-5 transition-all hover:bg-neutral-800/50 hover:ring-1 hover:ring-neutral-700'>
-        <div className='flex items-center gap-4'>
-          <Avatar className='h-12 w-12'>
-            <AvatarImage src={imageSrc} alt={`${name}'s avatar`} />
-            <AvatarFallback>{name[0]}</AvatarFallback>
-          </Avatar>
-          <div>
-            <h3 className='font-semibold text-white'>{name}</h3>
-            <p className='text-sm text-neutral-400'>{role}</p>
-          </div>
-        </div>
+        <CardContent />
       </Card>
     </Link>
   );
