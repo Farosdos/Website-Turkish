@@ -26,10 +26,6 @@ export default async function DownloadsPage() {
   const latestBuild = sortedBuildsByVersion[sortedVersions[0]]?.[0];
 
   return (
-<<<<<<< Updated upstream
-    <div className='relative isolate'>
-      <GradientBackground />
-=======
     <main className='relative isolate min-h-screen' role='main' aria-label='Downloads page'>
       <div
         role='presentation'
@@ -44,7 +40,6 @@ export default async function DownloadsPage() {
           }}
         />
       </div>
->>>>>>> Stashed changes
 
       <article className='mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
         <header className='mx-auto max-w-3xl text-center'>
