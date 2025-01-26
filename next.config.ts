@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/api/builds',
-        destination: '/api/v1/builds', 
+        destination: '/api/v1/builds',
         permanent: true,
       },
       {
