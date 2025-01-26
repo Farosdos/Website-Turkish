@@ -19,7 +19,7 @@ type NavLink = {
 const LINKS = {
   nav: [
     { href: '/downloads', label: 'Downloads' },
-    { href: '/roadmap', label: 'Roadmap' },
+    { href: '/team', label: 'Team' },
     { href: '/docs', label: 'Docs' },
     { href: 'https://jenkins.canvasmc.io/job/Canvas/', label: 'Jenkins', external: true },
   ],
@@ -125,7 +125,7 @@ export default function Navbar() {
       {isOpen && (
         <div
           id='mobile-menu'
-          className='bg-background absolute top-16 right-0 left-0 border-b border-neutral-800 pt-5 md:hidden'
+          className='bg-background absolute top-15 right-0 left-0 border-b border-neutral-800 pt-5 md:hidden'
           role='menu'
           aria-label='Mobile navigation'
         >

@@ -25,26 +25,20 @@ const LINK_SECTIONS: { title: string; links: LinkItem[] }[] = [
   {
     title: 'Getting Started',
     links: [
-      { href: '/docs', label: 'Documentation' },
       { href: '/downloads', label: 'Downloads' },
-      { href: '/javadocs', label: 'Javadocs' },
+      { href: '/docs', label: 'Documentation' },
     ],
   },
   {
     title: 'Community',
     links: [
-      { href: 'https://github.com/CanvasMC', label: 'GitHub' },
+      { href: 'https://github.com/CraftCanvasMC', label: 'GitHub' },
       { href: 'https://discord.gg/canvasmc', label: 'Discord' },
-      { href: 'https://x.com/CanvasMC', label: 'X (Twitter)' },
     ],
   },
   {
     title: 'CanvasMC',
-    links: [
-      { href: '/team', label: 'Meet the team' },
-      { href: '/contribute', label: 'Contribute' },
-      { href: '/sponsors', label: 'Sponsors' },
-    ],
+    links: [{ href: '/team', label: 'Team' }],
   },
 ];
 
@@ -75,7 +69,7 @@ function LinkColumn({ title, links }: LinkColumnProps) {
   return (
     <section className='space-y-3'>
       <h3 className='text-sm font-medium'>{title}</h3>
-      <ul role='list' className='space-y-2.5'>
+      <ul role='list' className='space-y-1.5'>
         {links.map(({ href, label }) => {
           const isExternal = href.startsWith('http');
           return (
