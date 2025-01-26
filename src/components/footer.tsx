@@ -1,6 +1,6 @@
 'use client';
 
-import { Github, Globe, Heart, Mail, Twitter } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 import Image from 'next/image';
 import Link from 'next/link';
