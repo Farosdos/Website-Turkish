@@ -1,5 +1,6 @@
 import Footer from '~/components/footer';
 import Navbar from '~/components/navbar';
+import { cn } from '~/lib/utils';
 
 import { Geist } from 'next/font/google';
 
@@ -17,9 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${geist.variable} antialiased`}>
+      <body className={cn(geist.variable, 'antialiased')}>
         <Navbar />
-        <div className='h-[4.5rem]' aria-hidden='true' />
+        <div className='h-15' aria-hidden='true' />
         {children}
         <Footer />
       </body>
