@@ -15,6 +15,25 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/api/latest',
+        destination: '/api/v1/latest',
+        permanent: true,
+      },
+      {
+        source: '/api/builds',
+        destination: '/api/v1/builds', 
+        permanent: true,
+      },
+      {
+        source: '/api/specific',
+        destination: '/api/v1/specific',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

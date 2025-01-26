@@ -4,13 +4,16 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const ratelimiter = new Ratelimiter({
   paths: {
-    '/api/builds': { limit: 20, windowMs: 60_000 },
-    '/api/builds/latest': { limit: 10, windowMs: 60_000 },
+    '/api/v1/builds': { limit: 50, windowMs: 60_000 },
+    '/api/v1/latest': { limit: 30, windowMs: 60_000 },
+    '/api/v1/specific': { limit: 30, windowMs: 60_000 },
+    '/api/v2/builds': { limit: 50, windowMs: 60_000 },
+    '/api/v2/builds/latest': { limit: 30, windowMs: 60_000 },
   },
 });
 
 export const config = {
-  matcher: ['/api/builds/:path*'],
+  matcher: ['/api/v1/:path*', '/api/v2/:path*'],
 };
 
 export function middleware(request: NextRequest) {
