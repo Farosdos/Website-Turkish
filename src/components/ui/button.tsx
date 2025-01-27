@@ -45,4 +45,3 @@ export function Button<T extends React.ElementType = 'button'>({
   const Comp = asChild ? Slot : as || 'button';
   return <Comp className={cn(buttonVariants({ variant, size, className }))} {...props} />;
 }
-Button.displayName = 'Button';

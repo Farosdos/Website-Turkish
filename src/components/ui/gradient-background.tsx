@@ -37,4 +37,3 @@ export function GradientBackground({
     </div>
   );
 }
-GradientBackground.displayName = 'GradientBackground';

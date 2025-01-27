@@ -25,7 +25,7 @@ export default async function DownloadsPage() {
   const latestBuild = sortedBuildsByVersion[sortedVersions[0]]?.[0];
 
   return (
-    <main className='relative isolate min-h-screen' role='main' aria-label='Downloads page'>
+    <main className='relative isolate min-h-screen'>
       <GradientBackground />
 
       <article className='mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8'>

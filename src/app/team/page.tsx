@@ -62,11 +62,7 @@ function TeamMember({ name, role, github }: TeamMember) {
   const CardContent = () => (
     <div className='flex items-center gap-4'>
       <Avatar className='h-12 w-12'>
-        {github ? (
-          <AvatarImage src={`https://github.com/${github}.png`} alt={`${name}'s avatar`} />
-        ) : (
-          <AvatarImage src='/default-avatar.png' alt={`${name}'s avatar`} />
-        )}
+        <AvatarImage src={`https://github.com/${github}.png`} alt={`${name}'s avatar`} />
         <AvatarFallback>{name[0]}</AvatarFallback>
       </Avatar>
       <div>

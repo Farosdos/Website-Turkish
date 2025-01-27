@@ -17,12 +17,10 @@ export function Avatar({ className, ...props }: AvatarBaseProps) {
     />
   );
 }
-Avatar.displayName = 'Avatar';
 
 export function AvatarImage({ className, ...props }: React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>) {
   return <AvatarPrimitive.Image className={cn('aspect-square h-full w-full', className)} {...props} />;
 }
-AvatarImage.displayName = 'AvatarImage';
 
 export function AvatarFallback({
   className,
@@ -35,4 +33,3 @@ export function AvatarFallback({
     />
   );
 }
-AvatarFallback.displayName = 'AvatarFallback';
