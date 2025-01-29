@@ -1,6 +1,7 @@
 'use client';
 
 import { Heart } from 'lucide-react';
+import { siteConfig } from '~/siteconfig';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -32,23 +33,25 @@ const LINK_SECTIONS: { title: string; links: LinkItem[] }[] = [
   {
     title: 'Community',
     links: [
-      { href: 'https://discord.gg/ySfW4QZsRV', label: 'Discord' },
-      { href: 'https://github.com/CraftCanvasMC', label: 'GitHub' },
-      { href: 'https://github.com/CraftCanvasMC/Canvas/issues', label: 'Issues' },
+      { href: siteConfig.social.discord, label: 'Discord' },
+      { href: siteConfig.social.github.org, label: 'GitHub' },
+      { href: `${siteConfig.social.github.repo}/issues`, label: 'Issues' },
     ],
   },
   {
     title: 'CanvasMC',
     links: [
       { href: '/team', label: 'Team' },
-      { href: 'https://github.com/CraftCanvasMC/Canvas/blob/master/LICENSE', label: 'License' },
+      { href: `${siteConfig.social.github.repo}/blob/master/LICENSE`, label: 'License' },
+      { href: siteConfig.social.jenkins, label: 'Jenkins' },
+      { href: siteConfig.social.donate, label: 'Donate' },
     ],
   },
 ];
 
 const SOCIALS: SocialItem[] = [
   {
-    href: 'https://github.com/CanvasMC',
+    href: siteConfig.social.github.org,
     label: 'GitHub',
     Icon: ({ className }: { className: string }) => (
       <svg viewBox='0 0 24 24' className={className} fill='currentColor' aria-hidden='true' role='img'>
@@ -58,7 +61,7 @@ const SOCIALS: SocialItem[] = [
     ),
   },
   {
-    href: 'https://discord.gg/canvasmc',
+    href: siteConfig.social.discord,
     label: 'Discord',
     Icon: ({ className }: { className: string }) => (
       <svg viewBox='0 0 24 24' className={className} fill='currentColor' aria-hidden='true' role='img'>
@@ -123,7 +126,7 @@ export function Footer() {
               multithreaded dimension ticking and improved chunk generation.
             </p>
 
-            <div className='mt-6 flex gap-3'>
+            <div className='mt-6 flex gap-4'>
               {SOCIALS.map(({ href, Icon, label }) => (
                 <a
                   key={href}
@@ -131,9 +134,9 @@ export function Footer() {
                   target='_blank'
                   rel='noopener noreferrer'
                   aria-label={`${label} (opens in new tab)`}
-                  className='rounded-md p-1.5 text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-neutral-100'
+                  className='text-neutral-300 transition-colors hover:text-neutral-100'
                 >
-                  <Icon className='h-5 w-5' />
+                  <Icon className='h-4.5 w-4.5' />
                 </a>
               ))}
             </div>
@@ -147,13 +150,15 @@ export function Footer() {
         </div>
 
         <div className='mt-8 flex flex-col items-start justify-between gap-4 border-t border-neutral-800/80 pt-8 text-sm sm:flex-row sm:items-center'>
-          <p className='text-neutral-400'>&copy; {currentYear} CanvasMC. Not affiliated with Mojang Studios.</p>
+          <p className='text-neutral-400'>
+            &copy; {currentYear} CanvasMC. Not affiliated with Mojang Studios or Microsoft.
+          </p>
           <div className='flex items-center gap-1 text-neutral-400'>
             <span>Built with</span>
             <Heart className='h-3 w-3' fill='currentColor' />
             <span>by the</span>
             <Link
-              href='/contributors'
+              href='/team'
               className='rounded text-neutral-400 underline underline-offset-2 transition-colors duration-200 hover:text-neutral-200 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:outline-none'
             >
               CanvasMC Team

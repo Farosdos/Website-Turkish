@@ -2,6 +2,7 @@
 
 import { ExternalLink, Menu, X } from 'lucide-react';
 import { cn } from '~/lib/utils';
+import { siteConfig } from '~/siteconfig';
 
 import { useState } from 'react';
 
@@ -21,11 +22,11 @@ const LINKS = {
     { href: '/downloads', label: 'Downloads' },
     { href: '/team', label: 'Team' },
     { href: 'https://docs.canvasmc.io', label: 'Docs', external: true },
-    { href: 'https://jenkins.canvasmc.io/job/Canvas/', label: 'Jenkins', external: true },
+    { href: siteConfig.social.jenkins, label: 'Jenkins', external: true },
   ],
   social: [
     {
-      href: 'https://github.com/CraftCanvasMC',
+      href: siteConfig.social.github.org,
       label: 'GitHub',
       external: true,
       icon: ({ className }: { className: string }) => (
@@ -36,7 +37,7 @@ const LINKS = {
       ),
     },
     {
-      href: 'https://discord.gg/canvasmc',
+      href: siteConfig.social.discord,
       label: 'Discord',
       external: true,
       icon: ({ className }: { className: string }) => (
@@ -125,7 +126,7 @@ export function Navbar() {
       {isOpen && (
         <div
           id='mobile-menu'
-          className='bg-background absolute top-15 right-0 left-0 border-b border-neutral-800 pt-5 md:hidden'
+          className='bg-background absolute top-15 right-0 left-0 border-t border-b border-neutral-800 pt-5 md:hidden'
           role='menu'
           aria-label='Mobile navigation'
         >

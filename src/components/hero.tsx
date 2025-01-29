@@ -20,15 +20,30 @@ export function Hero() {
 
           <p className='mt-6 text-base leading-7 text-neutral-300 sm:text-lg sm:leading-8'>
             Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations, featuring{' '}
-            <a href='#' className='text-white underline underline-offset-3'>
+            <a
+              href='https://github.com/CraftCanvasMC/Canvas/?tab=readme-ov-file#multithreaded-dimension-ticking'
+              className='text-white underline underline-offset-3'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               multithreaded dimension ticking
             </a>
             ,{' '}
-            <a href='#' className='text-white underline underline-offset-3'>
+            <a
+              href='https://github.com/CraftCanvasMC/Canvas/?tab=readme-ov-file#chunk-gen-optimizations'
+              className='text-white underline underline-offset-3'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               improved chunk generation
             </a>
             ,{' '}
-            <a href='#' className='text-white underline underline-offset-3'>
+            <a
+              href='https://github.com/CraftCanvasMC/Canvas/?tab=readme-ov-file#entity-optimizations'
+              className='text-white underline underline-offset-3'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               optimized entity handling
             </a>{' '}
             and many more! Built to soar.
@@ -63,15 +78,13 @@ export function Hero() {
                 src='/benchmark.gif'
                 alt='Canvas MC Performance Benchmark'
                 fill
+                unoptimized
                 className='rounded-lg object-cover'
                 priority
               />
-              <div className='absolute right-4 bottom-4 left-4 max-w-lg rounded-lg bg-neutral-900/80 p-3 backdrop-blur-sm'>
+              <div className='absolute right-4 bottom-4 left-4 max-w-md rounded-lg bg-neutral-900/80 p-3 backdrop-blur-sm'>
                 <p className='text-sm text-neutral-200'>
-                  CanvasMC with 1000 players doing random actions running on Ryzen 9 7950X3D,{' '}
-                  <a href='/benchmarks' className='text-white underline underline-offset-2'>
-                    checkout other benchmarks
-                  </a>
+                  CanvasMC with ~100,000 villagers on Ryzen 9 7950X3D
                 </p>
               </div>
             </div>

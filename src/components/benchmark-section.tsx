@@ -76,7 +76,7 @@ function BenchmarkTooltip({ active, payload }: BenchmarkTooltipProps) {
   return (
     <div className='rounded-lg border border-neutral-700 bg-neutral-900 p-3 shadow-xl'>
       {payload.map((entry) => (
-        <div key={entry.name} className='flex items-center gap-2'>
+        <div key={entry.name} className='flex items-center gap-1.5'>
           <div className='h-3 w-3 rounded-full' style={{ backgroundColor: entry.fill }} />
           <span className='text-neutral-300'>{entry.name}:</span>
           <span className='font-medium text-white'>
@@ -109,7 +109,12 @@ function BenchmarkCard({ data, colors, className, ...props }: BenchmarkCardProps
               tickMargin={8}
             />
             <Tooltip content={<BenchmarkTooltip />} cursor={{ fill: 'transparent' }} />
-            <Legend wrapperStyle={{ paddingTop: '1.5rem' }} />
+            <Legend
+              wrapperStyle={{ paddingTop: '1rem' }}
+              iconType='circle'
+              iconSize={10}
+              formatter={(value) => <span className='inline-block px-1'>{value}</span>}
+            />
             <Bar dataKey='Purpur' fill={colors.Purpur} radius={[4, 4, 0, 0]} />
             <Bar dataKey='Canvas' fill={colors.Canvas} radius={[4, 4, 0, 0]} />
             {data['Canvas (Alt)'] && (

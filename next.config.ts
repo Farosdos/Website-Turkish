@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import { siteConfig } from '~/siteconfig';
 
 const nextConfig: NextConfig = {
   eslint: {
@@ -16,6 +17,12 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
+    const socialRedirects = Object.entries(siteConfig.social).map(([key, value]) => ({
+      source: `/${key}`,
+      destination: key === 'github' && typeof value === 'object' ? value.org : (value as string),
+      permanent: false,
+    }));
+
     return [
       {
         source: '/api/latest',
@@ -32,6 +39,7 @@ const nextConfig: NextConfig = {
         destination: '/api/v1/specific',
         permanent: true,
       },
+      ...socialRedirects,
     ];
   },
 };
