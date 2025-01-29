@@ -26,7 +26,12 @@ export function CTASection() {
           </Button>
 
           <Button asChild variant='secondary' size='default' className='sm:size-lg w-full sm:w-auto'>
-            <a href='https://docs.canvasmc.io' target='_blank' rel='noopener noreferrer' className='inline-flex items-center gap-2'>
+            <a
+              href='https://docs.canvasmc.io'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='inline-flex items-center gap-2'
+            >
               Read Documentation
             </a>
           </Button>

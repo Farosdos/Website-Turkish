@@ -83,9 +83,7 @@ export function Hero() {
                 priority
               />
               <div className='absolute right-4 bottom-4 left-4 max-w-md rounded-lg bg-neutral-900/80 p-3 backdrop-blur-sm'>
-                <p className='text-sm text-neutral-200'>
-                  CanvasMC with ~100,000 villagers on Ryzen 9 7950X3D
-                </p>
+                <p className='text-sm text-neutral-200'>CanvasMC with ~100,000 villagers on Ryzen 9 7950X3D</p>
               </div>
             </div>
           </div>
