@@ -20,7 +20,7 @@ const LINKS = {
   nav: [
     { href: '/downloads', label: 'Downloads' },
     { href: '/team', label: 'Team' },
-    { href: '/docs', label: 'Docs' },
+    { href: 'https://docs.canvasmc.io', label: 'Docs', external: true },
     { href: 'https://jenkins.canvasmc.io/job/Canvas/', label: 'Jenkins', external: true },
   ],
   social: [
@@ -75,7 +75,7 @@ function NavbarLink({ href, label, external, icon: Icon, className }: NavLink & 
       ) : (
         <>
           {label}
-          {external && <ExternalLink className='ml-1.5 h-3.5 w-3.5' aria-hidden='true' />}
+          {external && <ExternalLink className='h-3.5 w-3.5' aria-hidden='true' />}
         </>
       )}
     </Comp>
