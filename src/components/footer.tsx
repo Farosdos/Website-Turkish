@@ -115,7 +115,7 @@ export function Footer() {
               href='/'
               className='inline-flex items-center gap-2 rounded-xl transition-opacity duration-200 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:outline-none'
             >
-              <Image src='/icon.png' alt='' width={28} height={28} className='rounded-xl' />
+              <Image src='/logo.png' alt='' width={28} height={28} className='rounded-xl' />
               <div>
                 <h2 className='text-base font-semibold'>CanvasMC</h2>
               </div>

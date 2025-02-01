@@ -95,7 +95,7 @@ export function Navbar() {
         <div className='flex h-15 items-center justify-between'>
           <div className='flex items-center space-x-6'>
             <Link href='/' className='flex items-center space-x-3 hover:opacity-90' aria-label='CanvasMC Home'>
-              <Image src='/icon.png' alt='' width={32} height={32} className='rounded-md' priority />
+              <Image src='/logo.png' alt='' width={32} height={32} className='rounded-md' priority />
               <span className='text-sm font-semibold'>CanvasMC</span>
             </Link>
             <div className='hidden md:flex md:space-x-4' role='menubar'>

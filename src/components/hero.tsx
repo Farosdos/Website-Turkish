@@ -74,16 +74,9 @@ export function Hero() {
         <div className='mt-16 sm:mt-20'>
           <div className='relative overflow-hidden rounded-xl bg-neutral-800/50 p-2 ring-1 shadow-2xl shadow-neutral-900/50 ring-neutral-700/50 backdrop-blur-sm'>
             <div className='relative aspect-video'>
-              <Image
-                src='/benchmark.gif'
-                alt='Canvas MC Performance Benchmark'
-                fill
-                unoptimized
-                className='rounded-lg object-cover'
-                priority
-              />
+              <Image src='/preview.webp' alt='Canvas MC Preview' fill className='rounded-lg object-cover' priority />
               <div className='absolute right-4 bottom-4 left-4 max-w-md rounded-lg bg-neutral-900/80 p-3 backdrop-blur-sm'>
-                <p className='text-sm text-neutral-200'>CanvasMC with ~100,000 villagers on Ryzen 9 7950X3D</p>
+                <p className='text-sm text-neutral-200'>CanvasMC with ~1,500 villagers on Ryzen 5 7600</p>
               </div>
             </div>
           </div>
