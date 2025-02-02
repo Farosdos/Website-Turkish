@@ -10,7 +10,6 @@ export default function NotFound() {
       <GradientBackground />
 
       <div className='mx-auto w-full max-w-2xl px-6 text-center sm:px-8 lg:px-12'>
-
         <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl'>We've lost this page</h1>
 
         <p className='mt-4 text-base leading-7 text-neutral-300 sm:text-lg'>
