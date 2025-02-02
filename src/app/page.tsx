@@ -5,11 +5,11 @@ import { Hero } from '~/components/hero';
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Hero />
       <FeaturesSection />
       <BenchmarkSection />
       <CTASection />
-    </main>
+    </>
   );
 }
