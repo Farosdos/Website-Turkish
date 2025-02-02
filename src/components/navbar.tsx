@@ -22,11 +22,11 @@ const LINKS = {
     { href: '/downloads', label: 'Downloads' },
     { href: '/team', label: 'Team' },
     { href: 'https://docs.canvasmc.io', label: 'Docs', external: true },
-    { href: siteConfig.social.jenkins, label: 'Jenkins', external: true },
+    { href: siteConfig.links.jenkins, label: 'Jenkins', external: true },
   ],
   social: [
     {
-      href: siteConfig.social.github.org,
+      href: siteConfig.links.github.org,
       label: 'GitHub',
       external: true,
       icon: ({ className }: { className: string }) => (
@@ -37,7 +37,7 @@ const LINKS = {
       ),
     },
     {
-      href: siteConfig.social.discord,
+      href: siteConfig.links.discord,
       label: 'Discord',
       external: true,
       icon: ({ className }: { className: string }) => (
@@ -94,8 +94,8 @@ export function Navbar() {
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='flex h-15 items-center justify-between'>
           <div className='flex items-center space-x-6'>
-            <Link href='/' className='flex items-center space-x-3 hover:opacity-90' aria-label='CanvasMC Home'>
-              <Image src='/logo.png' alt='' width={32} height={32} className='rounded-md' priority />
+            <Link href='/' className='flex items-center space-x-2 hover:opacity-90' aria-label='CanvasMC Home'>
+              <Image src='/logo.png' alt='' width={28} height={28} className='rounded-md' priority />
               <span className='text-sm font-semibold'>CanvasMC</span>
             </Link>
             <div className='hidden md:flex md:space-x-4' role='menubar'>

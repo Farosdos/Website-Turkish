@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
-    const socialRedirects = Object.entries(siteConfig.social).map(([key, value]) => ({
+    const socialRedirects = Object.entries(siteConfig.links).map(([key, value]) => ({
       source: `/${key}`,
       destination: key === 'github' && typeof value === 'object' ? value.org : (value as string),
       permanent: false,

@@ -1,5 +1,5 @@
 export const siteConfig = {
-  social: {
+  links: {
     discord: 'https://discord.gg/ySfW4QZsRV',
     github: {
       org: 'https://github.com/CraftCanvasMC',

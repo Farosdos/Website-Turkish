@@ -27,31 +27,31 @@ const LINK_SECTIONS: { title: string; links: LinkItem[] }[] = [
     title: 'Getting Started',
     links: [
       { href: '/downloads', label: 'Downloads' },
-      { href: '/docs', label: 'Documentation' },
+      { href: 'https://docs.canvasmc.io', label: 'Documentation' },
     ],
   },
   {
     title: 'Community',
     links: [
-      { href: siteConfig.social.discord, label: 'Discord' },
-      { href: siteConfig.social.github.org, label: 'GitHub' },
-      { href: `${siteConfig.social.github.repo}/issues`, label: 'Issues' },
+      { href: siteConfig.links.discord, label: 'Discord' },
+      { href: siteConfig.links.github.org, label: 'GitHub' },
+      { href: `${siteConfig.links.github.repo}/issues`, label: 'Issues' },
     ],
   },
   {
     title: 'CanvasMC',
     links: [
       { href: '/team', label: 'Team' },
-      { href: `${siteConfig.social.github.repo}/blob/master/LICENSE`, label: 'License' },
-      { href: siteConfig.social.jenkins, label: 'Jenkins' },
-      { href: siteConfig.social.donate, label: 'Donate' },
+      { href: `${siteConfig.links.github.repo}/blob/master/LICENSE`, label: 'License' },
+      { href: siteConfig.links.jenkins, label: 'Jenkins' },
+      { href: siteConfig.links.donate, label: 'Donate' },
     ],
   },
 ];
 
 const SOCIALS: SocialItem[] = [
   {
-    href: siteConfig.social.github.org,
+    href: siteConfig.links.github.org,
     label: 'GitHub',
     Icon: ({ className }: { className: string }) => (
       <svg viewBox='0 0 24 24' className={className} fill='currentColor' aria-hidden='true' role='img'>
@@ -61,7 +61,7 @@ const SOCIALS: SocialItem[] = [
     ),
   },
   {
-    href: siteConfig.social.discord,
+    href: siteConfig.links.discord,
     label: 'Discord',
     Icon: ({ className }: { className: string }) => (
       <svg viewBox='0 0 24 24' className={className} fill='currentColor' aria-hidden='true' role='img'>

@@ -52,7 +52,7 @@ export default async function DownloadsPage() {
 
               <Button size='lg' asChild variant='secondary' className='mt-6 sm:mt-8'>
                 <a
-                  href={siteConfig.social.github.repo}
+                  href={siteConfig.links.github.repo}
                   target='_blank'
                   rel='noopener noreferrer'
                   className='inline-flex items-center gap-2'
