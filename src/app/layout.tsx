@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
 import { cn } from '~/lib/utils';
@@ -13,6 +13,10 @@ const geist = Geist({
   display: 'swap',
   preload: true,
 });
+
+export const viewport: Viewport = {
+  themeColor: '#44b5b4',
+};
 
 export const metadata: Metadata = {
   title: {
