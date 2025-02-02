@@ -19,6 +19,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://canvasmc.io'),
   title: {
     default: 'CanvasMC',
     template: '%s | CanvasMC',
