@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export function CTASection() {
   return (
-    <section className='relative mx-auto max-w-7xl px-4 py-16 pb-24 sm:px-6 sm:py-24 sm:pb-32 lg:px-8 lg:pb-40'>
+    <section className='relative mx-auto max-w-7xl px-6 py-20 pb-32 sm:px-8 sm:py-28 sm:pb-40 lg:px-12'>
       <div className='mx-auto max-w-2xl text-center'>
         <h2 className='text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl'>
           Ready to supercharge your Minecraft server?
@@ -18,14 +18,14 @@ export function CTASection() {
         </p>
 
         <div className='mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row'>
-          <Button asChild size='default' className='sm:size-lg w-full sm:w-auto'>
+          <Button asChild className='sm:size-lg w-full sm:w-auto'>
             <Link href='/downloads' className='inline-flex items-center gap-2'>
               Get Started
               <ArrowRight className='h-4 w-4' />
             </Link>
           </Button>
 
-          <Button asChild variant='secondary' size='default' className='sm:size-lg w-full sm:w-auto'>
+          <Button asChild variant='secondary' className='sm:size-lg w-full sm:w-auto'>
             <a
               href='https://docs.canvasmc.io'
               target='_blank'

@@ -26,9 +26,7 @@ type BenchmarkTooltipProps = {
     name: string;
     value: number;
     fill: string;
-    payload: {
-      unit: string;
-    };
+    payload: { unit: string };
   }[];
 };
 
@@ -134,7 +132,7 @@ function BenchmarkCard({ data, colors, className, ...props }: BenchmarkCardProps
 
 export function BenchmarkSection() {
   return (
-    <section className='mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
+    <section className='mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12'>
       <div className='mx-auto text-center'>
         <h2 className='text-2xl font-bold tracking-tight text-white sm:text-3xl'>Performance Benchmarks</h2>
         <p className='mx-auto mt-4 max-w-2xl text-neutral-300'>

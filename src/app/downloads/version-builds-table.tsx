@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Download, GitCommit } from 'lucide-react';
 import { z } from 'zod';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
+import { Pill } from '~/components/ui/pill';
 import { BuildSchema } from '~/lib/jenkins';
 import { cn } from '~/lib/utils';
 
@@ -71,7 +72,9 @@ export function VersionBuildsTable({ version, builds }: { version: string; build
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Minecraft {version}</CardTitle>
+        <CardTitle className='flex items-center gap-2'>
+          Minecraft {version} <Pill variant='warning'>Experimental</Pill>
+        </CardTitle>
         {totalPages > 1 && (
           <div className='flex items-center gap-3 text-sm text-neutral-400'>
             <Button

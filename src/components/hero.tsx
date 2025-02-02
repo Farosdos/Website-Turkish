@@ -8,13 +8,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export function Hero() {
+  const scrollToFeatures = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.getElementById('features')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  };
+
   return (
-    <div className='relative isolate'>
+    <section className='relative isolate'>
       <GradientBackground />
 
-      <div className='mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
+      <div className='mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12'>
         <div className='mx-auto max-w-3xl text-center'>
-          <h1 className='text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl'>
+          <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl'>
             Heavily optimized Minecraft server software
           </h1>
 
@@ -54,34 +62,31 @@ export function Hero() {
               <Link href='/downloads'>Go to Downloads</Link>
             </Button>
             <Button asChild variant='ghost' className='w-full sm:w-auto'>
-              <Link
-                href='#features'
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('features')?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center',
-                  });
-                }}
-              >
+              <a href='#features' onClick={scrollToFeatures}>
                 Learn more
-                <ArrowRight className='ml-2 h-4 w-4' />
-              </Link>
+                <ArrowRight className='ml-2 h-4 w-4' aria-hidden='true' />
+              </a>
             </Button>
           </div>
         </div>
 
         <div className='mt-16 sm:mt-20'>
           <div className='relative overflow-hidden rounded-xl bg-neutral-800/50 p-2 ring-1 shadow-2xl shadow-neutral-900/50 ring-neutral-700/50 backdrop-blur-sm'>
-            <div className='relative aspect-video'>
-              <Image src='/preview.webp' alt='Canvas MC Preview' fill className='rounded-lg object-cover' priority />
-              <div className='absolute right-4 bottom-4 left-4 max-w-md rounded-lg bg-neutral-900/80 p-3 backdrop-blur-sm'>
-                <p className='text-sm text-neutral-200'>CanvasMC with ~1,500 villagers on Ryzen 5 7600</p>
-              </div>
-            </div>
+            <figure className='relative aspect-video'>
+              <Image
+                src='/preview.webp'
+                alt='Performance demonstration showing Canvas MC running with approximately 1,500 villagers on a Ryzen 5 7600 processor'
+                fill
+                className='rounded-lg object-cover'
+                priority
+              />
+              <figcaption className='absolute right-4 bottom-4 left-4 max-w-md rounded-lg bg-neutral-900/80 p-3 text-sm text-neutral-200 backdrop-blur-sm'>
+                CanvasMC with ~1,500 villagers on Ryzen 5 7600
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

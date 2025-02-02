@@ -59,6 +59,7 @@ export default function RootLayout({
           'antialiased',
           'bg-background text-foreground font-sans',
           'min-h-screen supports-[height:100dvh]:min-h-dvh',
+          'selection:bg-neutral-700/50 selection:text-neutral-100',
         )}
       >
         <Navbar />
