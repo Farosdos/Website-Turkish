@@ -1,7 +1,7 @@
 'use client';
 
 import { Heart } from 'lucide-react';
-import { siteConfig } from '~/siteconfig';
+import { siteConfig } from '~/config/site';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -117,7 +117,7 @@ export function Footer() {
             >
               <Image src='/logo.png' alt='' width={28} height={28} className='rounded-xl' />
               <div>
-                <h2 className='text-base font-semibold'>CanvasMC</h2>
+                <h2 className='text-base font-semibold'>{siteConfig.name}</h2>
               </div>
             </Link>
 
@@ -151,7 +151,7 @@ export function Footer() {
 
         <div className='mt-8 flex flex-col items-start justify-between gap-4 border-t border-neutral-800/80 pt-8 text-sm sm:flex-row sm:items-center'>
           <p className='text-neutral-400'>
-            &copy; {currentYear} CanvasMC. Not affiliated with Mojang Studios or Microsoft.
+            &copy; {currentYear} {siteConfig.name}. Not affiliated with Mojang Studios or Microsoft.
           </p>
           <div className='flex items-center gap-1 text-neutral-400'>
             <span>Built with</span>
@@ -161,7 +161,7 @@ export function Footer() {
               href='/team'
               className='rounded text-neutral-400 underline underline-offset-2 transition-colors duration-200 hover:text-neutral-200 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:outline-none'
             >
-              CanvasMC Team
+              {siteConfig.name} Team
             </Link>
           </div>
         </div>

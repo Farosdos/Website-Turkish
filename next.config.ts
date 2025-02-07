@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import { siteConfig } from '~/siteconfig';
+import { siteConfig } from '~/config/site';
 
 const nextConfig: NextConfig = {
   eslint: {

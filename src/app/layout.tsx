@@ -1,6 +1,7 @@
 import { Metadata, Viewport } from 'next';
 import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
+import { siteConfig } from '~/config/site';
 import { cn } from '~/lib/utils';
 
 import { Geist } from 'next/font/google';
@@ -19,22 +20,21 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://canvasmc.io'),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'CanvasMC',
-    template: '%s | CanvasMC',
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
   description:
     'Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations, featuring multithreaded dimension ticking, optimized chunk generation and many more! Built to soar.',
   openGraph: {
-    url: 'https://canvasmc.io',
-    siteName: 'CanvasMC',
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'CanvasMC Open Graph Image',
       },
     ],
     locale: 'en_US',

@@ -1,8 +1,8 @@
 'use client';
 
 import { ExternalLink, Menu, X } from 'lucide-react';
+import { siteConfig } from '~/config/site';
 import { cn } from '~/lib/utils';
-import { siteConfig } from '~/siteconfig';
 
 import { useState } from 'react';
 
@@ -96,7 +96,7 @@ export function Navbar() {
           <div className='flex items-center space-x-6'>
             <Link href='/' className='flex items-center space-x-2 hover:opacity-90' aria-label='CanvasMC Home'>
               <Image src='/logo.png' alt='' width={28} height={28} className='rounded-md' priority />
-              <span className='text-sm font-semibold'>CanvasMC</span>
+              <span className='text-sm font-semibold'>{siteConfig.name}</span>
             </Link>
             <div className='hidden md:flex md:space-x-4' role='menubar'>
               {LINKS.nav.map((link) => (

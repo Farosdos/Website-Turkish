@@ -2,8 +2,8 @@ import { Download } from 'lucide-react';
 import { z } from 'zod';
 import { Button } from '~/components/ui/button';
 import { GradientBackground } from '~/components/ui/gradient-background';
+import { siteConfig } from '~/config/site';
 import { BuildSchema, getBuilds } from '~/lib/jenkins';
-import { siteConfig } from '~/siteconfig';
 
 import { VersionBuildsTable } from './version-builds-table';
 

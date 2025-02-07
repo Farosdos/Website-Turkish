@@ -1,4 +1,6 @@
 export const siteConfig = {
+  name: 'CanvasMC',
+  url: 'https://canvasmc.io',
   links: {
     discord: 'https://discord.gg/ySfW4QZsRV',
     github: {
@@ -9,3 +11,5 @@ export const siteConfig = {
     donate: 'https://ko-fi.com/dueris',
   },
 };
+
+export type SiteConfig = typeof siteConfig;
