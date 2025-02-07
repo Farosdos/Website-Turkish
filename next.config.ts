@@ -25,18 +25,8 @@ const nextConfig: NextConfig = {
 
     return [
       {
-        source: '/api/latest',
-        destination: '/api/v1/latest',
-        permanent: true,
-      },
-      {
-        source: '/api/builds',
-        destination: '/api/v1/builds',
-        permanent: true,
-      },
-      {
-        source: '/api/specific',
-        destination: '/api/v1/specific',
+        source: '/api/:rest((?:[^v].*|v(?:[^12].*|$)))',
+        destination: '/api/v1/:rest*',
         permanent: true,
       },
       ...socialRedirects,
