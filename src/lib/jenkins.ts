@@ -67,9 +67,7 @@ export async function getLatestBuild(includeExperimental = false): Promise<Build
     includeExperimental,
   });
 
-  if (!builds.length) {
-    return null;
-  }
+  if (!builds.length) throw new JenkinsError('No builds found');
 
   return builds[0];
 }
