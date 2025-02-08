@@ -1,4 +1,5 @@
 import { Metadata, Viewport } from 'next';
+import PlausibleProvider from 'next-plausible';
 import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
 import { siteConfig } from '~/config/site';
@@ -53,21 +54,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' style={{ colorScheme: 'dark' }} suppressHydrationWarning>
-      <body
-        className={cn(
-          geist.variable,
-          'antialiased',
-          'bg-background text-foreground font-sans',
-          'min-h-screen supports-[height:100dvh]:min-h-dvh',
-          'selection:bg-neutral-700/50 selection:text-neutral-100',
-        )}
-      >
-        <Navbar />
-        <main role='main' className='mt-15'>
-          {children}
-        </main>
-        <Footer />
-      </body>
+      <PlausibleProvider domain={new URL(siteConfig.url).hostname} trackFileDownloads trackOutboundLinks>
+        <body
+          className={cn(
+            geist.variable,
+            'antialiased',
+            'bg-background text-foreground font-sans',
+            'min-h-screen supports-[height:100dvh]:min-h-dvh',
+            'selection:bg-neutral-700/50 selection:text-neutral-100',
+          )}
+        >
+          <Navbar />
+          <main role='main' className='mt-15'>
+            {children}
+          </main>
+          <Footer />
+        </body>
+      </PlausibleProvider>
     </html>
   );
 }
