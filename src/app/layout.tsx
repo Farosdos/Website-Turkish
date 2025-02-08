@@ -2,6 +2,7 @@ import { Metadata, Viewport } from 'next';
 import PlausibleProvider from 'next-plausible';
 import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
+import { plausibleConfig } from '~/config/plausible';
 import { siteConfig } from '~/config/site';
 import { geist } from '~/lib/fonts';
 import { cn } from '~/lib/utils';
@@ -45,7 +46,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' style={{ colorScheme: 'dark' }} suppressHydrationWarning>
-      <PlausibleProvider domain={new URL(siteConfig.url).hostname} trackFileDownloads trackOutboundLinks>
+      <PlausibleProvider
+        customDomain={plausibleConfig.customDomain}
+        domain={new URL(siteConfig.url).hostname}
+        trackFileDownloads
+        trackOutboundLinks
+      >
         <body
           className={cn(
             geist.variable,
