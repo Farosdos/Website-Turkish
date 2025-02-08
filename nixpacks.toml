@@ -1,0 +1,5 @@
+[phases.build]
+cmds = ["bun --bun run build"]
+
+[start]
+cmd = "bun --bun run start"
