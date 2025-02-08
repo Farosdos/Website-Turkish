@@ -1,6 +1,7 @@
 export const siteConfig = {
   name: 'CanvasMC',
   url: 'https://canvasmc.io',
+  description: 'Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations.',
   links: {
     discord: 'https://discord.gg/ySfW4QZsRV',
     github: {
@@ -10,6 +11,4 @@ export const siteConfig = {
     jenkins: 'https://jenkins.canvasmc.io/',
     donate: 'https://ko-fi.com/dueris',
   },
-};
-
-export type SiteConfig = typeof siteConfig;
+} as const;

@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
-  description:
-    'Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations, featuring multithreaded dimension ticking, optimized chunk generation and many more! Built to soar.',
+  description: siteConfig.description,
+  keywords: ['CanvasMC', 'PaperMC', 'Purpur', 'Performance', 'Multithreading'],
   openGraph: {
-    url: siteConfig.url,
+    url: new URL(siteConfig.url),
     siteName: siteConfig.name,
     images: [
       {
