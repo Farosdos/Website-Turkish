@@ -47,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang='en' style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <PlausibleProvider
+        selfHosted
         customDomain={plausibleConfig.customDomain}
         domain={new URL(siteConfig.url).hostname}
         trackFileDownloads
