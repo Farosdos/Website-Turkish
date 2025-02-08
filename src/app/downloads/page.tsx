@@ -1,9 +1,9 @@
 import { Download } from 'lucide-react';
-import { z } from 'zod';
 import { Button } from '~/components/ui/button';
 import { GradientBackground } from '~/components/ui/gradient-background';
 import { siteConfig } from '~/config/site';
-import { BuildSchema, getBuilds } from '~/lib/jenkins';
+import { getBuilds } from '~/lib/jenkins';
+import { Build } from '~/lib/schemas/jenkins';
 
 import { VersionBuildsTable } from './version-builds-table';
 
@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 export default async function DownloadsPage() {
   const builds = await getBuilds();
 
-  const buildsByVersion = builds.reduce<Record<string, z.infer<typeof BuildSchema>[]>>((grouped, build) => {
+  const buildsByVersion = builds.reduce<Record<string, Build[]>>((grouped, build) => {
     const versionBuilds = grouped[build.minecraftVersion] || [];
     grouped[build.minecraftVersion] = [...versionBuilds, build];
     return grouped;

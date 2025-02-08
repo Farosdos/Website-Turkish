@@ -1,11 +1,10 @@
 'use client';
 
 import { ChevronLeft, ChevronRight, Download, GitCommit } from 'lucide-react';
-import { z } from 'zod';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Pill } from '~/components/ui/pill';
-import { BuildSchema } from '~/lib/jenkins';
+import { Build } from '~/lib/schemas/jenkins';
 import { cn } from '~/lib/utils';
 
 import { useState } from 'react';
@@ -13,7 +12,7 @@ import { useState } from 'react';
 const BUILDS_PER_PAGE = 6;
 
 type TableRowProps = {
-  build: z.infer<typeof BuildSchema>;
+  build: Build;
   isLatest: boolean;
 };
 
@@ -62,7 +61,7 @@ function TableRow({ build, isLatest }: TableRowProps) {
   );
 }
 
-export function VersionBuildsTable({ version, builds }: { version: string; builds: z.infer<typeof BuildSchema>[] }) {
+export function VersionBuildsTable({ version, builds }: { version: string; builds: Build[] }) {
   const [page, setPage] = useState(1);
   const totalPages = Math.ceil(builds.length / BUILDS_PER_PAGE);
   const latestBuild = builds[0];
