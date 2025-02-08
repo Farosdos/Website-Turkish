@@ -24,13 +24,7 @@ export function middleware(request: NextRequest) {
   if (!result.isAllowed) {
     return NextResponse.json(
       { error: 'Too many requests' },
-      {
-        status: 429,
-        headers: {
-          ...result.headers,
-          'Content-Type': 'application/json',
-        },
-      },
+      { status: 429, headers: result.headers, },
     );
   }
 
