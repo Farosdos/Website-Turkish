@@ -3,18 +3,9 @@ import PlausibleProvider from 'next-plausible';
 import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
 import { siteConfig } from '~/config/site';
+import { geist } from '~/lib/fonts';
 import { cn } from '~/lib/utils';
-
-import { Geist } from 'next/font/google';
-
-import './globals.css';
-
-const geist = Geist({
-  variable: '--font-sans',
-  subsets: ['latin'],
-  display: 'swap',
-  preload: true,
-});
+import '~/styles/globals.css';
 
 export const viewport: Viewport = {
   themeColor: '#44b5b4',
