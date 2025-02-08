@@ -8,7 +8,7 @@ export async function GET(request: Request) {
     const build = await getLatestBuild(searchParams.get('experimental') === 'true');
 
     return NextResponse.json(build, {
-      headers: { 'Cache-Control': 'public, s-maxage=60' },
+      headers: { 'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=300' },
     });
   } catch (error) {
     console.error(error);
