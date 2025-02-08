@@ -1,4 +1,4 @@
-import { getBuilds } from '~/lib/jenkins';
+import { JenkinsError, getBuilds } from '~/lib/jenkins';
 
 import { NextResponse } from 'next/server';
 
@@ -14,6 +14,10 @@ export async function GET(request: Request) {
       headers: { 'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=300' },
     });
   } catch (error) {
+    if (error instanceof JenkinsError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
     console.error(error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
