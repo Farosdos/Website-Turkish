@@ -99,7 +99,7 @@ function Contributor({ url, avatar, username }: { url: string; avatar: string; u
 }
 
 export default async function TeamPage() {
-  const repos = ['Canvas', 'Website', 'Docs', 'Easel'];
+  const repos = ['Canvas', 'Website', 'Docs'];
   const responses = await Promise.all(
     repos.map((repo) =>
       fetch(`https://api.github.com/repos/CraftCanvasMC/${repo}/contributors`, {
