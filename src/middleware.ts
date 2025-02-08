@@ -22,10 +22,7 @@ export function middleware(request: NextRequest) {
   if (!result) return NextResponse.next();
 
   if (!result.isAllowed) {
-    return NextResponse.json(
-      { error: 'Too many requests' },
-      { status: 429, headers: result.headers, },
-    );
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429, headers: result.headers });
   }
 
   const response = NextResponse.next();
