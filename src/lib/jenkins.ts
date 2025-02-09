@@ -11,7 +11,7 @@ export class JenkinsError extends Error {
 
 function parseBuild(build: JenkinsBuild): Build {
   const isExperimental = build.displayName.endsWith('(Experimental)');
-  const versionMatch = build.displayName.match(/-([\d.]+)/);
+  const versionMatch = build.displayName.match(/\s*-\s*([\d.]+)/);
 
   return {
     buildNumber: build.number,
