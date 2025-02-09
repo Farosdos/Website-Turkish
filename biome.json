@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["bun.lock"]
+    "ignore": ["bun.lock", "src/app/api/(deprecated)"]
   },
   "formatter": {
     "enabled": true,
@@ -39,7 +39,8 @@
         "useExplicitType": "off",
         "useConsistentCurlyBraces": "off",
         "useComponentExportOnlyModules": "off",
-        "noSecrets": "off"
+        "noSecrets": "off",
+        "noProcessEnv": "off"
       },
       "performance": {
         "all": true,
@@ -50,7 +51,8 @@
         "noImplicitBoolean": "off",
         "useNamingConvention": "off",
         "useBlockStatements": "off",
-        "noDefaultExport": "off"
+        "noDefaultExport": "off",
+        "useExplicitLengthCheck": "off"
       },
       "suspicious": {
         "all": true,

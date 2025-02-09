@@ -117,6 +117,7 @@ export function Navbar() {
           </div>
 
           <button
+            type='button'
             onClick={() => setIsOpen(p => !p)}
             className='inline-flex items-center justify-center rounded-md p-2.5 text-neutral-300 transition-colors hover:bg-neutral-800 md:hidden'
             aria-expanded={isOpen}

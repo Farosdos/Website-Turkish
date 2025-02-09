@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export function Hero() {
-  const scrollToFeatures = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const scrollToFeatures = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     document.getElementById('features')?.scrollIntoView({
       behavior: 'smooth',
@@ -63,10 +63,10 @@ export function Hero() {
               <Link href='/downloads'>Go to Downloads</Link>
             </Button>
             <Button asChild variant='ghost' className='w-full sm:w-auto'>
-              <a href='#features' onClick={scrollToFeatures}>
+              <button type='button' onClick={scrollToFeatures}>
                 Learn more
                 <ArrowRight className='ml-2 h-4 w-4' aria-hidden='true' />
-              </a>
+              </button>
             </Button>
           </div>
         </div>
