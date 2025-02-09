@@ -1,4 +1,4 @@
-import { Metadata, Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 import PlausibleProvider from 'next-plausible';
 import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
@@ -57,15 +57,13 @@ export default function RootLayout({
           className={cn(
             geist.variable,
             'antialiased',
-            'bg-background text-foreground font-sans',
+            'bg-background font-sans text-foreground',
             'min-h-screen supports-[height:100dvh]:min-h-dvh',
             'selection:bg-neutral-700/50 selection:text-neutral-100',
           )}
         >
           <Navbar />
-          <main role='main' className='mt-15'>
-            {children}
-          </main>
+          <main className='mt-15'>{children}</main>
           <Footer />
         </body>
       </PlausibleProvider>

@@ -1,6 +1,6 @@
 import { Ratelimiter } from '~/lib/ratelimiter';
 
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 const ratelimiter = new Ratelimiter({
   paths: {

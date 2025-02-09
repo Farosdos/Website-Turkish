@@ -1,6 +1,6 @@
 import { cn } from '~/lib/utils';
 
-import { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 
 interface GradientBackgroundProps extends HTMLAttributes<HTMLDivElement> {
   colors?: {
@@ -20,12 +20,15 @@ export function GradientBackground({
   return (
     <div
       aria-hidden='true'
-      className={cn('absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80', className)}
+      className={cn(
+        '-top-40 -z-10 sm:-top-80 absolute inset-x-0 transform-gpu overflow-hidden blur-3xl',
+        className,
+      )}
       {...props}
     >
       <div
         className={cn(
-          'relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr opacity-15 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]',
+          '-translate-x-1/2 relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] rotate-[30deg] bg-gradient-to-tr opacity-15 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]',
           colors.from,
           colors.to,
         )}

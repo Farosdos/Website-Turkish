@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, Download, GitCommit } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Pill } from '~/components/ui/pill';
-import { Build } from '~/lib/schemas/jenkins';
+import type { Build } from '~/lib/schemas/jenkins';
 import { cn } from '~/lib/utils';
 
 import { useState } from 'react';
@@ -18,15 +18,15 @@ type TableRowProps = {
 
 function TableRow({ build, isLatest }: TableRowProps) {
   return (
-    <tr className={cn('border-t border-neutral-700/50', isLatest && 'bg-neutral-800/50')}>
-      <td className='px-4 py-3 text-sm whitespace-nowrap'>#{build.buildNumber}</td>
-      <td className='px-4 py-3 whitespace-nowrap'>
+    <tr className={cn('border-neutral-700/50 border-t', isLatest && 'bg-neutral-800/50')}>
+      <td className='whitespace-nowrap px-4 py-3 text-sm'>#{build.buildNumber}</td>
+      <td className='whitespace-nowrap px-4 py-3'>
         {build.commit.hash && (
           <a
             href={`https://github.com/CraftCanvasMC/Canvas/commit/${build.commit.hash}`}
             target='_blank'
             rel='noopener noreferrer'
-            className='inline-flex items-center gap-1.5 text-sm text-neutral-400 hover:text-neutral-300'
+            className='inline-flex items-center gap-1.5 text-neutral-400 text-sm hover:text-neutral-300'
           >
             <GitCommit className='h-3.5 w-3.5' />
             {build.commit.hash?.slice(0, 7)}
@@ -42,7 +42,7 @@ function TableRow({ build, isLatest }: TableRowProps) {
           variant={isLatest ? 'default' : 'secondary'}
           asChild={!!build.downloadUrl}
           disabled={!build.downloadUrl}
-          className='h-8 px-4 text-sm font-medium'
+          className='h-8 px-4 font-medium text-sm'
         >
           {build.downloadUrl ? (
             <a href={build.downloadUrl} download className='flex items-center'>
@@ -75,11 +75,11 @@ export function VersionBuildsTable({ version, builds }: { version: string; build
           Minecraft {version} <Pill variant='warning'>Experimental</Pill>
         </CardTitle>
         {totalPages > 1 && (
-          <div className='flex items-center gap-3 text-sm text-neutral-400'>
+          <div className='flex items-center gap-3 text-neutral-400 text-sm'>
             <Button
               variant='ghost'
               size='sm'
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              onClick={() => setPage(p => Math.max(1, p - 1))}
               disabled={page === 1}
               className='h-8 w-8 p-0'
             >
@@ -91,7 +91,7 @@ export function VersionBuildsTable({ version, builds }: { version: string; build
             <Button
               variant='ghost'
               size='sm'
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
               className='h-8 w-8 p-0'
             >
@@ -103,8 +103,8 @@ export function VersionBuildsTable({ version, builds }: { version: string; build
 
       <CardContent>
         <div className='relative overflow-x-auto'>
-          <table className='w-full text-left text-sm text-neutral-300'>
-            <thead className='text-xs tracking-wider text-neutral-400 uppercase'>
+          <table className='w-full text-left text-neutral-300 text-sm'>
+            <thead className='text-neutral-400 text-xs uppercase tracking-wider'>
               <tr>
                 <th scope='col' className='px-4 py-3'>
                   Build
@@ -121,7 +121,7 @@ export function VersionBuildsTable({ version, builds }: { version: string; build
               </tr>
             </thead>
             <tbody>
-              {currentBuilds.map((build) => (
+              {currentBuilds.map(build => (
                 <TableRow
                   key={build.buildNumber}
                   build={build}

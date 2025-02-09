@@ -75,23 +75,26 @@ const SOCIALS: SocialItem[] = [
 function LinkColumn({ title, links }: LinkColumnProps) {
   return (
     <section className='space-y-3'>
-      <h3 className='text-sm font-medium'>{title}</h3>
-      <ul role='list' className='space-y-1.5'>
+      <h3 className='font-medium text-sm'>{title}</h3>
+      <ul className='space-y-1.5'>
         {links.map(({ href, label }) => {
           const isExternal = href.startsWith('http');
           return (
-            <li key={href} role='listitem'>
+            <li key={href}>
               {isExternal ? (
                 <a
                   href={href}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='text-sm text-neutral-400 transition-colors duration-200 hover:text-white'
+                  className='text-neutral-400 text-sm transition-colors duration-200 hover:text-white'
                 >
                   {label}
                 </a>
               ) : (
-                <Link href={href} className='text-sm text-neutral-400 transition-colors duration-200 hover:text-white'>
+                <Link
+                  href={href}
+                  className='text-neutral-400 text-sm transition-colors duration-200 hover:text-white'
+                >
                   {label}
                 </Link>
               )}
@@ -107,23 +110,23 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className='bg-background/50 border-t border-neutral-800/80 backdrop-blur-xl'>
+    <footer className='border-neutral-800/80 border-t bg-background/50 backdrop-blur-xl'>
       <div className='container mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8'>
         <div className='grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-5'>
           <section className='text-left lg:col-span-2'>
             <Link
               href='/'
-              className='inline-flex items-center gap-2 rounded-xl transition-opacity duration-200 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:outline-none'
+              className='inline-flex items-center gap-2 rounded-xl transition-opacity duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20'
             >
               <Image src='/logo.png' alt='' width={28} height={28} className='rounded-xl' />
               <div>
-                <h2 className='text-base font-semibold'>{siteConfig.name}</h2>
+                <h2 className='font-semibold text-base'>{siteConfig.name}</h2>
               </div>
             </Link>
 
-            <p className='mt-1 text-sm text-neutral-400'>
-              Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations, featuring
-              multithreaded dimension ticking and improved chunk generation.
+            <p className='mt-1 text-neutral-400 text-sm'>
+              Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations,
+              featuring multithreaded dimension ticking and improved chunk generation.
             </p>
 
             <div className='mt-6 flex gap-4'>
@@ -143,13 +146,13 @@ export function Footer() {
           </section>
 
           <div className='grid gap-8 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3'>
-            {LINK_SECTIONS.map((section) => (
+            {LINK_SECTIONS.map(section => (
               <LinkColumn key={section.title} title={section.title} links={section.links} />
             ))}
           </div>
         </div>
 
-        <div className='mt-8 flex flex-col items-start justify-between gap-4 border-t border-neutral-800/80 pt-8 text-sm sm:flex-row sm:items-center'>
+        <div className='mt-8 flex flex-col items-start justify-between gap-4 border-neutral-800/80 border-t pt-8 text-sm sm:flex-row sm:items-center'>
           <p className='text-neutral-400'>
             &copy; {currentYear} {siteConfig.name}. Not affiliated with Mojang Studios or Microsoft.
           </p>
@@ -159,7 +162,7 @@ export function Footer() {
             <span>by the</span>
             <Link
               href='/team'
-              className='rounded text-neutral-400 underline underline-offset-2 transition-colors duration-200 hover:text-neutral-200 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:outline-none'
+              className='rounded text-neutral-400 underline underline-offset-2 transition-colors duration-200 hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20'
             >
               {siteConfig.name} Team
             </Link>

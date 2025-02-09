@@ -3,7 +3,7 @@ import { Button } from '~/components/ui/button';
 import { GradientBackground } from '~/components/ui/gradient-background';
 import { siteConfig } from '~/config/site';
 import { getBuilds } from '~/lib/jenkins';
-import { Build } from '~/lib/schemas/jenkins';
+import type { Build } from '~/lib/schemas/jenkins';
 
 import { VersionBuildsTable } from './version-builds-table';
 
@@ -20,7 +20,10 @@ export default async function DownloadsPage() {
 
   const sortedVersions = Object.keys(buildsByVersion).sort().reverse();
   const sortedBuildsByVersion = Object.fromEntries(
-    sortedVersions.map((version) => [version, buildsByVersion[version].sort((a, b) => b.buildNumber - a.buildNumber)]),
+    sortedVersions.map(version => [
+      version,
+      buildsByVersion[version].sort((a, b) => b.buildNumber - a.buildNumber),
+    ]),
   );
 
   const latestBuild = sortedBuildsByVersion[sortedVersions[0]]?.[0];
@@ -31,7 +34,7 @@ export default async function DownloadsPage() {
 
       <article className='mx-auto max-w-7xl px-6 py-16 pb-32 sm:px-8 sm:py-20 sm:pb-40 lg:px-12'>
         <header className='mx-auto max-w-3xl text-center'>
-          <h1 className='text-3xl font-bold sm:text-4xl lg:text-5xl'>Downloads</h1>
+          <h1 className='font-bold text-3xl sm:text-4xl lg:text-5xl'>Downloads</h1>
           <p className='mt-4 text-neutral-300 sm:text-lg'>
             Get the latest builds of CanvasMC for your Minecraft server.
           </p>
@@ -68,8 +71,12 @@ export default async function DownloadsPage() {
           )}
         </header>
 
-        <div className='mt-12 space-y-8 sm:mt-16 sm:space-y-10' role='region' aria-label='Available builds by version'>
-          {sortedVersions.map((version) => (
+        <div
+          className='mt-12 space-y-8 sm:mt-16 sm:space-y-10'
+          role='region'
+          aria-label='Available builds by version'
+        >
+          {sortedVersions.map(version => (
             <VersionBuildsTable key={version} version={version} builds={sortedBuildsByVersion[version]} />
           ))}
         </div>

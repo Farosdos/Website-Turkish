@@ -33,7 +33,10 @@ type BuildOptions = {
 };
 
 export async function getBuilds(options?: BuildOptions): Promise<Build[]> {
-  const url = new URL(`job/${jenkinsConfig.job}/api/json?tree=${jenkinsConfig.treeQuery}`, jenkinsConfig.baseUrl);
+  const url = new URL(
+    `job/${jenkinsConfig.job}/api/json?tree=${jenkinsConfig.treeQuery}`,
+    jenkinsConfig.baseUrl,
+  );
 
   const res = await fetch(url.toString()).catch(() => {
     throw new JenkinsError('Failed to connect to Jenkins API');
@@ -56,7 +59,7 @@ export async function getBuilds(options?: BuildOptions): Promise<Build[]> {
     .filter((b): b is JenkinsBuild & { result: 'SUCCESS' } => !b.building && b.result === 'SUCCESS')
     .map(parseBuild)
     .filter(
-      (b) =>
+      b =>
         (!options?.minecraftVersion || b.minecraftVersion === options.minecraftVersion) &&
         (!b.isExperimental || options?.includeExperimental === true),
     );
@@ -67,7 +70,7 @@ export async function getLatestBuild(includeExperimental = false): Promise<Build
     includeExperimental,
   });
 
-  if (!builds.length) throw new JenkinsError('No builds found');
+  if (builds.length === 0) throw new JenkinsError('No builds found');
 
   return builds[0];
 }

@@ -26,9 +26,8 @@ export async function GET() {
           Location: artifactUrl,
         },
       });
-    } else {
-      return NextResponse.json({ error: 'No artifacts found in the latest build.' }, { status: 404 });
     }
+    return NextResponse.json({ error: 'No artifacts found in the latest build.' }, { status: 404 });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { type NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 const JENKINS_BASE_URL = 'https://jenkins.canvasmc.io';
 const JOB_API_URL = `${JENKINS_BASE_URL}/job/Canvas/api/json`;
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
     }
 
     const jobData = (await jobResponse.json()) as JenkinsJobData;
-    if (!jobData.builds?.length) {
+    if (jobData.builds?.length === 0) {
       return NextResponse.json({ error: 'No builds found.' }, { status: 404 });
     }
 

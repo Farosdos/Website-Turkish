@@ -22,12 +22,13 @@ export function Hero() {
 
       <div className='mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-28 lg:px-12'>
         <div className='mx-auto max-w-3xl text-center'>
-          <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl'>
+          <h1 className='font-bold text-3xl text-white tracking-tight sm:text-4xl lg:text-5xl'>
             Heavily optimized Minecraft server software
           </h1>
 
-          <p className='mt-6 text-base leading-7 text-neutral-300 sm:text-lg sm:leading-8'>
-            Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations, featuring{' '}
+          <p className='mt-6 text-base text-neutral-300 leading-7 sm:text-lg sm:leading-8'>
+            Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations,
+            featuring{' '}
             <a
               href='https://github.com/CraftCanvasMC/Canvas/?tab=readme-ov-file#multithreaded-dimension-ticking'
               className='text-white underline underline-offset-3'
@@ -71,7 +72,7 @@ export function Hero() {
         </div>
 
         <div className='mt-16 sm:mt-20'>
-          <div className='relative overflow-hidden rounded-xl bg-neutral-800/50 p-2 ring-1 shadow-2xl shadow-neutral-900/50 ring-neutral-700/50 backdrop-blur-sm'>
+          <div className='relative overflow-hidden rounded-xl bg-neutral-800/50 p-2 shadow-2xl shadow-neutral-900/50 ring-1 ring-neutral-700/50 backdrop-blur-sm'>
             <figure className='relative aspect-video'>
               <Image
                 src='/preview.webp'
@@ -80,7 +81,7 @@ export function Hero() {
                 className='rounded-lg object-cover'
                 priority
               />
-              <figcaption className='absolute right-4 bottom-4 left-4 max-w-md rounded-lg bg-neutral-900/80 p-3 text-sm text-neutral-200 backdrop-blur-sm'>
+              <figcaption className='absolute right-4 bottom-4 left-4 max-w-md rounded-lg bg-neutral-900/80 p-3 text-neutral-200 text-sm backdrop-blur-sm'>
                 CanvasMC with ~1,500 villagers on Ryzen 5 7600
               </figcaption>
             </figure>

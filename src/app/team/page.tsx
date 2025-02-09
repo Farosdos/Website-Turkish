@@ -65,7 +65,7 @@ function TeamMember({ name, role, github }: TeamMember) {
       </Avatar>
       <div>
         <h3 className='font-semibold text-white'>{name}</h3>
-        <p className='text-sm text-neutral-400'>{role}</p>
+        <p className='text-neutral-400 text-sm'>{role}</p>
       </div>
     </div>
   );
@@ -101,7 +101,7 @@ function Contributor({ url, avatar, username }: { url: string; avatar: string; u
 export default async function TeamPage() {
   const repos = ['Canvas', 'Website', 'Docs'];
   const responses = await Promise.all(
-    repos.map((repo) =>
+    repos.map(repo =>
       fetch(`https://api.github.com/repos/CraftCanvasMC/${repo}/contributors`, {
         headers: { Accept: 'application/vnd.github.v3+json' },
         next: { revalidate: 3600 },
@@ -109,14 +109,14 @@ export default async function TeamPage() {
     ),
   );
 
-  if (responses.some((res) => !res.ok)) {
+  if (responses.some(res => !res.ok)) {
     throw new Error('Failed to fetch contributors', { cause: responses });
   }
 
   const contributorMap = new Map();
 
   // process all responses and aggregate contributions
-  const contributorsData = await Promise.all(responses.map((res) => res.json()));
+  const contributorsData = await Promise.all(responses.map(res => res.json()));
   for (const contributors of contributorsData) {
     for (const contributor of contributors) {
       // skip gh actions bot
@@ -143,10 +143,10 @@ export default async function TeamPage() {
 
       <div className='mx-auto max-w-7xl px-6 py-16 pb-32 sm:px-8 sm:py-20 sm:pb-40 lg:px-12'>
         <header className='mx-auto max-w-3xl text-center'>
-          <h1 className='text-3xl font-bold sm:text-4xl lg:text-5xl'>Meet the Team behind CanvasMC</h1>
+          <h1 className='font-bold text-3xl sm:text-4xl lg:text-5xl'>Meet the Team behind CanvasMC</h1>
           <p className='mt-4 text-neutral-300 sm:text-lg'>
-            Our talented team and community contributors work together to develop and maintain CanvasMC, bringing you a
-            faster and more efficient Minecraft server experience.
+            Our talented team and community contributors work together to develop and maintain CanvasMC,
+            bringing you a faster and more efficient Minecraft server experience.
           </p>
 
           <div className='mt-6'>
@@ -170,13 +170,17 @@ export default async function TeamPage() {
         {Object.entries(TEAM_MEMBERS).map(
           ([teamName, { description, members }]) =>
             members.length > 0 && (
-              <section key={teamName} className='mt-12 sm:mt-16' aria-labelledby={`${teamName.toLowerCase()}-heading`}>
-                <h2 id={`${teamName.toLowerCase()}-heading`} className='text-2xl font-semibold text-white'>
+              <section
+                key={teamName}
+                className='mt-12 sm:mt-16'
+                aria-labelledby={`${teamName.toLowerCase()}-heading`}
+              >
+                <h2 id={`${teamName.toLowerCase()}-heading`} className='font-semibold text-2xl text-white'>
                   {teamName}
                 </h2>
                 <p className='mt-2 mb-6 text-neutral-300'>{description}</p>
                 <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-                  {members.map((member) => (
+                  {members.map(member => (
                     <TeamMember key={member.name} {...member} />
                   ))}
                 </div>
@@ -185,10 +189,12 @@ export default async function TeamPage() {
         )}
 
         <section className='mt-12 sm:mt-16' aria-labelledby='contributors-heading'>
-          <h2 id='contributors-heading' className='text-2xl font-semibold text-white'>
+          <h2 id='contributors-heading' className='font-semibold text-2xl text-white'>
             Contributors
           </h2>
-          <p className='mt-2 mb-6 text-neutral-300'>Our amazing contributors who help make CanvasMC better.</p>
+          <p className='mt-2 mb-6 text-neutral-300'>
+            Our amazing contributors who help make CanvasMC better.
+          </p>
           <div className='flex flex-wrap gap-4'>
             {contributors.map((contributor: { login: string; avatar_url: string; html_url: string }) => (
               <Contributor

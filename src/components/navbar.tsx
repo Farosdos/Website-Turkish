@@ -87,32 +87,37 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav
-      className='supports-[backdrop-filter]:bg-background/90 fixed top-0 right-0 left-0 z-50 border-b border-neutral-800 text-white backdrop-blur-sm'
-      role='navigation'
-    >
+    <nav className='fixed top-0 right-0 left-0 z-50 border-neutral-800 border-b text-white backdrop-blur-sm supports-[backdrop-filter]:bg-background/90'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='flex h-15 items-center justify-between'>
           <div className='flex items-center space-x-6'>
-            <Link href='/' className='flex items-center space-x-2 hover:opacity-90' aria-label='CanvasMC Home'>
+            <Link
+              href='/'
+              className='flex items-center space-x-2 hover:opacity-90'
+              aria-label='CanvasMC Home'
+            >
               <Image src='/logo.png' alt='' width={28} height={28} className='rounded-md' priority />
-              <span className='text-sm font-semibold'>{siteConfig.name}</span>
+              <span className='font-semibold text-sm'>{siteConfig.name}</span>
             </Link>
             <div className='hidden md:flex md:space-x-4' role='menubar'>
-              {LINKS.nav.map((link) => (
+              {LINKS.nav.map(link => (
                 <NavbarLink key={link.href} {...link} />
               ))}
             </div>
           </div>
 
-          <div className='hidden md:flex md:items-center md:space-x-5' role='menubar' aria-label='Social links'>
-            {LINKS.social.map((link) => (
+          <div
+            className='hidden md:flex md:items-center md:space-x-5'
+            role='menubar'
+            aria-label='Social links'
+          >
+            {LINKS.social.map(link => (
               <NavbarLink key={link.href} {...link} />
             ))}
           </div>
 
           <button
-            onClick={() => setIsOpen((p) => !p)}
+            onClick={() => setIsOpen(p => !p)}
             className='inline-flex items-center justify-center rounded-md p-2.5 text-neutral-300 transition-colors hover:bg-neutral-800 md:hidden'
             aria-expanded={isOpen}
             aria-controls='mobile-menu'
@@ -126,22 +131,22 @@ export function Navbar() {
       {isOpen && (
         <div
           id='mobile-menu'
-          className='bg-background absolute top-15 right-0 left-0 border-t border-b border-neutral-800 pt-5 md:hidden'
+          className='absolute top-15 right-0 left-0 border-neutral-800 border-t border-b bg-background pt-5 md:hidden'
           role='menu'
           aria-label='Mobile navigation'
         >
           <div className='space-y-1 px-2 pb-3'>
-            {LINKS.nav.map((link) => (
+            {LINKS.nav.map(link => (
               <NavbarLink
                 key={link.href}
                 {...link}
                 className='flex items-center rounded-md px-3 py-2 transition-colors hover:bg-neutral-800'
               />
             ))}
-            <div className='-mx-4 pt-3 sm:-mx-6 lg:-mx-8'>
-              <div className='border-t border-neutral-800'>
+            <div className='-mx-4 sm:-mx-6 lg:-mx-8 pt-3'>
+              <div className='border-neutral-800 border-t'>
                 <div className='flex gap-2 px-6 pt-3' role='menu' aria-label='Mobile social links'>
-                  {LINKS.social.map((link) => (
+                  {LINKS.social.map(link => (
                     <NavbarLink
                       key={link.href}
                       {...link}

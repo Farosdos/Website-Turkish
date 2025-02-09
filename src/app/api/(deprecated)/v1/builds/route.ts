@@ -28,7 +28,7 @@ export async function GET() {
     }
 
     const jobData = (await jobResponse.json()) as JenkinsJobData;
-    if (!jobData.builds?.length) {
+    if (jobData.builds?.length === 0) {
       return NextResponse.json({ error: 'No builds found.' }, { status: 404 });
     }
 

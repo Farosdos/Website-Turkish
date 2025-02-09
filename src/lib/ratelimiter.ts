@@ -1,6 +1,6 @@
 import { LRUCache } from 'lru-cache';
 
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 type RatelimitConfig = {
   limit: number;
