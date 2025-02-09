@@ -20,10 +20,7 @@ export default async function DownloadsPage() {
 
   const sortedVersions = Object.keys(buildsByVersion).sort().reverse();
   const sortedBuildsByVersion = Object.fromEntries(
-    sortedVersions.map(version => [
-      version,
-      buildsByVersion[version].sort((a, b) => b.buildNumber - a.buildNumber),
-    ]),
+    sortedVersions.map(version => [version, buildsByVersion[version].sort((a, b) => b.buildNumber - a.buildNumber)]),
   );
 
   const latestBuild = sortedBuildsByVersion[sortedVersions[0]]?.[0];

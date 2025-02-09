@@ -10,12 +10,7 @@ interface AvatarBaseProps extends React.ComponentPropsWithoutRef<typeof Root> {
 }
 
 export function Avatar({ className, ...props }: AvatarBaseProps) {
-  return (
-    <Root
-      className={cn('relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full', className)}
-      {...props}
-    />
-  );
+  return <Root className={cn('relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full', className)} {...props} />;
 }
 
 export function AvatarImage({ className, ...props }: React.ComponentPropsWithoutRef<typeof Image>) {

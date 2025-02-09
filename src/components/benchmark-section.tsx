@@ -136,8 +136,8 @@ export function BenchmarkSection() {
       <div className='mx-auto text-center'>
         <h2 className='font-bold text-2xl text-white tracking-tight sm:text-3xl'>Performance Benchmarks</h2>
         <p className='mx-auto mt-4 max-w-2xl text-neutral-300'>
-          Real-world performance comparisons between Canvas and Purpur. Lower is better for all metrics except
-          chunk generation.
+          Real-world performance comparisons between Canvas and Purpur. Lower is better for all metrics except chunk
+          generation.
         </p>
       </div>
 
@@ -150,8 +150,8 @@ export function BenchmarkSection() {
       <p className='mt-6 text-neutral-400 text-sm'>
         The benchmarks shown are tested on:
         <br />
-        32 GB - Intel(R) Core(TM) i9-14900HX 2.20 GHz - Windows 11, with the villagers test run on 16GB -
-        Intel(R) Core(TM) i5-6200U - Arch linux
+        32 GB - Intel(R) Core(TM) i9-14900HX 2.20 GHz - Windows 11, with the villagers test run on 16GB - Intel(R)
+        Core(TM) i5-6200U - Arch linux
       </p>
     </section>
   );

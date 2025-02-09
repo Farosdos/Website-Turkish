@@ -11,10 +11,7 @@ export function Card<T extends React.ElementType = 'div'>({ className, as, ...pr
   const Comp = as || 'div';
   return (
     <Comp
-      className={cn(
-        'rounded-xl bg-neutral-800/50 p-8 ring-1 ring-neutral-700/50 backdrop-blur-sm',
-        className,
-      )}
+      className={cn('rounded-xl bg-neutral-800/50 p-8 ring-1 ring-neutral-700/50 backdrop-blur-sm', className)}
       {...props}
     />
   );

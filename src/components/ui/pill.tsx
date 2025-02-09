@@ -34,13 +34,7 @@ export type PillProps<T extends React.ElementType = 'div'> = {
 } & VariantProps<typeof pillVariants> &
   Omit<React.ComponentPropsWithoutRef<T>, 'className'>;
 
-export function Pill<T extends React.ElementType = 'div'>({
-  className,
-  variant,
-  size,
-  as,
-  ...props
-}: PillProps<T>) {
+export function Pill<T extends React.ElementType = 'div'>({ className, variant, size, as, ...props }: PillProps<T>) {
   const Comp = as || 'div';
   return <Comp className={cn(pillVariants({ variant, size, className }))} {...props} />;
 }

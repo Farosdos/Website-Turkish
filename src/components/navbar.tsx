@@ -91,11 +91,7 @@ export function Navbar() {
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='flex h-15 items-center justify-between'>
           <div className='flex items-center space-x-6'>
-            <Link
-              href='/'
-              className='flex items-center space-x-2 hover:opacity-90'
-              aria-label='CanvasMC Home'
-            >
+            <Link href='/' className='flex items-center space-x-2 hover:opacity-90' aria-label='CanvasMC Home'>
               <Image src='/logo.png' alt='' width={28} height={28} className='rounded-md' priority />
               <span className='font-semibold text-sm'>{siteConfig.name}</span>
             </Link>
@@ -106,11 +102,7 @@ export function Navbar() {
             </div>
           </div>
 
-          <div
-            className='hidden md:flex md:items-center md:space-x-5'
-            role='menubar'
-            aria-label='Social links'
-          >
+          <div className='hidden md:flex md:items-center md:space-x-5' role='menubar' aria-label='Social links'>
             {LINKS.social.map(link => (
               <NavbarLink key={link.href} {...link} />
             ))}

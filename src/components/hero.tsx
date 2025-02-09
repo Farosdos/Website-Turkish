@@ -27,8 +27,7 @@ export function Hero() {
           </h1>
 
           <p className='mt-6 text-base text-neutral-300 leading-7 sm:text-lg sm:leading-8'>
-            Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations,
-            featuring{' '}
+            Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations, featuring{' '}
             <a
               href='https://github.com/CraftCanvasMC/Canvas/?tab=readme-ov-file#multithreaded-dimension-ticking'
               className='text-white underline underline-offset-3'

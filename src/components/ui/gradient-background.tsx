@@ -20,10 +20,7 @@ export function GradientBackground({
   return (
     <div
       aria-hidden='true'
-      className={cn(
-        '-top-40 -z-10 sm:-top-80 absolute inset-x-0 transform-gpu overflow-hidden blur-3xl',
-        className,
-      )}
+      className={cn('-top-40 -z-10 sm:-top-80 absolute inset-x-0 transform-gpu overflow-hidden blur-3xl', className)}
       {...props}
     >
       <div

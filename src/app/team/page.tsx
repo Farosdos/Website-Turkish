@@ -145,8 +145,8 @@ export default async function TeamPage() {
         <header className='mx-auto max-w-3xl text-center'>
           <h1 className='font-bold text-3xl sm:text-4xl lg:text-5xl'>Meet the Team behind CanvasMC</h1>
           <p className='mt-4 text-neutral-300 sm:text-lg'>
-            Our talented team and community contributors work together to develop and maintain CanvasMC,
-            bringing you a faster and more efficient Minecraft server experience.
+            Our talented team and community contributors work together to develop and maintain CanvasMC, bringing you a
+            faster and more efficient Minecraft server experience.
           </p>
 
           <div className='mt-6'>
@@ -170,11 +170,7 @@ export default async function TeamPage() {
         {Object.entries(TEAM_MEMBERS).map(
           ([teamName, { description, members }]) =>
             members.length > 0 && (
-              <section
-                key={teamName}
-                className='mt-12 sm:mt-16'
-                aria-labelledby={`${teamName.toLowerCase()}-heading`}
-              >
+              <section key={teamName} className='mt-12 sm:mt-16' aria-labelledby={`${teamName.toLowerCase()}-heading`}>
                 <h2 id={`${teamName.toLowerCase()}-heading`} className='font-semibold text-2xl text-white'>
                   {teamName}
                 </h2>
@@ -192,9 +188,7 @@ export default async function TeamPage() {
           <h2 id='contributors-heading' className='font-semibold text-2xl text-white'>
             Contributors
           </h2>
-          <p className='mt-2 mb-6 text-neutral-300'>
-            Our amazing contributors who help make CanvasMC better.
-          </p>
+          <p className='mt-2 mb-6 text-neutral-300'>Our amazing contributors who help make CanvasMC better.</p>
           <div className='flex flex-wrap gap-4'>
             {contributors.map((contributor: { login: string; avatar_url: string; html_url: string }) => (
               <Contributor

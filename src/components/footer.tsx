@@ -91,10 +91,7 @@ function LinkColumn({ title, links }: LinkColumnProps) {
                   {label}
                 </a>
               ) : (
-                <Link
-                  href={href}
-                  className='text-neutral-400 text-sm transition-colors duration-200 hover:text-white'
-                >
+                <Link href={href} className='text-neutral-400 text-sm transition-colors duration-200 hover:text-white'>
                   {label}
                 </Link>
               )}
@@ -125,8 +122,8 @@ export function Footer() {
             </Link>
 
             <p className='mt-1 text-neutral-400 text-sm'>
-              Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations,
-              featuring multithreaded dimension ticking and improved chunk generation.
+              Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations, featuring
+              multithreaded dimension ticking and improved chunk generation.
             </p>
 
             <div className='mt-6 flex gap-4'>
