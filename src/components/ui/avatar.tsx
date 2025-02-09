@@ -18,17 +18,11 @@ export function Avatar({ className, ...props }: AvatarBaseProps) {
   );
 }
 
-export function AvatarImage({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof Image>) {
+export function AvatarImage({ className, ...props }: React.ComponentPropsWithoutRef<typeof Image>) {
   return <Image className={cn('aspect-square h-full w-full', className)} {...props} />;
 }
 
-export function AvatarFallback({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof Fallback>) {
+export function AvatarFallback({ className, ...props }: React.ComponentPropsWithoutRef<typeof Fallback>) {
   return (
     <Fallback
       className={cn('flex h-full w-full items-center justify-center rounded-full bg-neutral-800', className)}

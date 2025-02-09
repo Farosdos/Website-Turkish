@@ -40,7 +40,8 @@
         "useConsistentCurlyBraces": "off",
         "useComponentExportOnlyModules": "off",
         "noSecrets": "off",
-        "noProcessEnv": "off"
+        "noProcessEnv": "off",
+        "noUnknownPseudoClass": "off"
       },
       "performance": {
         "all": true,
