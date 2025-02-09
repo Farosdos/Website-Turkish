@@ -25,10 +25,7 @@ const nextConfig: NextConfig = {
       },
       ...Object.entries(siteConfig.links).map(([path, url]) => ({
         source: `/${path}`,
-        destination:
-          typeof url === 'object' && 'github' in url
-            ? (url as { github: { org: string } }).github.org
-            : (url as string),
+        destination: path === 'github' && typeof url === 'object' ? url.org : (url as string),
         permanent: false,
       })),
     ];
