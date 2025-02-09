@@ -10,7 +10,7 @@ import { VersionBuildsTable } from './version-builds-table';
 export const dynamic = 'force-dynamic';
 
 export default async function DownloadsPage() {
-  const builds = await getBuilds();
+  const builds = await getBuilds({ includeExperimental: true });
 
   const buildsByVersion = builds.reduce<Record<string, Build[]>>((grouped, build) => {
     const versionBuilds = grouped[build.minecraftVersion] || [];
