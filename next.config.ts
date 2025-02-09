@@ -17,19 +17,20 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
-    const socialRedirects = Object.entries(siteConfig.links).map(([key, value]) => ({
-      source: `/${key}`,
-      destination: key === 'github' && typeof value === 'object' ? value.org : (value as string),
-      permanent: false,
-    }));
-
     return [
       {
         source: '/api/:rest((?:[^v].*|v(?:[^12].*|$)))',
         destination: '/api/v1/:rest*',
         permanent: true,
       },
-      ...socialRedirects,
+      ...Object.entries(siteConfig.links).map(([path, url]) => ({
+        source: `/${path}`,
+        destination:
+          typeof url === 'object' && 'github' in url
+            ? (url as { github: { org: string } }).github.org
+            : (url as string),
+        permanent: false,
+      })),
     ];
   },
 };
