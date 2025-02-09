@@ -69,7 +69,7 @@ const BENCHMARK_DATA: BenchmarkData[] = [
 ];
 
 function BenchmarkTooltip({ active, payload }: BenchmarkTooltipProps) {
-  if (!(active && payload?.length > 0)) return null;
+  if (!(active && payload?.length)) return null;
 
   return (
     <div className='rounded-lg border border-neutral-700 bg-neutral-900 p-3 shadow-xl'>
