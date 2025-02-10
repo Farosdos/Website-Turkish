@@ -1,5 +1,9 @@
 # CanvasMC.io
 
+[![GitHub License](https://img.shields.io/github/license/CraftCanvasMC/Website)](https://github.com/CraftCanvasMC/Website/blob/master/LICENSE)
+[![GitHub contributors](https://img.shields.io/github/contributors/CraftCanvasMC/Website)](https://github.com/CraftCanvasMC/Website/graphs/contributors)
+[![Discord](https://img.shields.io/discord/1168986665038127205?color=5865F2)](https://canvasmc.io/discord)
+
 The official website for CanvasMC, built with modern web technologies.
 
 ## Tech Stack
@@ -9,19 +13,27 @@ The official website for CanvasMC, built with modern web technologies.
 - [Lucide Icons](https://lucide.dev/)
 - [Zod](https://zod.dev/)
 - [Recharts](https://recharts.org/)
+- [Next-Plausible](https://next-plausible.vercel.app/)
 
 ## Available Scripts
 
-- `bun dev` - Run the development server
-- `bun build` - Build the production version
-- `bun start` - Start the production server
-- `bun lint` - Run the linter
-- `bun format` - Run the formatter
+```sh
+> bun run dev
+> bun run build
+> bun run start
+> bun run lint
+> bun run lint:fix
+> bun run format
+> bun run format:fix
+> bun run check
+> bun run check:fix
+> bun run typecheck
+```
 
-## Contributing
-
-Read the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information on how to contribute to this project.
-
-### Contributors
+## Contributors
 
 ![Contributors](https://contrib.rocks/image?repo=CraftCanvasMC/Website)
+
+## License
+
+Canvas is licensed under the [GNU AGPLv3](https://github.com/CraftCanvasMC/Canvas/blob/master/LICENSE). <img align="right" width="100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/AGPLv3_Logo.svg/1200px-AGPLv3_Logo.svg.png" alt="AGPLv3 Logo">
