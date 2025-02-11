@@ -9,11 +9,11 @@ The official website for CanvasMC, built with modern web technologies.
 ## Tech Stack
 
 - [Next.js 15](https://nextjs.org/)
+- [Next-Plausible](https://next-plausible.vercel.app/)
 - [Tailwind CSS v4](https://tailwindcss.com/)
+- [Radix UI Primitives](https://www.radix-ui.com/primitives)
 - [Lucide Icons](https://lucide.dev/)
 - [Zod](https://zod.dev/)
-- [Recharts](https://recharts.org/)
-- [Next-Plausible](https://next-plausible.vercel.app/)
 
 ## Available Scripts
 
