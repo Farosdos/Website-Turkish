@@ -1,79 +1,109 @@
-import { Download } from 'lucide-react';
+import { Download, GitCommit } from 'lucide-react';
 import { Button } from '~/components/ui/button';
-import { GradientBackground } from '~/components/ui/gradient-background';
-import { siteConfig } from '~/config/site';
+import { Card } from '~/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 import { getBuilds } from '~/lib/jenkins';
 import type { Build } from '~/lib/schemas/jenkins';
 
-import { VersionBuildsTable } from './version-builds-table';
-
 export const dynamic = 'force-dynamic';
+
+function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
+  const { buildNumber, commit, downloadUrl } = build;
+  const commitHash = commit.hash?.slice(0, 7);
+  const commitUrl = commit.hash ? `https://github.com/CraftCanvasMC/Canvas/commit/${commit.hash}` : '#';
+
+  return (
+    <div className='flex flex-col justify-between gap-4 border-neutral-800 border-t py-4 sm:flex-row sm:items-center'>
+      <div className='flex flex-col gap-4 sm:flex-row sm:items-center'>
+        <span className='w-fit rounded-full bg-neutral-800 px-2.5 py-0.5 font-medium text-neutral-300 text-xs'>
+          #{buildNumber}
+        </span>
+
+        <div className='space-y-1'>
+          <a
+            href={commitUrl}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='inline-flex items-center gap-1.5 text-neutral-500 text-sm hover:text-neutral-400'
+          >
+            <GitCommit className='h-3.5 w-3.5' />
+            {commitHash || 'unknown'}
+          </a>
+          <p className='break-words text-neutral-300 text-sm'>{commit.message || 'No commit message'}</p>
+        </div>
+      </div>
+
+      <Button
+        size='default'
+        variant={isLatest ? 'default' : 'secondary'}
+        asChild={!!downloadUrl}
+        disabled={!downloadUrl}
+        className='w-full sm:w-auto'
+      >
+        {downloadUrl ? (
+          <a href={downloadUrl} download className='inline-flex items-center gap-2'>
+            <Download className='h-4 w-4' />
+            Download
+          </a>
+        ) : (
+          <span className='inline-flex items-center gap-2'>
+            <Download className='h-4 w-4' />
+            Unavailable
+          </span>
+        )}
+      </Button>
+    </div>
+  );
+}
 
 export default async function DownloadsPage() {
   const builds = await getBuilds({ includeExperimental: true });
 
   const buildsByVersion = builds.reduce<Record<string, Build[]>>((grouped, build) => {
-    const versionBuilds = grouped[build.minecraftVersion] || [];
-    grouped[build.minecraftVersion] = [...versionBuilds, build];
+    grouped[build.minecraftVersion] ??= [];
+    grouped[build.minecraftVersion].push(build);
     return grouped;
   }, {});
 
-  const sortedVersions = Object.keys(buildsByVersion).sort().reverse();
-  const sortedBuildsByVersion = Object.fromEntries(
-    sortedVersions.map(version => [version, buildsByVersion[version].sort((a, b) => b.buildNumber - a.buildNumber)]),
-  );
-
-  const latestBuild = sortedBuildsByVersion[sortedVersions[0]]?.[0];
+  const versions = Object.keys(buildsByVersion).sort().reverse();
+  const latestVersion = versions[0];
+  const latestBuilds = buildsByVersion[latestVersion]?.slice(0, 10) ?? [];
 
   return (
-    <main className='relative isolate min-h-screen'>
-      <GradientBackground />
+    <section className='mt-12 sm:mt-16'>
+      <Card className='p-6'>
+        <div className='mb-6 flex items-center justify-between'>
+          <Select defaultValue={latestVersion}>
+            <SelectTrigger className='w-[180px]'>
+              <SelectValue placeholder='Select version' />
+            </SelectTrigger>
+            <SelectContent>
+              {versions.map(version => (
+                <SelectItem key={version} value={version}>
+                  Minecraft {version}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <article className='mx-auto max-w-7xl px-6 py-16 pb-32 sm:px-8 sm:py-20 sm:pb-40 lg:px-12'>
-        <header className='mx-auto max-w-3xl text-center'>
-          <h1 className='font-bold text-3xl sm:text-4xl lg:text-5xl'>Downloads</h1>
-          <p className='mt-4 text-neutral-300 sm:text-lg'>
-            Get the latest builds of CanvasMC for your Minecraft server.
-          </p>
-
-          {latestBuild?.downloadUrl && (
-            <div className='flex justify-center gap-4'>
-              <Button size='lg' asChild className='mt-6 sm:mt-8'>
-                <a
-                  href={latestBuild.downloadUrl}
-                  download
-                  className='inline-flex items-center gap-2'
-                  aria-label={`Download latest Canvas build for Minecraft ${sortedVersions[0]}`}
-                >
-                  <Download className='h-4 w-4' aria-hidden='true' />
-                  <span className='text-sm sm:text-base'>Download Latest Build</span>
-                </a>
-              </Button>
-
-              <Button size='lg' asChild variant='secondary' className='mt-6 sm:mt-8'>
-                <a
-                  href={siteConfig.links.github.repo}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='inline-flex items-center gap-2'
-                  aria-label='View source code on GitHub (opens in new tab)'
-                >
-                  <svg viewBox='0 0 24 24' className='h-4 w-4' fill='currentColor' aria-hidden='true'>
-                    <path d='M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z' />
-                  </svg>
-                  <span className='text-sm sm:text-base'>Source Code</span>
-                </a>
-              </Button>
-            </div>
-          )}
-        </header>
-
-        <section className='mt-12 space-y-8 sm:mt-16 sm:space-y-10' aria-label='Available builds by version'>
-          {sortedVersions.map(version => (
-            <VersionBuildsTable key={version} version={version} builds={sortedBuildsByVersion[version]} />
+        <div className='space-y-2'>
+          {latestBuilds.map((build, index) => (
+            <BuildRow key={build.buildNumber} build={build} isLatest={index === 0} />
           ))}
-        </section>
-      </article>
-    </main>
+        </div>
+
+        <div className='mt-8 text-center'>
+          <a
+            href='https://jenkins.canvasmc.io'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-neutral-400 text-sm hover:text-neutral-300'
+          >
+            Looking for older builds? Check out our Jenkins server →
+          </a>
+        </div>
+      </Card>
+    </section>
   );
 }
