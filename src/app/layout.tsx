@@ -6,7 +6,7 @@ import { plausibleConfig } from '~/config/plausible';
 import { siteConfig } from '~/config/site';
 import { geist, geistMono } from '~/lib/fonts';
 import { cn } from '~/lib/utils';
-import '~/styles/globals.css';
+import './globals.css';
 
 export const viewport: Viewport = {
   themeColor: '#0f0f0f',
