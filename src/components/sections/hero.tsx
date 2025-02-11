@@ -100,7 +100,7 @@ export function Hero() {
                 const change = getChange(paper, canvas, inverted);
 
                 return (
-                  <Card key={label} className='p-4'>
+                  <Card key={label} className='flex flex-col p-4'>
                     <div className='flex items-center justify-between'>
                       <span className='text-neutral-400 text-sm'>{label}</span>
                       <span className={cn('font-mono text-sm', change > 0 ? 'text-emerald-400' : 'text-red-400')}>
@@ -108,7 +108,8 @@ export function Hero() {
                         {change}%
                       </span>
                     </div>
-                    <div className='mt-3 flex items-end justify-between font-mono'>
+                    <div className='flex-1' />
+                    <div className='flex items-end justify-between font-mono'>
                       <span
                         className={cn(
                           'transition-colors duration-200',
