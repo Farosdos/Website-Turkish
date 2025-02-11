@@ -3,7 +3,6 @@
 import { ChevronLeft, ChevronRight, Download, GitCommit } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
-import { Pill } from '~/components/ui/pill';
 import type { Build } from '~/lib/schemas/jenkins';
 import { cn } from '~/lib/utils';
 
@@ -71,9 +70,7 @@ export function VersionBuildsTable({ version, builds }: { version: string; build
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='flex items-center gap-2'>
-          Minecraft {version} <Pill variant='warning'>Experimental</Pill>
-        </CardTitle>
+        <CardTitle className='flex items-center gap-2'>Minecraft {version}</CardTitle>
         {totalPages > 1 && (
           <div className='flex items-center gap-3 text-neutral-400 text-sm'>
             <Button

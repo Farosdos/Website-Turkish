@@ -4,7 +4,7 @@ import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
 import { plausibleConfig } from '~/config/plausible';
 import { siteConfig } from '~/config/site';
-import { geist } from '~/lib/fonts';
+import { geist, geistMono } from '~/lib/fonts';
 import { cn } from '~/lib/utils';
 import '~/styles/globals.css';
 
@@ -46,16 +46,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' style={{ colorScheme: 'dark' }} suppressHydrationWarning>
-      <PlausibleProvider
-        selfHosted
-        customDomain={plausibleConfig.customDomain}
-        domain={new URL(siteConfig.url).hostname}
-        trackFileDownloads
-        trackOutboundLinks
-      >
+      <PlausibleProvider {...plausibleConfig}>
         <body
           className={cn(
             geist.variable,
+            geistMono.variable,
             'antialiased',
             'bg-background font-sans text-foreground',
             'min-h-screen supports-[height:100dvh]:min-h-dvh',

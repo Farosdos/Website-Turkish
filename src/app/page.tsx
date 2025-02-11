@@ -1,15 +1,13 @@
-import { BenchmarkSection } from '~/components/benchmark-section';
-import { CTASection } from '~/components/cta-section';
-import { FeaturesSection } from '~/components/features-section';
-import { Hero } from '~/components/hero';
+import { Community } from '~/components/sections/community';
+import { Features } from '~/components/sections/features';
+import { Hero } from '~/components/sections/hero';
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <FeaturesSection />
-      <BenchmarkSection />
-      <CTASection />
+      <Features />
+      <Community />
     </>
   );
 }

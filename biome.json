@@ -54,13 +54,15 @@
         "useNamingConvention": "off",
         "useBlockStatements": "off",
         "noDefaultExport": "off",
-        "useExplicitLengthCheck": "off"
+        "useExplicitLengthCheck": "off",
+        "useDefaultSwitchClause": "off"
       },
       "suspicious": {
         "all": true,
         "noConsole": "off",
         "noConsoleLog": "off",
-        "noReactSpecificProps": "off"
+        "noReactSpecificProps": "off",
+        "noArrayIndexKey": "off"
       }
     }
   },
