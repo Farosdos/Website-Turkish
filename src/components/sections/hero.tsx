@@ -39,8 +39,8 @@ export function Hero() {
               High-performance Minecraft server software
             </h1>
             <p className='mt-6 text-lg text-neutral-300'>
-              Supercharge your Minecraft server with multithreaded dimension ticking, improved chunk generation, and
-              optimized entity handling.
+              Supercharge your Minecraft server with multithreaded dimension ticking, improved chunk generation,
+              optimized entity handling and many more powerful optimizations.
             </p>
             <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
               <Button asChild size='lg'>
