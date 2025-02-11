@@ -9,7 +9,7 @@ import { cn } from '~/lib/utils';
 import '~/styles/globals.css';
 
 export const viewport: Viewport = {
-  themeColor: '#44b5b4',
+  themeColor: '#0f0f0f',
 };
 
 export const metadata: Metadata = {
