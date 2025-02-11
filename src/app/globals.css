@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
 :root {
   --background: #0f0f0f;
   --foreground: #ededed;
