@@ -34,10 +34,17 @@ Returns a list of all Canvas builds.
     "minecraftVersion": "1.21.4",
     "timestamp": 1738480994680,
     "isExperimental": true,
-    "commit": {
-      "message": "Fix virtual threads with async scheduler",
-      "hash": "992e20e655924f3c8d180567a307da78c9d4633f"
-    }
+    // DEPRECATED: This field will be removed in the future
+    // "commit": {
+    //   "message": "Fix virtual threads with async scheduler",
+    //   "hash": "992e20e655924f3c8d180567a307da78c9d4633f"
+    // }
+    "commits": [
+      {
+        "message": "Fix virtual threads with async scheduler",
+        "hash": "992e20e655924f3c8d180567a307da78c9d4633f"
+      }
+    ]
   },
   ...
 ]
@@ -63,10 +70,17 @@ Returns information about the latest Canvas build.
   "minecraftVersion": "1.21.4",
   "timestamp": 1738480994680,
   "isExperimental": true,
-  "commit": {
-    "message": "Fix virtual threads with async scheduler",
-    "hash": "992e20e655924f3c8d180567a307da78c9d4633f"
-  }
+  // DEPRECATED: This field will be removed in the future
+  // "commit": {
+  //   "message": "Fix virtual threads with async scheduler",
+  //   "hash": "992e20e655924f3c8d180567a307da78c9d4633f"
+  // }
+  "commits": [
+    {
+      "message": "Fix virtual threads with async scheduler",
+      "hash": "992e20e655924f3c8d180567a307da78c9d4633f"
+    }
+  ]
 }
 ```
 
