@@ -37,7 +37,7 @@ export function Footer() {
         <div className='grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-5'>
           <section className='text-left lg:col-span-2'>
             <Link href='/' className='inline-flex items-center gap-2 rounded-xl hover:opacity-90'>
-              <Image src='/logo.png' alt='CanvasMC Logo' width={28} height={28} className='rounded-xl' />
+              <Image src='/logo.png' alt='CanvasMC Logo' width={26} height={26} />
               <h2 className='font-semibold'>{siteConfig.name}</h2>
             </Link>
 

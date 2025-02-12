@@ -71,7 +71,7 @@ export function Hero() {
                   )}
                   onClick={() => setSelected(id as typeof selected)}
                 >
-                  <Image src={image} alt={name} width={40} height={40} />
+                  <Image decoding='sync' src={image} alt={name} width={36} height={36} />
                   <span
                     className={cn(
                       'font-medium text-sm transition-colors duration-200',
