@@ -85,7 +85,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} {siteConfig.name}
           </p>
           <div className='flex items-center gap-1 text-neutral-400'>
-            Built with <Heart className='h-3 w-3' fill='currentColor' /> by the
+            Built with <Heart className='size-3' fill='currentColor' /> by the
             <Link href='/team' className='underline underline-offset-2 hover:text-neutral-200'>
               {siteConfig.name} Team
             </Link>

@@ -56,7 +56,7 @@ export function Features() {
             <div className='flex gap-4'>
               <div className='shrink-0'>
                 <div className='rounded-lg bg-neutral-700/50 p-2.5'>
-                  <Icon className='h-5 w-5 text-neutral-100' />
+                  <Icon className='size-5 text-neutral-100' />
                 </div>
               </div>
               <div>

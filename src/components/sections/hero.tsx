@@ -54,7 +54,7 @@ export function Hero() {
                   className='flex items-center gap-2'
                 >
                   Documentation
-                  <ArrowRight className='h-4 w-4' />
+                  <ArrowRight className='size-4' />
                 </a>
               </Button>
             </div>

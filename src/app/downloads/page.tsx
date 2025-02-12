@@ -26,7 +26,7 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
             rel='noopener noreferrer'
             className='inline-flex items-center gap-1.5 text-neutral-500 text-sm hover:text-neutral-400'
           >
-            <GitCommit className='h-3.5 w-3.5' />
+            <GitCommit className='size-3.5' />
             {commitHash || 'unknown'}
           </a>
           <p className='break-words text-neutral-300 text-sm'>{commit.message || 'No commit message'}</p>
@@ -42,12 +42,12 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
       >
         {downloadUrl ? (
           <a href={downloadUrl} download className='inline-flex items-center gap-2'>
-            <Download className='h-4 w-4' />
+            <Download className='size-4' />
             Download
           </a>
         ) : (
           <span className='inline-flex items-center gap-2'>
-            <Download className='h-4 w-4' />
+            <Download className='size-4' />
             Unavailable
           </span>
         )}
