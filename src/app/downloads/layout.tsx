@@ -7,7 +7,7 @@ export default function DownloadsLayout({ children }: { children: React.ReactNod
     <main className='relative isolate min-h-screen'>
       <GradientBackground />
 
-      <article className='mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20 lg:px-12'>
+      <div className='mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20 lg:px-12'>
         <header className='mx-auto max-w-3xl text-center'>
           <h1 className='font-bold text-3xl sm:text-4xl lg:text-5xl'>Downloads</h1>
           <p className='mt-4 text-neutral-300 sm:text-lg'>
@@ -33,7 +33,7 @@ export default function DownloadsLayout({ children }: { children: React.ReactNod
         </header>
 
         {children}
-      </article>
+      </div>
     </main>
   );
 }
