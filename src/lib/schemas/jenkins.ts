@@ -35,5 +35,11 @@ export const BuildSchema = z.object({
     message: z.string().nullable(),
     hash: z.string().nullable(),
   }),
+  commits: z.array(
+    z.object({
+      message: z.string().nullable(),
+      hash: z.string().nullable(),
+    }),
+  ),
 });
 export type Build = z.infer<typeof BuildSchema>;

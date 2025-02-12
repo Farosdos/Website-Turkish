@@ -8,37 +8,48 @@ import type { Build } from '~/lib/schemas/jenkins';
 export const dynamic = 'force-dynamic';
 
 function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
-  const { buildNumber, commit, downloadUrl } = build;
-  const commitHash = commit.hash?.slice(0, 7);
-  const commitUrl = commit.hash ? `https://github.com/CraftCanvasMC/Canvas/commit/${commit.hash}` : '#';
+  const { buildNumber, commits, downloadUrl } = build;
 
   return (
     <div className='flex flex-col justify-between gap-4 border-neutral-800 border-t py-4 sm:flex-row sm:items-center'>
-      <div className='flex flex-col gap-4 sm:flex-row sm:items-center'>
-        <span className='w-fit rounded-full bg-neutral-800 px-2.5 py-0.5 font-medium text-neutral-300 text-xs'>
+      <div className='flex min-w-0 flex-1 flex-col gap-4 sm:flex-row sm:items-center'>
+        <span className='w-fit shrink-0 rounded-full bg-neutral-800 px-2.5 py-0.5 font-medium text-neutral-300 text-xs'>
           #{buildNumber}
         </span>
 
-        <div className='space-y-1'>
-          <a
-            href={commitUrl}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='inline-flex items-center gap-1.5 text-neutral-500 text-sm hover:text-neutral-400'
-          >
-            <GitCommit className='size-3.5' />
-            {commitHash || 'unknown'}
-          </a>
-          <p className='break-words text-neutral-300 text-sm'>{commit.message || 'No commit message'}</p>
+        <div className='min-w-0 flex-1 space-y-2'>
+          {commits.length === 0 ? (
+            <span className='text-neutral-300 text-sm italic'>No changes found</span>
+          ) : (
+            commits.map(commit => {
+              const commitHash = commit.hash?.slice(0, 7);
+
+              return (
+                <div key={commit.hash} className='min-w-0 space-y-1'>
+                  <div className='flex min-w-0 items-center gap-1.5'>
+                    <a
+                      href={`https://github.com/CraftCanvasMC/Canvas/commit/${commit.hash}`}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='inline-flex shrink-0 items-center gap-1.5 text-neutral-500 text-sm hover:text-neutral-400'
+                    >
+                      <GitCommit className='size-3.5' />
+                      {commitHash}
+                    </a>
+                    <p className='min-w-0 truncate text-neutral-300 text-sm'>{commit.message || 'No commit message'}</p>
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
 
       <Button
-        size='default'
         variant={isLatest ? 'default' : 'secondary'}
         asChild={!!downloadUrl}
         disabled={!downloadUrl}
-        className='w-full sm:w-auto'
+        className='w-full shrink-0 sm:w-auto'
       >
         {downloadUrl ? (
           <a href={downloadUrl} download className='inline-flex items-center gap-2'>

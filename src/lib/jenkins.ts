@@ -13,6 +13,12 @@ function parseBuild(build: JenkinsBuild): Build {
   const isExperimental = build.displayName.endsWith('(Experimental)');
   const versionMatch = build.displayName.match(/\s*-\s*([\d.]+)/);
 
+  const commits =
+    build.changeSet?.items?.map(item => ({
+      message: item.msg || null,
+      hash: item.commitId || null,
+    })) || [];
+
   return {
     buildNumber: build.number,
     url: build.url,
@@ -24,6 +30,7 @@ function parseBuild(build: JenkinsBuild): Build {
       message: build.changeSet?.items?.[0]?.msg || null,
       hash: build.changeSet?.items?.[0]?.commitId || null,
     },
+    commits,
   };
 }
 
