@@ -2,6 +2,11 @@ import type { NextConfig } from 'next';
 import { siteConfig } from '~/config/site';
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  experimental: {
+    inlineCss: true,
+    reactCompiler: true,
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
