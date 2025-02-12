@@ -41,7 +41,7 @@ function NavbarLink({ href, label, icon: Icon, className }: NavbarItem & { class
         className,
       )}
       aria-current={isActive ? 'page' : undefined}
-      {...(isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
+      {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : { prefetch: true })}
     >
       {Icon ? (
         <Icon className='size-5' />
@@ -86,8 +86,8 @@ export function Navbar() {
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='flex h-15 items-center justify-between'>
           <div className='flex items-center space-x-6'>
-            <Link href='/' className='flex items-center space-x-2 hover:opacity-90' aria-label='Home'>
-              <Image src='/logo.png' alt='' width={28} height={28} className='rounded-md' priority />
+            <Link prefetch href='/' className='flex items-center space-x-2 hover:opacity-90' aria-label='Home'>
+              <Image src='/logo.png' alt='' width={26} height={26} />
               <span className='font-semibold text-sm'>{siteConfig.name}</span>
             </Link>
 
