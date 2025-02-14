@@ -17,7 +17,7 @@ function parseBuild(build: JenkinsBuild): Build {
     build.changeSet?.items?.map(item => ({
       message: item.msg || null,
       hash: item.commitId || null,
-    })) || [];
+    }))?.reverse() || [];
 
   return {
     buildNumber: build.number,
