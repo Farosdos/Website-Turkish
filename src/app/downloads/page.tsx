@@ -9,6 +9,7 @@ export const dynamic = 'force-dynamic';
 
 function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
   const { buildNumber, commits, downloadUrl } = build;
+  const MAX_COMMITS = 5;
 
   return (
     <div className='flex flex-col justify-between gap-4 border-neutral-800 border-t py-4 sm:flex-row sm:items-center'>
@@ -21,26 +22,22 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
           {commits.length === 0 ? (
             <span className='text-neutral-300 text-sm italic'>No changes found</span>
           ) : (
-            commits.map(commit => {
-              const commitHash = commit.hash?.slice(0, 7);
-
-              return (
-                <div key={commit.hash} className='min-w-0 space-y-1'>
-                  <div className='flex min-w-0 items-center gap-1.5'>
-                    <a
-                      href={`https://github.com/CraftCanvasMC/Canvas/commit/${commit.hash}`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='inline-flex shrink-0 items-center gap-1.5 text-neutral-500 text-sm hover:text-neutral-400'
-                    >
-                      <GitCommit className='size-3.5' />
-                      {commitHash}
-                    </a>
-                    <p className='min-w-0 truncate text-neutral-300 text-sm'>{commit.message || 'No commit message'}</p>
-                  </div>
+            commits.slice(0, MAX_COMMITS).map(commit => (
+              <div key={commit.hash} className='min-w-0 space-y-1'>
+                <div className='flex min-w-0 items-center gap-1.5'>
+                  <a
+                    href={`https://github.com/CraftCanvasMC/Canvas/commit/${commit.hash}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='inline-flex shrink-0 items-center gap-1.5 text-neutral-500 text-sm hover:text-neutral-400'
+                  >
+                    <GitCommit className='size-3.5' />
+                    {commit.hash?.slice(0, 7)}
+                  </a>
+                  <p className='min-w-0 truncate text-neutral-300 text-sm'>{commit.message || 'No commit message'}</p>
                 </div>
-              );
-            })
+              </div>
+            ))
           )}
         </div>
       </div>
