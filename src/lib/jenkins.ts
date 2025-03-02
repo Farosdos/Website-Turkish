@@ -14,10 +14,12 @@ function parseBuild(build: JenkinsBuild): Build {
   const versionMatch = build.displayName.match(/\s*-\s*([\d.]+)/);
 
   const commits =
-    build.changeSet?.items?.map(item => ({
-      message: item.msg || null,
-      hash: item.commitId || null,
-    }))?.reverse() || [];
+    build.changeSet?.items
+      ?.map(item => ({
+        message: item.msg || null,
+        hash: item.commitId || null,
+      }))
+      ?.reverse() || [];
 
   return {
     buildNumber: build.number,
