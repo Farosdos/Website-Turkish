@@ -12,7 +12,6 @@ const LINKS = {
     { href: siteConfig.links.github.repo, label: 'GitHub Repository' },
     { href: jenkinsConfig.baseUrl, label: 'Jenkins CI' },
     { href: '/downloads', label: 'Downloads' },
-    // { href: '/changelog', label: 'Changelog' },
     { href: 'https://github.com/CraftCanvasMC/Website/blob/main/docs/API.md', label: 'API Documentation' },
   ],
   'Get Involved': [
