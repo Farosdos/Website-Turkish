@@ -18,13 +18,13 @@ const FEATURES = [
   },
   {
     title: 'Optimized Chunk Generation',
-    description: 'Experience faster world generation with optimizations that can double chunk generation speed.',
+    description: 'With fixed linear scaling, chunk performance is unparalleled compared to other forks',
     icon: Zap,
   },
   {
-    title: 'Async Command Execution',
+    title: 'Prioritized Plugin Support',
     description:
-      'Resource-intensive commands like locate and spreadplayers run off the main thread, preventing server lag spikes.',
+      'Prioritizes plugin support when making major changes to ensure your plugins will stay compatible.',
     icon: Terminal,
   },
   {
