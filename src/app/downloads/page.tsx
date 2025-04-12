@@ -9,6 +9,14 @@ export const dynamic = 'force-dynamic';
 
 function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
   const { buildNumber, commits, downloadUrl } = build;
+  const publishDate = new Date(build.timestamp);
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(publishDate);
   const MAX_COMMITS = 5;
 
   return (
@@ -17,10 +25,13 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
         <span className='w-fit shrink-0 rounded-full bg-neutral-800 px-2.5 py-0.5 font-medium text-neutral-300 text-xs'>
           #{buildNumber}
         </span>
+        <span className='text-neutral-500 text-xs'>
+          {formattedDate}
+        </span>
 
         <div className='min-w-0 flex-1 space-y-2'>
           {commits.length === 0 ? (
-            <span className='text-neutral-300 text-sm italic'>No changes found</span>
+            <span className='text-neutral-300 text-sm'>No changes</span>
           ) : (
             commits.slice(0, MAX_COMMITS).map(commit => (
               <div key={commit.hash} className='min-w-0 space-y-1'>
@@ -75,7 +86,7 @@ export default async function DownloadsPage() {
 
   const versions = Object.keys(buildsByVersion).sort().reverse();
   const latestVersion = versions[0];
-  const latestBuilds = buildsByVersion[latestVersion]?.slice(0, 10) ?? [];
+  const latestBuilds = buildsByVersion[latestVersion]?.slice(0, 35) ?? [];
 
   return (
     <section className='mt-12 sm:mt-16'>
