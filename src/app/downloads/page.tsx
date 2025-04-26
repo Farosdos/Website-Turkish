@@ -17,14 +17,21 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
     minute: '2-digit',
     hour12: false,
   }).format(publishDate);
-  const MAX_COMMITS = 5;
+  const MAX_COMMITS = 100;
 
   return (
     <div className='flex flex-col justify-between gap-4 border-neutral-800 border-t py-4 sm:flex-row sm:items-center'>
       <div className='flex min-w-0 flex-1 flex-col gap-4 sm:flex-row sm:items-center'>
-        <span className='w-fit shrink-0 rounded-full bg-neutral-800 px-2.5 py-0.5 font-medium text-neutral-300 text-xs'>
-          #{buildNumber}
-        </span>
+        <div className='flex items-center gap-2'>
+          <span className='w-fit shrink-0 rounded-full bg-neutral-800 px-2.5 py-0.5 font-medium text-neutral-300 text-xs'>
+            #{buildNumber}
+          </span>
+          {build.isExperimental && (
+            <span className='rounded-full bg-yellow-500/20 px-2 py-0.5 text-xs font-semibold text-yellow-400'>
+              Experimental
+            </span>
+          )}
+        </div>
         <span className='text-neutral-500 text-xs'>
           {formattedDate}
         </span>
@@ -45,7 +52,9 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
                     <GitCommit className='size-3.5' />
                     {commit.hash?.slice(0, 7)}
                   </a>
-                  <p className='min-w-0 truncate text-neutral-300 text-sm'>{commit.message || 'No commit message'}</p>
+                  <p className='min-w-0 break-words text-neutral-300 text-sm'>
+                    {commit.message || 'No commit message'}
+                  </p>
                 </div>
               </div>
             ))
@@ -77,6 +86,7 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
 
 export default async function DownloadsPage() {
   const builds = await getBuilds({ includeExperimental: true });
+  console.log("All Builds:", builds);
 
   const buildsByVersion = builds.reduce<Record<string, Build[]>>((grouped, build) => {
     grouped[build.minecraftVersion] ??= [];
@@ -86,7 +96,7 @@ export default async function DownloadsPage() {
 
   const versions = Object.keys(buildsByVersion).sort().reverse();
   const latestVersion = versions[0];
-  const latestBuilds = buildsByVersion[latestVersion]?.slice(0, 35) ?? [];
+  const latestBuilds = buildsByVersion[latestVersion]?.slice(0, 100) ?? [];
 
   return (
     <section className='mt-12 sm:mt-16'>
