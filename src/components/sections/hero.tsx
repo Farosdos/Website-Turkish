@@ -9,18 +9,7 @@ import { Card } from '~/components/ui/card';
 import { GradientBackground } from '~/components/ui/gradient-background';
 import { cn } from '~/lib/utils';
 
-const SOFTWARE_OPTIONS = [
-  { id: 'paper', image: '/purpur-logo.png', name: 'Purpur' },
-  { id: 'canvas', image: '/logo.png', name: 'Canvas' },
-] as const;
-
 export function Hero() {
-  const [selected, setSelected] = useState<'paper' | 'canvas'>('canvas');
-
-  const getChange = (paper: number, canvas: number, inverted = false) => {
-    const diff = ((inverted ? paper - canvas : canvas - paper) / paper) * 100;
-    return Math.round(selected === 'paper' ? -diff : diff);
-  };
 
   return (
     <section className='relative isolate'>
@@ -32,8 +21,8 @@ export function Hero() {
               High-performance Minecraft server software
             </h1>
             <p className='mt-6 text-lg text-neutral-300'>
-              Supercharge your Minecraft server with multithreaded dimension ticking, improved chunk generation,
-              optimized entity handling and many more powerful optimizations.
+              Supercharge your Minecraft server with experimental, yet powerful performance optimizations,
+              like a rewritten chunk system executor, and threaded dimensions and regions
             </p>
             <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
               <Button asChild size='lg'>
@@ -55,9 +44,8 @@ export function Hero() {
           <div className='flex justify-center'>
             <Image src='/logo_big.png'
                alt='Canvas Logo Blur'
-               width={450}
-               height={450}
-               className='rounded-lg shadow-lg'/>
+               width={460}
+               height={460}/>
           </div>
         </div>
       </div>

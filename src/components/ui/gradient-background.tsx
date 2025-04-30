@@ -18,7 +18,7 @@ export function GradientBackground({
     >
       <div
         className={cn(
-          '-translate-x-1/2 relative left-[calc(50%-11rem)] aspect-[1155/678] w-[106.125rem] rotate-[30deg] bg-gradient-to-tr opacity-15 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]',
+          '-translate-x-1/5 relative left-[calc(100%-11rem)] aspect-[1155/678] w-[106.125rem] rotate-[30deg] bg-gradient-to-tr opacity-36 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]',
           ...colors,
         )}
         style={{

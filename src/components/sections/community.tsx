@@ -10,7 +10,7 @@ const COMMUNITIES = [
   {
     title: 'Discord',
     description:
-      'Join our vibrant Discord community to get support, share your experiences, and connect with other Canvas users.',
+      'Join our Discord community to get support, share your experiences, and connect with other Canvas users.',
     icon: MessageCircle,
     buttonText: 'Join Discord',
     href: siteConfig.links.discord,

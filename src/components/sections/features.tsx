@@ -7,7 +7,7 @@ const FEATURES = [
   {
     title: 'Multithreaded Performance',
     description:
-      'Leverage multiple CPU cores for dimension ticking and chunk generation, dramatically improving server performance.',
+      'Leverage multiple CPU cores for ticking the server, dramatically improving performance.',
     icon: Cpu,
   },
   {
@@ -28,14 +28,14 @@ const FEATURES = [
     icon: Terminal,
   },
   {
-    title: 'Seamless Player Joining',
-    description: 'Asynchronous player joining process ensures no lag even with many players connecting simultaneously.',
+    title: 'Optional Regionizing',
+    description: 'Implementing a rewrite of Folias regionizing implementation, we add optional regionizing to the server',
     icon: Users,
   },
   {
     title: 'Extensive Configuration',
     description:
-      'Fine-tune every aspect of your server with comprehensive configuration options and performance settings.',
+      'Fine-tune every aspect of your server with documented configuration options and performance settings.',
     icon: FileSliders,
   },
 ] as const;

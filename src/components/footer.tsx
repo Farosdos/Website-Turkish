@@ -16,7 +16,7 @@ const LINKS = {
   ],
   'Get Involved': [
     { href: `${siteConfig.links.github.repo}/issues`, label: 'GitHub Issues' },
-    { href: siteConfig.links.donate, label: 'Sponsor' },
+    { href: siteConfig.links.donate, label: 'Donate' },
   ],
   'About Canvas': [
     { href: '/team', label: 'Team' },
