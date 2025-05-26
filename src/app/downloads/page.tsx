@@ -1,21 +1,19 @@
-import { getBuilds } from '~/lib/jenkins';
-import type { Build } from '~/lib/schemas/jenkins';
+// app/downloads/page.tsx
 import DownloadsPage from './DownloadsPage.client';
+import { getBuilds } from '~/lib/jenkins';
 
-export default async function Page() {
-    const builds = await getBuilds({ includeExperimental: true });
+export const dynamic = 'force-dynamic';
 
-    const buildsByVersion = builds.reduce<Record<string, Build[]>>((grouped, build) => {
-      grouped[build.minecraftVersion] ??= [];
-      grouped[build.minecraftVersion].push(build);
-      return grouped;
-    }, {});
+export default async function DownloadsServerPage() {
+  const builds = await getBuilds({ includeExperimental: true });
 
-    for (const version in buildsByVersion) {
-      buildsByVersion[version] = buildsByVersion[version].slice(0, 100);
-    }
+  const buildsByVersion = builds.reduce<Record<string, typeof builds>>((grouped, build) => {
+    grouped[build.minecraftVersion] ??= [];
+    grouped[build.minecraftVersion].push(build);
+    return grouped;
+  }, {});
 
-    const versions = Object.keys(buildsByVersion).sort().reverse();
+  const versions = Object.keys(buildsByVersion).sort().reverse();
 
-    return <DownloadsPage buildsByVersion={buildsByVersion} versions={versions} />;
+  return <DownloadsPage buildsByVersion={buildsByVersion} versions={versions} />;
 }
