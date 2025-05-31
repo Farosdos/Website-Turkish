@@ -25,6 +25,7 @@ export type JenkinsBuild = z.infer<typeof JenkinsBuildSchema>;
 
 /** CanvasMC API Schema */
 export const BuildSchema = z.object({
+  result: z.enum(['SUCCESS', 'FAILURE', 'ABORTED', 'UNSTABLE']).optional(),
   buildNumber: z.number(),
   url: z.string().url(),
   downloadUrl: z.string().url().nullable(),

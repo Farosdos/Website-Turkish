@@ -1,13 +1,15 @@
 // app/downloads/page.tsx
 import DownloadsPage from './DownloadsPage.client';
-import { getBuilds } from '~/lib/jenkins';
+import { getAllBuilds } from '~/lib/jenkins';
 
 export const dynamic = 'force-dynamic';
 
 export default async function DownloadsServerPage() {
-  const builds = await getBuilds({ includeExperimental: true });
+  const builds = await getAllBuilds({ includeExperimental: true });
 
-  const buildsByVersion = builds.reduce<Record<string, typeof builds>>((grouped, build) => {
+  const filteredBuilds = builds.filter(b => b.minecraftVersion !== 'unknown');
+
+  const buildsByVersion = filteredBuilds.reduce<Record<string, typeof filteredBuilds>>((grouped, build) => {
     grouped[build.minecraftVersion] ??= [];
     grouped[build.minecraftVersion].push(build);
     return grouped;

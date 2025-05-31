@@ -32,11 +32,20 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
           <span className="w-fit shrink-0 rounded-full bg-neutral-800 px-2.5 py-0.5 font-medium text-neutral-300 text-xs">
             #{buildNumber}
           </span>
-          {build.isExperimental && (
+
+          {build.result === 'FAILURE' ? (
+            <span className="rounded-full bg-red-500/20 px-2 py-0.5 text-xs font-semibold text-red-400">
+              Failed
+            </span>
+          ) : build.result === 'ABORTED' ? (
+            <span className="rounded-full bg-gray-500/20 px-2 py-0.5 text-xs font-semibold text-gray-400">
+              Cancelled
+            </span>
+          ) : build.isExperimental ? (
             <span className="rounded-full bg-yellow-500/20 px-2 py-0.5 text-xs font-semibold text-yellow-400">
               Experimental
             </span>
-          )}
+          ) : null}
         </div>
         <span className="text-neutral-500 text-xs">{formattedDate}</span>
 
