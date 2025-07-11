@@ -17,12 +17,11 @@ export function Hero() {
       <div className='mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-12 lg:py-32'>
         <div className='grid items-center gap-8 lg:grid-cols-2 lg:gap-16'>
           <div className='max-w-xl'>
-            <h1 className='font-bold text-4xl text-white leading-tight lg:text-5xl'>
-              High-performance Minecraft server software
+            <h1 className="font-bold text-4xl leading-tight lg:text-5xl bg-gradient-to-r from-white via-neutral-300 to-white bg-clip-text text-transparent">
+              High performance Minecraft server software
             </h1>
-            <p className='mt-6 text-lg text-neutral-300'>
-              Supercharge your Minecraft server with experimental, yet powerful performance optimizations,
-              like a rewritten chunk system executor, and threaded dimensions and regions
+            <p className="mt-7 text-2xl bg-gradient-to-r from-neutral-100 via-neutral-400 to-neutral-100 bg-clip-text text-transparent">
+              CanvasMC is a fork of the Folia Minecraft server software that fixes gameplay inconsistencies, bugs, and introduces further performance enhancements to the dedicated server
             </p>
             <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
               <Button asChild size='lg'>

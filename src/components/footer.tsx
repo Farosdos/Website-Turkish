@@ -19,7 +19,6 @@ const LINKS = {
     { href: siteConfig.links.donate, label: 'Donate' },
   ],
   'About Canvas': [
-    { href: '/team', label: 'Team' },
     { href: `${siteConfig.links.github.repo}/blob/master/LICENSE`, label: 'License' },
   ],
 } as const;
@@ -85,9 +84,9 @@ export function Footer() {
           </p>
           <div className='flex items-center gap-1 text-neutral-400'>
             Built with <Heart className='size-3' fill='currentColor' /> by the
-            <Link href='/team' className='underline underline-offset-2 hover:text-neutral-200'>
+            <p className='underline underline-offset-2 hover:text-neutral-200'>
               {siteConfig.name} Team
-            </Link>
+            </p>
           </div>
         </div>
       </div>

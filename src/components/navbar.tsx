@@ -18,7 +18,6 @@ interface NavbarItem {
 
 const LINKS: NavbarItem[] = [
   { href: '/downloads', label: 'Downloads' },
-  { href: '/team', label: 'Team' },
   { href: 'https://docs.canvasmc.io', label: 'Docs' },
   { href: jenkinsConfig.baseUrl, label: 'Jenkins' },
 ];
@@ -48,7 +47,7 @@ function NavbarLink({ href, label, icon: Icon, className }: NavbarItem & { class
       ) : (
         <>
           {label}
-          {isExternal && <ExternalLink className='size-3.5' aria-hidden />}
+          {isExternal && <ExternalLink className='size-0' aria-hidden />}
         </>
       )}
     </Link>
