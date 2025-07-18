@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: 'CanvasMC',
   url: 'https://canvasmc.io',
-  description: 'Powerful fork of PurpurMC that introduces experimental yet effective performance optimizations.',
+  description: 'CanvasMC is a fork of the Folia Minecraft server software that fixes gameplay inconsistencies, bugs, and introduces further performance enhancements to the dedicated server',
   links: {
     discord: 'https://discord.gg/ySfW4QZsRV',
     github: {

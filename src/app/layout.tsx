@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: ['CanvasMC', 'Canvas', 'Regionizing', 'Threaded Minecraft', 'PaperMC', 'Purpur', 'Performance', 'Multithreading'],
+  keywords: ['CanvasMC', 'Canvas', 'Regionizing', 'Threaded Minecraft', 'Folia', 'Performance', 'Multithreading'],
   openGraph: {
     url: new URL(siteConfig.url),
     siteName: siteConfig.name,
