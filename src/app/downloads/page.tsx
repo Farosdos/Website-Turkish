@@ -1,4 +1,3 @@
-// app/downloads/page.tsx
 import DownloadsPage from './DownloadsPage.client';
 import { getAllBuilds } from '~/lib/jenkins';
 

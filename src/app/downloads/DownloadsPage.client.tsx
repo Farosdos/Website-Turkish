@@ -107,6 +107,7 @@ export default function DownloadsPage({
   const [selectedVersion, setSelectedVersion] = useState(versions[0]);
 
   const builds = buildsByVersion[selectedVersion] ?? [];
+  const MAX_BUILDS = 40;
 
   return (
     <section className="mt-12 sm:mt-16">
@@ -137,7 +138,7 @@ export default function DownloadsPage({
           {builds.length === 0 ? (
             <p className="text-neutral-300 text-center">No builds available for this version.</p>
           ) : (
-            builds.map((build, index) => (
+            builds.slice(0, MAX_BUILDS).map((build, index) => (
               <BuildRow key={build.buildNumber} build={build} isLatest={index === 0} />
             ))
           )}
