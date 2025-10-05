@@ -6,14 +6,12 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
-import { GradientBackground } from '~/components/ui/gradient-background';
 import { cn } from '~/lib/utils';
 
 export function Hero() {
 
   return (
     <section className='relative isolate'>
-      <GradientBackground />
       <div className='mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-12 lg:py-32'>
         <div className='grid items-center gap-8 lg:grid-cols-2 lg:gap-16'>
           <div className='max-w-xl'>
@@ -24,7 +22,7 @@ export function Hero() {
               CanvasMC is a fork of the Folia Minecraft server software that fixes gameplay inconsistencies, bugs, and introduces further performance enhancements to the dedicated server
             </p>
             <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
-              <Button asChild size='lg'>
+              <Button asChild size='lg' className='gap-2 transform transition-transform duration-200 hover:scale-105'>
                 <Link href='/downloads'>Download Canvas</Link>
               </Button>
               <Button asChild variant='secondary' size='lg'>
@@ -32,7 +30,7 @@ export function Hero() {
                   href='https://docs.canvasmc.io'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='flex items-center gap-2'
+                  className='flex items-center gap-2 transform transition-transform duration-200 hover:scale-105'
                 >
                   Documentation
                   <ArrowRight className='size-4' />

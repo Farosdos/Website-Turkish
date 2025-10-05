@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import PlausibleProvider from 'next-plausible';
 import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
+import { GradientBackground } from '~/components/ui/gradient-background';
 import { plausibleConfig } from '~/config/plausible';
 import { siteConfig } from '~/config/site';
 import { geist, geistMono } from '~/lib/fonts';
@@ -39,29 +40,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en' style={{ colorScheme: 'dark' }} suppressHydrationWarning>
-      <PlausibleProvider {...plausibleConfig}>
-        <body
-          className={cn(
-            geist.variable,
-            geistMono.variable,
-            'antialiased',
-            'bg-background font-sans text-foreground',
-            'min-h-screen supports-[height:100dvh]:min-h-dvh',
-            'selection:bg-neutral-700/50 selection:text-neutral-100',
-          )}
-        >
-          <Navbar />
-          <main className='mt-15'>{children}</main>
-          <Footer />
-        </body>
-      </PlausibleProvider>
+    <html lang="en" style={{ colorScheme: 'dark' }} suppressHydrationWarning>
+      <body className="relative bg-background min-h-screen font-sans antialiased text-foreground">
+        <GradientBackground />
+        <Navbar />
+        <main className="mt-15">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

@@ -39,7 +39,7 @@ export function Features() {
         {FEATURES.map(({ title, description, icon: Icon }) => (
           <Card
             key={title}
-            className="p-5 border border-white/10 backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all"
+            className="p-5 border border-white/10 backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all gap-2 transform transition-transform duration-200 hover:scale-105"
           >
             <div className='flex gap-4'>
               <div className='shrink-0'>

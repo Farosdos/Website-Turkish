@@ -30,8 +30,8 @@ const SOCIALS = [
 
 export function Footer() {
   return (
-    <footer className='mt-10 border-neutral-800/80 border-t lg:mt-14'>
-      <div className='container mx-auto max-w-7xl bg-background px-4 py-8 sm:px-6 sm:py-12 lg:px-8'>
+    <footer className='mt-10 border-neutral-800/80 border-t lg:mt-14 bg-background'>
+      <div className='container mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8'>
         <div className='grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-5'>
           <section className='text-left lg:col-span-2'>
             <Link href='/' className='inline-flex items-center gap-2 rounded-xl hover:opacity-90'>
