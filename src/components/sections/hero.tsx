@@ -39,7 +39,7 @@ export function Hero() {
             </div>
           </div>
           <div className='flex justify-center'>
-            <Image src='/logo_big.png'
+            <Image src='/logo_big.webp'
                alt='Canvas Logo Blur'
                width={460}
                height={460}/>
