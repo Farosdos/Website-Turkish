@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section className="relative isolate">
       <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-12 lg:py-32">
-        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+        <div className="flex flex-col items-center text-center gap-12 lg:flex-row lg:justify-center lg:items-center lg:text-left">
           <Card className="max-w-xl p-8 border border-white/10 backdrop-blur-sm bg-white/5 transition-all">
             <h1 className="font-bold text-4xl leading-tight lg:text-5xl bg-gradient-to-r from-white via-neutral-300 to-white bg-clip-text text-transparent">
               High performance Minecraft server software
@@ -21,7 +21,7 @@ export function Hero() {
               dedicated server
             </p>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row justify-center lg:justify-start">
               <Button
                 asChild
                 size="lg"
@@ -43,7 +43,7 @@ export function Hero() {
             </div>
           </Card>
 
-          <div className="flex justify-center relative">
+          <div className="hidden lg:flex justify-center relative shrink-0">
             <div className="absolute inset-0 flex justify-center items-center">
               <Image
                 src="/logo_big.webp"
