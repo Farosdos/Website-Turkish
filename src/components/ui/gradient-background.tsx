@@ -18,7 +18,7 @@ interface GradientBackgroundProps extends HTMLAttributes<HTMLDivElement> {
   frozen?: boolean;
 }
 
-function randomHSL(hMin: number, hMax: number, sMin = 60, sMax = 80, lMin = 50, lMax = 70) {
+function randomHSL(hMin: number, hMax: number, sMin = 80, sMax = 100, lMin = 40, lMax = 60) {
   const h = Math.floor(Math.random() * (hMax - hMin) + hMin);
   const s = Math.floor(Math.random() * (sMax - sMin) + sMin);
   const l = Math.floor(Math.random() * (lMax - lMin) + lMin);
