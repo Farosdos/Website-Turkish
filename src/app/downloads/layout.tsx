@@ -15,7 +15,7 @@ export default function DownloadsLayout({ children }: { children: React.ReactNod
           </p>
 
           <div className='flex justify-center gap-4'>
-            <Button size='lg' asChild className='mt-6 sm:mt-8'>
+            <Button size='lg' asChild className='mt-6 sm:mt-8 transform transition-transform duration-200 hover:scale-105'>
               <a
                 href={siteConfig.links.github.repo}
                 target='_blank'
