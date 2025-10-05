@@ -4,12 +4,18 @@ import { cn } from '~/lib/utils';
 import { useEffect, useRef, useState } from 'react';
 import type { HTMLAttributes } from 'react';
 
+const globalState = {
+  gradientColors: null as ReturnType<typeof createGradients> | null,
+  polyPoints: null as ReturnType<typeof generatePoints> | null,
+};
+
 interface GradientBackgroundProps extends HTMLAttributes<HTMLDivElement> {
   layers?: number;
   points?: number;
   variance?: number;
   speed?: number;
   pulseSpeed?: number;
+  frozen?: boolean;
 }
 
 function randomHSL(hMin: number, hMax: number, sMin = 60, sMax = 80, lMin = 50, lMax = 70) {
@@ -17,6 +23,15 @@ function randomHSL(hMin: number, hMax: number, sMin = 60, sMax = 80, lMin = 50, 
   const s = Math.floor(Math.random() * (sMax - sMin) + sMin);
   const l = Math.floor(Math.random() * (lMax - lMin) + lMin);
   return { h, s, l };
+}
+
+function createGradients(layers: number) {
+  return Array.from({ length: layers }, () => ({
+    from: randomHSL(250, 280),
+    via: randomHSL(180, 210),
+    to: randomHSL(270, 300),
+    angle: Math.random() * 360,
+  }));
 }
 
 function lerp(a: number, b: number, t: number) {
@@ -36,30 +51,43 @@ export function GradientBackground({
   layers = 2,
   points = 20,
   variance = 5,
-  speed = 0.0002,
-  pulseSpeed = 0.002,
+  speed = 0.00002,
+  pulseSpeed = 0.0002,
+  frozen = false,
   className,
   ...props
 }: GradientBackgroundProps) {
   const [gradientColors, setGradientColors] = useState(
-    Array.from({ length: layers }, () => ({
-      from: randomHSL(250, 280),
-      via: randomHSL(180, 210),
-      to: randomHSL(270, 300),
-      angle: Math.random() * 360,
-    }))
+    () => globalState.gradientColors ?? createGradients(layers)
   );
+  const [polyPoints, setPolyPoints] = useState(
+    () => globalState.polyPoints ?? generatePoints(points, variance)
+  );
+  const [pulse, setPulse] = useState(0.85);
 
-  const [polyPoints, setPolyPoints] = useState(generatePoints(points, variance));
-  const [pulse, setPulse] = useState(0);
   const animationRef = useRef<number>();
+  const lastFrameTime = useRef(0);
+  const frameInterval = 1000 / 30;
 
   useEffect(() => {
+    globalState.gradientColors = gradientColors;
+    globalState.polyPoints = polyPoints;
+  }, [gradientColors, polyPoints]);
+
+  useEffect(() => {
+    if (frozen) return;
+
     let lastTime = performance.now();
 
     const animate = (time: number) => {
+      animationRef.current = requestAnimationFrame(animate);
+
+      const deltaSinceLastFrame = time - lastFrameTime.current;
+      if (deltaSinceLastFrame < frameInterval) return;
+
       const delta = time - lastTime;
       lastTime = time;
+      lastFrameTime.current = time;
 
       setGradientColors((prev) =>
         prev.map((g) => ({
@@ -82,13 +110,11 @@ export function GradientBackground({
       );
 
       setPulse(Math.sin(time * pulseSpeed) * 0.15 + 0.85);
-
-      animationRef.current = requestAnimationFrame(animate);
     };
 
     animationRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationRef.current!);
-  }, [speed, pulseSpeed]);
+  }, [speed, pulseSpeed, frozen]);
 
   const gradientStyle = gradientColors
     .map(
@@ -109,11 +135,11 @@ export function GradientBackground({
       {...props}
     >
       <div
-        className="w-full h-full absolute opacity-36"
+        className="w-full h-full absolute opacity-36 transition-opacity duration-700"
         style={{
           background: gradientStyle,
           clipPath: `polygon(${polygonString})`,
-          opacity: pulse,
+          opacity: frozen ? 0.85 : pulse,
         }}
       />
     </div>

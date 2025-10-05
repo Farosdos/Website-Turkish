@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from 'next';
 import PlausibleProvider from 'next-plausible';
 import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
-import { GradientBackground } from '~/components/ui/gradient-background';
 import { plausibleConfig } from '~/config/plausible';
 import { siteConfig } from '~/config/site';
 import { geist, geistMono } from '~/lib/fonts';
@@ -44,7 +43,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <body className="relative bg-background min-h-screen font-sans antialiased text-foreground">
-        <GradientBackground />
         <Navbar />
         <main className="mt-15">{children}</main>
         <Footer />
