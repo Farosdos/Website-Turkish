@@ -77,38 +77,8 @@ export async function getAllBuilds(options?: BuildOptions): Promise<Build[]> {
     );
 }
 
-export async function getBuilds(options?: BuildOptions): Promise<Build[]> {
-  const url = new URL(`job/${jenkinsConfig.job}/api/json?tree=${jenkinsConfig.treeQuery}`, jenkinsConfig.baseUrl);
-
-  const res = await fetch(url.toString()).catch(() => {
-    throw new JenkinsError('Failed to connect to Jenkins API');
-  });
-
-  if (!res.ok) {
-    throw new JenkinsError(`Jenkins API returned ${res.status}${res.statusText ? ` ${res.statusText}` : ''}`);
-  }
-
-  const json = await res.json().catch(() => {
-    throw new JenkinsError('Jenkins API returned invalid JSON');
-  });
-  const parseResult = z.object({ builds: z.array(JenkinsBuildSchema) }).safeParse(json);
-
-  if (!parseResult.success) {
-    throw new JenkinsError('Jenkins API returned invalid data format');
-  }
-
-  return parseResult.data.builds
-    .filter((b): b is JenkinsBuild & { result: 'SUCCESS' } => !b.building && b.result === 'SUCCESS')
-    .map(parseBuild)
-    .filter(
-      b =>
-        (!options?.minecraftVersion || b.minecraftVersion === options.minecraftVersion) &&
-        (!b.isExperimental || options?.includeExperimental === true),
-    );
-}
-
 export async function getLatestBuild(includeExperimental = false): Promise<Build | null> {
-  const builds = await getBuilds({
+  const builds = await getAllBuilds({
     includeExperimental,
   });
 

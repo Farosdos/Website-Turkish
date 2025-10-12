@@ -1,11 +1,11 @@
-import { JenkinsError, getBuilds } from '~/lib/jenkins';
+import { JenkinsError, getAllBuilds } from '~/lib/jenkins';
 
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const builds = await getBuilds({
+    const builds = await getAllBuilds({
       minecraftVersion: searchParams.get('minecraft_version') || undefined,
       includeExperimental: searchParams.get('experimental') === 'true',
     });
