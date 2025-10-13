@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, GitCommit, LayoutList, PanelsTopLeft } from 'lucide-react';
+import { Download, GitCommit, LayoutList, PanelsTopLeft, BookOpenText } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { CodeBlock } from '~/components/ui/code-block';
 import { Card } from '~/components/ui/card';
@@ -104,12 +104,12 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
 
       <Button
         variant={isLatest ? 'default' : 'secondary'}
-        asChild={!!downloadUrl}
-        disabled={!downloadUrl}
+        asChild={!!build.downloadUrl}
+        disabled={!build.downloadUrl}
         className="w-full shrink-0 sm:w-auto"
       >
-        {downloadUrl ? (
-          <a href={downloadUrl} download className="inline-flex items-center gap-2">
+        {build.downloadUrl ? (
+          <a href={build.downloadUrl} download className="inline-flex items-center gap-2">
             <Download className="size-4" />
             Download
           </a>
@@ -135,6 +135,7 @@ export default function DownloadsPage({
   const [showNewTab, setShowNewTab] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [areBuildsVisible, setAreBuildsVisible] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
 
   const MAX_BUILDS = 11;
   const builds = buildsByVersion[selectedVersion]?.slice(0, MAX_BUILDS) ?? [];
@@ -147,8 +148,28 @@ export default function DownloadsPage({
     return () => timers.forEach(clearTimeout);
   }, []);
 
+  const handleJavadocRedirect = () => {
+    setRedirecting(true);
+    setTimeout(() => {
+      window.location.href = `/api/v2/jd/?version=${selectedVersion}&experimental=false`;
+    }, 50);
+  };
+
   return (
-    <section className="mt-12 sm:mt-16">
+    <section className="mt-12 sm:mt-16 relative">
+      <AnimatePresence>
+        {redirecting && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm text-white text-lg font-semibold"
+          >
+            Opening javadocs, please wait...
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Card className="p-6 overflow-hidden">
         <AnimatePresence>
           {isHeaderVisible && (
@@ -159,23 +180,32 @@ export default function DownloadsPage({
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="mb-6 flex items-center justify-between gap-4"
             >
-              <Select
-                value={selectedVersion}
-                onValueChange={(value) => {
-                  if (value && versions.includes(value)) setSelectedVersion(value);
-                }}
-              >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select version" />
-                </SelectTrigger>
-                <SelectContent>
-                  {versions.map((version) => (
-                    <SelectItem key={version} value={version}>
-                      Minecraft {version}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="flex items-center gap-2">
+                <Select
+                  value={selectedVersion}
+                  onValueChange={(value) => {
+                    if (value && versions.includes(value)) setSelectedVersion(value);
+                  }}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select version" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {versions.map((version) => (
+                      <SelectItem key={version} value={version}>
+                        Minecraft {version}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <button
+                  onClick={handleJavadocRedirect}
+                  className="p-2 rounded hover:bg-white/10 transition-colors"
+                  title="View Javadocs"
+                >
+                  <BookOpenText className="size-5 text-neutral-300 hover:text-neutral-100" />
+                </button>
+              </div>
 
               <Button
                 variant={showNewTab ? 'default' : 'secondary'}
