@@ -1,11 +1,7 @@
 import type { Metadata, Viewport } from 'next';
-import PlausibleProvider from 'next-plausible';
 import { Footer } from '~/components/footer';
 import { Navbar } from '~/components/navbar';
-import { plausibleConfig } from '~/config/plausible';
 import { siteConfig } from '~/config/site';
-import { geist, geistMono } from '~/lib/fonts';
-import { cn } from '~/lib/utils';
 import './globals.css';
 
 export const viewport: Viewport = {
@@ -44,8 +40,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <body className="relative bg-background min-h-screen font-sans antialiased text-foreground">
         <Navbar />
-        <main className="mt-15">{children}</main>
-        <Footer />
+        <div
+          style={{
+            transform: 'scale(1.3)',
+            transformOrigin: 'top left',
+            width: 'calc(100% / 1.3)',
+            minHeight: 'calc(100vh / 1.3)',
+          }}
+        >
+          <main className="mt-15">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

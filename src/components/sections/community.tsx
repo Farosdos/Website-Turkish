@@ -34,7 +34,7 @@ const COMMUNITIES = [
 export function Community() {
   return (
     <section className='mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-12 lg:py-28'>
-      <header className='max-w-2xl'>
+      <header className='max-w-2xl text-center mx-auto'>
         <h2 className='font-semibold text-3xl text-white'>Join our community</h2>
         <p className='mt-3 text-lg text-neutral-300'>
           Connect with the Canvas community, contribute to development, and stay up to date.

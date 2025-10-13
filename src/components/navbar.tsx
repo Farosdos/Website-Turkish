@@ -118,7 +118,7 @@ export function Navbar() {
     setRedirecting(true);
     setTimeout(() => {
       window.location.href = url;
-    }, 1000);
+    }, 1300);
   };
 
   useEffect(() => {
@@ -130,40 +130,49 @@ export function Navbar() {
   return (
     <>
       <nav className="fixed inset-x-0 top-0 z-50 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-neutral-800 border-b bg-background/90 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-15 items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <Link prefetch href="/" className="flex items-center space-x-2 hover:opacity-90" aria-label="Home">
-                <Image src="/logo.png" alt="" width={26} height={26} />
-                <span className="font-semibold text-sm">{siteConfig.name}</span>
-              </Link>
+        <div
+          style={{
+            transform: 'scale(1.3)',
+            transformOrigin: 'top left',
+            width: 'calc(100% / 1.3)',
+            height: 'calc(100px / 1.3)',
+          }}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex h-15 items-center justify-between">
+              <div className="flex items-center space-x-6">
+                <Link prefetch href="/" className="flex items-center space-x-2 hover:opacity-90" aria-label="Home">
+                  <Image src="/logo.png" alt="" width={26} height={26} />
+                  <span className="font-semibold text-sm">{siteConfig.name}</span>
+                </Link>
 
-              <div className="hidden md:flex md:space-x-4">
-                {LINKS.map((link) => (
+                <div className="hidden md:flex md:space-x-4">
+                  {LINKS.map((link) => (
+                    <NavbarLink key={link.href} {...link} onExternalRedirect={handleExternalRedirect} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="hidden md:flex md:items-center md:space-x-5">
+                {SOCIAL.map((link) => (
                   <NavbarLink key={link.href} {...link} onExternalRedirect={handleExternalRedirect} />
                 ))}
               </div>
-            </div>
 
-            <div className="hidden md:flex md:items-center md:space-x-5">
-              {SOCIAL.map((link) => (
-                <NavbarLink key={link.href} {...link} onExternalRedirect={handleExternalRedirect} />
-              ))}
+              <button
+                type="button"
+                onClick={() => setIsOpen((p) => !p)}
+                className="rounded-md p-2.5 text-neutral-300 hover:bg-neutral-800 md:hidden"
+                aria-label={`${isOpen ? 'Close' : 'Open'} menu`}
+                aria-expanded={isOpen}
+              >
+                {isOpen ? <X className="size-6" aria-hidden /> : <Menu className="size-6" aria-hidden />}
+              </button>
             </div>
-
-            <button
-              type="button"
-              onClick={() => setIsOpen((p) => !p)}
-              className="rounded-md p-2.5 text-neutral-300 hover:bg-neutral-800 md:hidden"
-              aria-label={`${isOpen ? 'Close' : 'Open'} menu`}
-              aria-expanded={isOpen}
-            >
-              {isOpen ? <X className="size-6" aria-hidden /> : <Menu className="size-6" aria-hidden />}
-            </button>
           </div>
-        </div>
 
-        <MobileMenu isOpen={isOpen} onExternalRedirect={handleExternalRedirect} />
+          <MobileMenu isOpen={isOpen} onExternalRedirect={handleExternalRedirect} />
+        </div>
       </nav>
 
       <Redirecting show={redirecting} target={redirectTarget} />

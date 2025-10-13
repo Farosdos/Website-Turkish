@@ -165,7 +165,6 @@ export default function DownloadsPage({
   return (
     <section className="mt-12 sm:mt-16 relative">
       <Redirecting show={redirecting} target="Javadocs" />
-
       <Card className="p-6 overflow-hidden">
         <AnimatePresence>
           {isHeaderVisible && (

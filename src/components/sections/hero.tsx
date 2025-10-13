@@ -9,7 +9,7 @@ import { Card } from '~/components/ui/card';
 export function Hero() {
   return (
     <section className="relative isolate">
-      <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-12 lg:py-32">
+      <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-12 lg:py-22">
         <div className="flex flex-col items-center text-center gap-12 lg:flex-row lg:justify-center lg:items-center lg:text-left">
           <Card className="max-w-xl p-8 border border-white/10 backdrop-blur-sm bg-white/5 transition-all">
             <h1 className="font-bold text-4xl leading-tight lg:text-5xl bg-gradient-to-r from-white via-neutral-300 to-white bg-clip-text text-transparent">

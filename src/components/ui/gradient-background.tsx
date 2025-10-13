@@ -79,13 +79,22 @@ export function GradientBackground({
 
     let lastTime = performance.now();
 
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        lastTime = performance.now();
+        lastFrameTime.current = lastTime;
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     const animate = (time: number) => {
       animationRef.current = requestAnimationFrame(animate);
 
-      const deltaSinceLastFrame = time - lastFrameTime.current;
+      let deltaSinceLastFrame = time - lastFrameTime.current;
       if (deltaSinceLastFrame < frameInterval) return;
 
-      const delta = time - lastTime;
+      const delta = Math.min(time - lastTime, 50);
       lastTime = time;
       lastFrameTime.current = time;
 
@@ -113,7 +122,11 @@ export function GradientBackground({
     };
 
     animationRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationRef.current!);
+
+    return () => {
+      cancelAnimationFrame(animationRef.current!);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, [speed, pulseSpeed, frozen]);
 
   const gradientStyle = gradientColors
