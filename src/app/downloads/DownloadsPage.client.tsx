@@ -150,9 +150,9 @@ export default function DownloadsPage({
   }, []);
 
   useEffect(() => {
-    const handlePopState = () => setRedirecting(false);
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    const clearRedirect = () => setRedirecting(false);
+    window.addEventListener('pageshow', clearRedirect);
+    return () => window.removeEventListener('pageshow', clearRedirect);
   }, []);
 
   const handleJavadocRedirect = () => {
