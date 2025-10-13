@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
+import { Redirecting } from '~/components/redirecting';
 import type { Build } from '~/lib/schemas/jenkins';
 
 function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
@@ -148,27 +149,22 @@ export default function DownloadsPage({
     return () => timers.forEach(clearTimeout);
   }, []);
 
+  useEffect(() => {
+    const handlePopState = () => setRedirecting(false);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const handleJavadocRedirect = () => {
     setRedirecting(true);
     setTimeout(() => {
       window.location.href = `/api/v2/jd/?version=${selectedVersion}&experimental=false`;
-    }, 50);
+    }, 150);
   };
 
   return (
     <section className="mt-12 sm:mt-16 relative">
-      <AnimatePresence>
-        {redirecting && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm text-white text-lg font-semibold"
-          >
-            Opening javadocs, please wait...
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Redirecting show={redirecting} target="Javadocs" />
 
       <Card className="p-6 overflow-hidden">
         <AnimatePresence>

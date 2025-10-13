@@ -4,7 +4,7 @@ import { ExternalLink, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { siteConfig } from '~/config/site';
 import { cn } from '~/lib/utils';
 import { DiscordIcon, GithubIcon, DonateIcon } from './icons';
@@ -69,20 +69,36 @@ function NavbarLink({
   );
 }
 
-function MobileMenu({ isOpen, onExternalRedirect }: { isOpen: boolean; onExternalRedirect: (url: string) => void }) {
+function MobileMenu({
+  isOpen,
+  onExternalRedirect,
+}: {
+  isOpen: boolean;
+  onExternalRedirect: (url: string) => void;
+}) {
   if (!isOpen) return null;
 
   return (
     <div className="absolute top-15 right-0 left-0 border-neutral-800 border-y bg-background pt-5 md:hidden">
       <div className="space-y-1 px-2 pb-3">
-        {LINKS.map(link => (
-          <NavbarLink key={link.href} {...link} className="rounded-md px-3 py-2 hover:bg-neutral-800" onExternalRedirect={onExternalRedirect} />
+        {LINKS.map((link) => (
+          <NavbarLink
+            key={link.href}
+            {...link}
+            className="rounded-md px-3 py-2 hover:bg-neutral-800"
+            onExternalRedirect={onExternalRedirect}
+          />
         ))}
         <div className="-mx-4 pt-3">
           <div className="border-neutral-800 border-t">
             <div className="flex gap-2 px-6 pt-3">
-              {SOCIAL.map(link => (
-                <NavbarLink key={link.href} {...link} className="rounded-md p-1.5 hover:bg-neutral-800" onExternalRedirect={onExternalRedirect} />
+              {SOCIAL.map((link) => (
+                <NavbarLink
+                  key={link.href}
+                  {...link}
+                  className="rounded-md p-1.5 hover:bg-neutral-800"
+                  onExternalRedirect={onExternalRedirect}
+                />
               ))}
             </div>
           </div>
@@ -105,6 +121,12 @@ export function Navbar() {
     }, 1000);
   };
 
+  useEffect(() => {
+    const clearRedirect = () => setRedirecting(false);
+    window.addEventListener('pageshow', clearRedirect);
+    return () => window.removeEventListener('pageshow', clearRedirect);
+  }, []);
+
   return (
     <>
       <nav className="fixed inset-x-0 top-0 z-50 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-neutral-800 border-b bg-background/90 backdrop-blur-sm">
@@ -117,21 +139,21 @@ export function Navbar() {
               </Link>
 
               <div className="hidden md:flex md:space-x-4">
-                {LINKS.map(link => (
+                {LINKS.map((link) => (
                   <NavbarLink key={link.href} {...link} onExternalRedirect={handleExternalRedirect} />
                 ))}
               </div>
             </div>
 
             <div className="hidden md:flex md:items-center md:space-x-5">
-              {SOCIAL.map(link => (
+              {SOCIAL.map((link) => (
                 <NavbarLink key={link.href} {...link} onExternalRedirect={handleExternalRedirect} />
               ))}
             </div>
 
             <button
               type="button"
-              onClick={() => setIsOpen(p => !p)}
+              onClick={() => setIsOpen((p) => !p)}
               className="rounded-md p-2.5 text-neutral-300 hover:bg-neutral-800 md:hidden"
               aria-label={`${isOpen ? 'Close' : 'Open'} menu`}
               aria-expanded={isOpen}
