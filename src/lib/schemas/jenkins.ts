@@ -15,12 +15,14 @@ export const JenkinsBuildSchema = z.object({
           z.object({
             msg: z.string(),
             commitId: z.string(),
+            comment: z.string().optional().nullable(),
           }),
         )
         .optional(),
     })
     .optional(),
 });
+
 export type JenkinsBuild = z.infer<typeof JenkinsBuildSchema>;
 
 /** CanvasMC API Schema */
@@ -34,13 +36,16 @@ export const BuildSchema = z.object({
   isExperimental: z.boolean(),
   commit: z.object({
     message: z.string().nullable(),
+    extraDescription: z.string().nullable(),
     hash: z.string().nullable(),
   }),
   commits: z.array(
     z.object({
       message: z.string().nullable(),
+      extraDescription: z.string().nullable(),
       hash: z.string().nullable(),
     }),
   ),
 });
+
 export type Build = z.infer<typeof BuildSchema>;

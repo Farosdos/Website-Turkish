@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, GitCommit, LayoutList, PanelsTopLeft, BookOpenText } from 'lucide-react';
+import { Download, GitCommit, LayoutList, PanelsTopLeft, BookOpenText, ChevronRight } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { CodeBlock } from '~/components/ui/code-block';
 import { Card } from '~/components/ui/card';
@@ -16,7 +16,7 @@ import {
 import { Redirecting } from '~/components/redirecting';
 import type { Build } from '~/lib/schemas/jenkins';
 
-function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
+export function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
   const { buildNumber, commits, downloadUrl } = build;
   const publishDate = new Date(build.timestamp);
 
@@ -81,24 +81,58 @@ function BuildRow({ build, isLatest }: { build: Build; isLatest: boolean }) {
           {commits.length === 0 ? (
             <span className="text-neutral-300 text-sm">No changes</span>
           ) : (
-            commits.slice(0, MAX_COMMITS).map((commit) => (
-              <div key={commit.hash} className="min-w-0 space-y-1">
-                <div className="flex min-w-0 items-center gap-1.5">
-                  <a
-                    href={`https://github.com/CraftCanvasMC/Canvas/commit/${commit.hash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex shrink-0 items-center gap-1.5 text-neutral-500 text-sm hover:text-neutral-400"
-                  >
-                    <GitCommit className="size-3.5" />
-                    {commit.hash?.slice(0, 7)}
-                  </a>
-                  <p className="min-w-0 break-words text-neutral-300 text-sm">
-                    {commit.message || 'No commit message'}
-                  </p>
+            commits.slice(0, MAX_COMMITS).map((commit) => {
+              const [isOpen, setIsOpen] = useState(false);
+
+              return (
+                <div key={commit.hash} className="min-w-0 space-y-1">
+                  <div className="flex min-w-0 items-center gap-1.5">
+                    <a
+                      href={`https://github.com/CraftCanvasMC/Canvas/commit/${commit.hash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex shrink-0 items-center gap-1.5 text-neutral-500 text-sm hover:text-neutral-400"
+                    >
+                      <GitCommit className="size-3.5" />
+                      {commit.hash?.slice(0, 7)}
+                    </a>
+
+                    <p className="min-w-0 break-words text-neutral-300 text-sm flex-1">
+                      {commit.message || 'No commit message'}
+                    </p>
+
+                    {commit.extraDescription && (
+                      <button
+                        onClick={() => setIsOpen((o) => !o)}
+                        className="ml-1 text-neutral-500 hover:text-neutral-300 transition-transform"
+                        title={isOpen ? 'Hide details' : 'Show details'}
+                      >
+                        <motion.div
+                          animate={{ rotate: isOpen ? 90 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ChevronRight className="size-4" />
+                        </motion.div>
+                      </button>
+                    )}
+                  </div>
+
+                  <AnimatePresence>
+                    {isOpen && commit.extraDescription && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                        transition={{ duration: 0.25 }}
+                        className="pl-6 text-sm text-neutral-400 border-l border-neutral-700 mt-1 whitespace-pre-wrap font-mono"
+                      >
+                        {commit.extraDescription}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </div>
