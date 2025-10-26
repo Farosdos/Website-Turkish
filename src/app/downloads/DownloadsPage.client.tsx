@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo, memo, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Download, GitCommit, LayoutList, PanelsTopLeft, BookOpenText, ChevronRight } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { CodeBlock } from '~/components/ui/code-block';
@@ -15,17 +14,6 @@ import {
 } from '~/components/ui/select';
 import { Redirecting } from '~/components/redirecting';
 import type { Build } from '~/lib/schemas/jenkins';
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 15 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -15 }
-};
-
-const chevronRotate = {
-  closed: { rotate: 0 },
-  open: { rotate: 90 }
-};
 
 const CommitItem = memo(({ commit }: { commit: any }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,34 +39,28 @@ const CommitItem = memo(({ commit }: { commit: any }) => {
         {commit.extraDescription && (
           <button
             onClick={toggleOpen}
-            className="ml-1 text-neutral-500 hover:text-neutral-300"
+            className="ml-1 text-neutral-500 hover:text-neutral-300 transition-colors"
             title={isOpen ? 'Hide details' : 'Show details'}
             aria-expanded={isOpen}
           >
-            <motion.div
-              variants={chevronRotate}
-              animate={isOpen ? 'open' : 'closed'}
-              transition={{ duration: 0.2 }}
-            >
-              <ChevronRight className="size-4" />
-            </motion.div>
+            <ChevronRight
+              className={`size-4 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`}
+            />
           </button>
         )}
       </div>
 
-      <AnimatePresence>
-        {isOpen && commit.extraDescription && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="pl-6 text-sm text-neutral-400 border-l border-neutral-700 whitespace-pre-wrap font-mono overflow-hidden"
-          >
+      <div
+        className={`overflow-hidden transition-all duration-200 ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        {commit.extraDescription && (
+          <div className="pl-6 text-sm text-neutral-400 border-l border-neutral-700 whitespace-pre-wrap font-mono">
             {commit.extraDescription.replace(/^\n/, '')}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </div>
   );
 });
@@ -191,15 +173,7 @@ const BuildRow = memo(({ build, isLatest }: { build: Build; isLatest: boolean })
 BuildRow.displayName = 'BuildRow';
 
 const SculptorContent = memo(({ selectedVersion }: { selectedVersion: string }) => (
-  <motion.div
-    key={`sculptor-${selectedVersion}`}
-    variants={fadeInUp}
-    initial="initial"
-    animate="animate"
-    exit="exit"
-    transition={{ duration: 0.3 }}
-    className="text-center sm:text-left"
-  >
+  <div className="text-center sm:text-left animate-fade-in">
     <h2 className="text-xl font-semibold mb-2 text-center">Sculptor Launcher</h2>
     <p className="text-sm text-neutral-400 max-w-2xl mx-auto">
       Sculptor is the official auto-updating launcher for Canvas. It ensures you're always on the latest version
@@ -251,20 +225,13 @@ const SculptorContent = memo(({ selectedVersion }: { selectedVersion: string }) 
         </li>
       </ul>
     </div>
-  </motion.div>
+  </div>
 ));
 
 SculptorContent.displayName = 'SculptorContent';
 
 const BuildsList = memo(({ builds }: { builds: Build[] }) => (
-  <motion.div
-    variants={fadeInUp}
-    initial="initial"
-    animate="animate"
-    exit="exit"
-    transition={{ duration: 0.3 }}
-    className="space-y-2"
-  >
+  <div className="space-y-2 animate-fade-in">
     {builds.length === 0 ? (
       <p className="text-neutral-300 text-center">No builds available for this version.</p>
     ) : (
@@ -272,7 +239,7 @@ const BuildsList = memo(({ builds }: { builds: Build[] }) => (
         <BuildRow key={build.buildNumber} build={build} isLatest={index === 0} />
       ))
     )}
-  </motion.div>
+  </div>
 ));
 
 BuildsList.displayName = 'BuildsList';
@@ -287,6 +254,7 @@ export default function DownloadsPage({
   const [selectedVersion, setSelectedVersion] = useState(versions[0]);
   const [showNewTab, setShowNewTab] = useState(false);
   const [redirecting, setRedirecting] = useState(false);
+  const [contentKey, setContentKey] = useState(0);
 
   const builds = useMemo(
     () => buildsByVersion[selectedVersion]?.slice(0, 11) ?? [],
@@ -306,18 +274,33 @@ export default function DownloadsPage({
     }, 150);
   }, [selectedVersion]);
 
-  const toggleTab = useCallback(() => setShowNewTab(prev => !prev), []);
+  const toggleTab = useCallback(() => {
+    setShowNewTab(prev => !prev);
+    setContentKey(k => k + 1);
+  }, []);
 
   return (
     <section className="mt-12 sm:mt-16 relative">
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in {
+          animation: fadeIn 0.3s ease-out;
+        }
+      `}</style>
+
       <Redirecting show={redirecting} target="Javadocs" />
       <Card className="p-6 overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, y: -15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="mb-6 flex items-center justify-between gap-4"
-        >
+        <div className="mb-6 flex items-center justify-between gap-4 animate-fade-in">
           <div className="flex items-center gap-2">
             <Select value={selectedVersion} onValueChange={setSelectedVersion}>
               <SelectTrigger className="w-[180px]">
@@ -358,22 +341,17 @@ export default function DownloadsPage({
               </>
             )}
           </Button>
-        </motion.div>
+        </div>
 
-        <AnimatePresence mode="wait" initial={false}>
+        <div key={contentKey}>
           {showNewTab ? (
-            <SculptorContent key="sculptor" selectedVersion={selectedVersion} />
+            <SculptorContent selectedVersion={selectedVersion} />
           ) : (
-            <BuildsList key="builds" builds={builds} />
+            <BuildsList builds={builds} />
           )}
-        </AnimatePresence>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.3 }}
-          className="mt-8 text-center"
-        >
+        <div className="mt-8 text-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
           <a
             href="https://jenkins.canvasmc.io"
             target="_blank"
@@ -382,7 +360,7 @@ export default function DownloadsPage({
           >
             Looking for older builds? Check out our Jenkins server →
           </a>
-        </motion.div>
+        </div>
       </Card>
     </section>
   );
