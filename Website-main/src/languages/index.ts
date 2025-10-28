@@ -13,5 +13,5 @@ export const defaultLanguage: Language = 'en';
 
 export const languageNames = {
   en: 'English',
-  tr: 'Turkish',
+  tr: 'Türkçe',
 } as const;
